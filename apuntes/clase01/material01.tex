@@ -172,4 +172,34 @@ La Ec. \eqref{eq:dil_vol} nos muestra que la divergencia del campo de velocidad 
 \item[$\nabla \cdot \mathbf{V} = 0$:] no hay cambio en volumen. Ejemplo: flujo incompresible. 
 \end{itemize}
 
+\paragraph{Rotación y deformación angular.}
+La rotación y deformación angular ocurre por la diferencia de velocidad normal a la línea que une las esquinas del elemento diferencial, como lo muestra la Figura \ref{fig:deformacion_angular}.
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase01/deformacion_angular.pdf}
+\caption{Deformación angular en el eje z.}
+\label{fig:deformacion_angular}
+\end{figure}
+
+De la misma manera que para la deformación lineal, al ser $\delta x$ y $\delta y$ pequeños, la serie de Taylor truncada en el término de primer orden nos entrega una buena aproxiamción y llegamos a que
+%
+\begin{align}
+(u_2-u_1)\delta t &\approx \frac{\partial u}{\partial y} \delta y\delta t \nonumber \\
+(v_2-v_1)\delta t &\approx \frac{\partial v}{\partial x} \delta x\delta t.
+\end{align}
+%
+Por otra parte, al ser $\delta t$ pequeño, se forman dos triángulos rectángulos, donde, por simple trigonometría:
+%
+\begin{align}
+\tan (\delta \alpha) &= \frac{\partial v}{\partial x} \delta x\delta t\frac{1}{\delta x}\nonumber \\
+\tan (\delta \beta) &= \frac{\partial u}{\partial y} \delta y\delta t\frac{1}{\delta y}.
+\end{align}
+%
+Los ángulos $\delta \alpha$ y $\delta \beta$ son muy pequeños, por lo tanto es válida la aproximación de ángulo pequeño ($\tan (\delta \alpha)\approx\delta\alpha$,$\tan (\delta \beta)\approx\delta\beta$), lo que nos entrega:
+%
+\begin{align}\label{eq:triangulo}
+\delta \alpha &= \frac{\partial v}{\partial x} \delta x\delta t\frac{1}{\delta x}\nonumber \\
+\delta\beta &= \frac{\partial u}{\partial y} \delta y\delta t\frac{1}{\delta y}.
+\end{align}
+%
