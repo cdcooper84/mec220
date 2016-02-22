@@ -111,7 +111,9 @@ Analicemos cada una de estas.
 
 \paragraph{Traslación y deformación lineal.}
 La traslación como aparece en el primer término de la Figura \ref{fig:deformacion} ocurre cuando la velocidad del fluido es constante dentro del volúmen.
-Ese es un caso muy simple \mbox{?`}Qué ocurre cuando no es así? Probemos con el caso unidimensional de la Figura \ref{fig:deformacion_lineal}:
+Ese es un caso muy simple y poco interesante 
+\mbox{?`}Qué ocurre cuando no es así? 
+Probemos con el caso unidimensional de la Figura \ref{fig:deformacion_lineal}:
 %
 \begin{figure}[h!]
 \centering
@@ -119,5 +121,55 @@ Ese es un caso muy simple \mbox{?`}Qué ocurre cuando no es así? Probemos con e
 \caption{Deformación lineal en el eje x.}
 \label{fig:deformacion_lineal}
 \end{figure}
+
+El cuadrado en la Figura \ref{fig:deformacion_lineal} es un elemento diferencial, por lo tanto, $\delta x$ es pequeño, y las esquinas están muy cerca entre si.
+Por esto, una expansión de Taylor centrada en la locación de $\mathbf{u}_1$ nos entregará una buena aproximación de la velocidad $\mathbf{u}_2$:
+%
+\begin{equation}
+\mathbf{u}_2 = \mathbf{u}_1 + \frac{\partial \mathbf{u}}{\partial x}\delta x + \frac{1}{2}\frac{\partial^2 \mathbf{u}}{\partial x^2}\delta x^2 + \frac{1}{6}\frac{\partial^3 \mathbf{u}}{\partial x^3}\delta x^3 + \dots
+\end{equation}
+%
+Pero ya dijimos que $\delta x$ es pequeño, lo que implica que $\delta x^2$ es aún más pequeño, y así todos los términos de orden superior.
+Si despreciamos todos esos términos, podemos decir que
+%
+\begin{equation}\label{eq:u_lineal}
+\mathbf{u}_2 \approx \mathbf{u}_1 + \frac{\partial \mathbf{u}}{\partial x}\delta x,
+\end{equation}
+%
+es una buena aproximación.
+Manipulando la Ec. \eqref{eq:u_lineal} podemos llegar a
+%
+\begin{equation}
+(\mathbf{u}_2-\mathbf{u}_1)\delta t=\frac{\partial \mathbf{u}}{\partial x}\delta x\delta t,
+\end{equation}
+%
+lo que coincide con el estiramiento del elemento diferencial en la Figura \ref{fig:deformacion_lineal}.
+Podemos obtener el cambio en volumen ($\delta \vol$) al multiplicar $(\mathbf{u}_2-\mathbf{u}_1)\delta t$ por la sección transversal ($\delta y\cdot \delta z$), por lo tanto,
+%
+\begin{align}
+\delta \vol &= \frac{\partial \mathbf{u}}{\partial x} \delta x\delta y\delta z\delta t, \text{ y} \nonumber \\
+\frac{\delta \vol}{\delta t} &= \frac{\partial \mathbf{u}}{\partial x}\delta \vol.
+\end{align}
+%
+Así, llegamos a que el cambio de volumen por unidad de volumen es
+%
+\begin{equation}
+\frac{1}{\delta \vol} = \frac{\delta \vol}{\delta t} = \frac{\partial \mathbf{u}}{\partial x},
+\end{equation}
+%
+En tres dimensiones, la derivación equivalente nos deja:
+%
+\begin{equation}\label{eq:dil_vol} 
+\frac{1}{\delta \vol}\frac{\delta \vol}{\delta t} = \frac{\partial u}{\partial x} +\frac{\partial v}{\partial y} +\frac{\partial w}{\partial z}  = \nabla \cdot \mathbf{V}.
+\end{equation}
+
+El término al lado izquierdo de la Ec. \eqref{eq:dil_vol} se conoce como dilatación volumétrica.
+La Ec. \eqref{eq:dil_vol} nos muestra que la divergencia del campo de velocidad nos entrega información muy valiosa, ya que está relacionado con el cambio volumétrico en el tiempo:
+%
+\begin{itemize}
+\item[$\nabla \cdot \mathbf{V} > 0$:] el fluido se está dilatando. 
+\item[$\nabla \cdot \mathbf{V} < 0$:] el fluido se está comprimiendo. 
+\item[$\nabla \cdot \mathbf{V} = 0$:] no hay cambio en volumen. Ejemplo: flujo incompresible. 
+\end{itemize}
 
 
