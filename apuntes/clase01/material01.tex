@@ -88,7 +88,7 @@ y llegamos a
 %
 En 3 dimensiones, esto es
 %
-\begin{equation}
+\begin{equation}\label{eq:der_mat}
 \mathbf{a} = \frac{D\mathbf{V}}{Dt} = \frac{\partial \mathbf{V}}{\partial t} + u\frac{\partial \mathbf{V}}{\partial x} + v\frac{\partial \mathbf{V}}{\partial y} + w\frac{\partial \mathbf{V}}{\partial z} = \underbrace{\frac{\partial \mathbf{V}}{\partial t}}_\text{local} + \underbrace{(\mathbf{V}\cdot\nabla)\mathbf{V}}_\text{convectiva},
 \end{equation}
 %
@@ -148,19 +148,20 @@ Podemos obtener el cambio en volumen ($\delta \vol$) al multiplicar $(\mathbf{u}
 %
 \begin{align}
 \delta \vol &= \frac{\partial \mathbf{u}}{\partial x} \delta x\delta y\delta z\delta t, \text{ y} \nonumber \\
-\frac{\delta \vol}{\delta t} &= \frac{\partial \mathbf{u}}{\partial x}\delta \vol.
+\frac{\delta \vol}{\delta t} &= \frac{\partial \mathbf{u}}{\partial x} \vol,
 \end{align}
 %
+donde $\vol = \delta x\delta y\delta z$ es el volumen original del elemento de fluido.
 Así, llegamos a que el cambio de volumen por unidad de volumen es
 %
 \begin{equation}
-\frac{1}{\delta \vol} = \frac{\delta \vol}{\delta t} = \frac{\partial \mathbf{u}}{\partial x},
+\frac{1}{\vol}\frac{\delta \vol}{\delta t} = \frac{\partial \mathbf{u}}{\partial x},
 \end{equation}
 %
 En tres dimensiones, la derivación equivalente nos deja:
 %
 \begin{equation}\label{eq:dil_vol} 
-\frac{1}{\delta \vol}\frac{\delta \vol}{\delta t} = \frac{\partial u}{\partial x} +\frac{\partial v}{\partial y} +\frac{\partial w}{\partial z}  = \nabla \cdot \mathbf{V}.
+\frac{1}{\vol}\frac{\delta \vol}{\delta t} = \frac{\partial u}{\partial x} +\frac{\partial v}{\partial y} +\frac{\partial w}{\partial z}  = \nabla \cdot \mathbf{V}.
 \end{equation}
 
 El término al lado izquierdo de la Ec. \eqref{eq:dil_vol} se conoce como dilatación volumétrica.
@@ -202,4 +203,191 @@ Los ángulos $\delta \alpha$ y $\delta \beta$ son muy pequeños, por lo tanto es
 \delta \alpha &= \frac{\partial v}{\partial x} \delta x\delta t\frac{1}{\delta x}\nonumber \\
 \delta\beta &= \frac{\partial u}{\partial y} \delta y\delta t\frac{1}{\delta y}.
 \end{align}
+
+La velocidad angular de los puntos $A$ y $B$ están dados por 
 %
+\begin{align}\label{eq:omega}
+\Omega_A &= \lim_{\delta t\to 0}\frac{\delta \alpha}{\delta t} \nonumber \\
+\Omega_B &= \lim_{\delta t\to 0}\frac{\delta \beta}{\delta t},
+\end{align}
+%
+donde, según la Figura \ref{fig:eformacion_angular}, $\Omega_A$ gira en dirección $\khat$ y $\Omega_B$ en dirección $-\khat$.
+Reemplazando la Ec. \eqref{eq:triangulo} en la Ec. \eqref{eq:omega}, se cancela el término $\delta t$ y obtenemos
+%
+\begin{align}
+\Omega_A &= \frac{\partial v}{\partial x}\nonumber \\
+\Omega_B &= -\frac{\partial u}{\partial y}.
+\end{align}
+
+El punto más representativo del elemento de fluido es su centro geométrico, el cual gira con una velocidad angular igual al promedio entre $\Omega_A$ y $\Omega_B$. 
+De esta forma, podemos decir que el elemento de fluido esta rotando con velocidad 
+%
+\begin{equation}\label{eq:omega_z}
+\Omega_z = \frac{\Omega_A+\Omega_B}{2} = \frac{1}{2}\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y}\right).
+\end{equation}
+
+Haciendo el análisis equivalente en las otras dos dimensiones llegamos a
+%
+\begin{align}
+\Omega_x &= \frac{1}{2}\left(\frac{\partial w}{\partial y} -\frac{\partial v}{\partial z}\right) \nonumber \\
+\Omega_y &= \frac{1}{2}\left(\frac{\partial u}{\partial z} -\frac{\partial w}{\partial x}\right).
+\end{align}
+%
+Nos conviene definir un vector rotación $\boldsymbol{\Omega}$, tal que
+%
+\begin{equation}
+\boldsymbol{\Omega} = \Omega_x \ihat + \Omega_y \jhat + \Omega_z \khat = \frac{1}{2}\left(\nabla\times\mathbf{V}\right),
+\end{equation}
+%
+y por comodidad, hablaremos de la vorticidad $\boldsymbol{\omega}$
+%
+\begin{equation}\label{eq:vorticidad}
+\boldsymbol{\omega} = 2\boldsymbol{\Omega} = \nabla\times\mathbf{V}.
+\end{equation}
+
+En esta primera parte del curso revisaremos el concepto de vorticidad más en profundidad.
+Es importante no confundir la rotación de un elemento de fluido con un flujo que rota: es perfectamente posible que un elemento de fluido tenga una trayectoria curva sin rotar o deformarse angularmente (un ejemplo de esto de el punto vórtice, que conocerán pronto).
+
+\section*{Leyes de conservación}
+
+Las ecuaciones diferenciales que comúnmente utilizamos en mecánica de fluidos no son más que la aplicación de las leyes de conservación en el elemento diferencial de fluido de la Figura \ref{fig:elemento_diferencial}.
+Estas leyes de conservación son tres: masa, cantidad de movimiento y energía.
+En esta clase revisaremos las dos primeras, que son con las que trabajaremos en este curso. 
+No iremos al detalle de la derivación, pues ya fue hecho en el curso anterior, sin embargo revisaremos los principales resultados.
+
+\subsection*{Conservación de masa}
+
+Esta es la más intuitiva de las leyes de conservación. 
+Imaginemos que pintamos la región dentro del elemento de fluido, y esperamos un tiempo $\delta t$: la cantidad de moléculas pintadas sigue siendo la misma.
+En otras palabras, la cantidad de masa dentro del elemento de fluido no puede cambiar: $Dm/Dt=0$.
+Tenemos todos los elementos para hacer una rápida derivación de la ecuación de continuidad, la cual aparece en el libro \emph{Hydrodynamics} de Horace Lamb (un clásico, para quien esté interesado):
+%
+\begin{align}
+\frac{Dm}{Dt} &= \frac{D(\rho\vol)}{Dt} = \rho\frac{D\vol}{Dt} + \vol\frac{D\vol}{Dt} = 0 \left/\cdot\frac{1}{\vol}\right. \nonumber \\
+\Rightarrow & \rho \underbrace{\frac{1}{\vol}\frac{D\vol}{Dt}}_\text{$=\nabla\cdot\mathbf{V}$} + \frac{D\rho}{Dt} = 0,
+\end{align}
+%
+donde $\rho$ es la densidad, y usamos la Ec. \eqref{eq:dil_vol} sabiendo que $D\vol/Dt=D\delta\vol/Dt$. 
+Si expandemos la divergencia y la derivada material (usando la Ec. \eqref{eq:der_mat}), llegamos a:
+%
+\begin{equation}
+\rho\left(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}\right) + \frac{\partial \rho}{\partial t} + u\frac{\partial \rho}{\partial x} + v\frac{\partial \rho}{\partial y} +w\frac{\partial \rho}{\partial z} = 0,
+\end{equation}
+%
+y recombinando los términos obtenemos la forma final de la ecuación de continuidad:
+%
+\begin{equation}\label{eq:continuidad}
+\frac{\partial \rho}{\partial t} + \frac{\partial (\rho u)}{\partial x} + \frac{\partial (\rho v)}{\partial y} + \frac{\partial (\rho w)}{\partial z} = \frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\mathbf{V})= 0
+\end{equation}
+
+Un caso interesante que nos entrega la Ec. \eqref{eq:continuidad} es el flujo incompresible, donde la densidad es constante en el tiempo y espacio. 
+Por lo tanto, la derivada temporal es cero, y $\rho$ puede salir de la derivada espacial, quedando $\nabla\cdot\mathbf{V}=0$.
+Este resultado coincide con el análisis que hicimos de la dilatación volumétrica en la Ec. \eqref{eq:dil_vol}.
+
+\subsection*{Conservación de cantidad de movimiento}
+
+La ley de conservación de la cantidad de movimiento no es más que la segunda ley de Newton: si hay cambios en la cantidad de movimiento, es porque una fuerza resultante total no nula actuando sobre el elemento de fluido.
+Matemáticamente, esto es:
+%
+\begin{equation}\label{eq:cant_mov}
+\frac{D\mathbf{p}}{Dt} = \sum\mathbf{F}.
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase01/cant_mov.pdf}
+\caption{Fuerzas sobre un elemento de fluido.}
+\label{fig:cant_mov}
+\end{figure}
+
+La derivación en este caso es larga, y no iremos en tanto detalle, pero presentaremos los principales pasos a continuación.
+En el caso del elemento de fluido de la Figura \ref{fig:cant_mov}, éste está sujeto a los esfuerzos normales $\sigma_{ij}$ y cortantes $\tau_{ij}$ en la superficie.
+Para mayor claridad en la Figura \ref{fig:cant_mov}, no dibujamos los esfuerzos en las caras posteriores, pero según la convención de signo, los esfuerzos apuntan en la dirección contraria.
+Esto implica que la suma vectorial resulta en la diferencia entre cada uno de los esfuerzos $\tau_{ij}$ y $\sigma_{ij}$, evaluados en la cara frontal y posterior.
+
+Considerando que $\delta x$, $\delta y$, y $\delta z$ son pequeños, podemos usar una expansión de Taylor truncada al término de primer orden para encontrar el cambio de los esfuerzos a través del elemento de fluido.
+Por ejemplo, el caso de la cara normal al eje $x$:
+%
+\begin{align}
+\sigma_{xx}(x+\delta x)-\sigma_{xx}(x) &\approx \frac{\partial \sigma_{xx}}{\partial x}\delta x \nonumber \\
+\tau_{xy}(x+\delta x)-\tau_{xy}(x) &\approx \frac{\partial \tau_{xy}}{\partial x}\delta x \nonumber \\
+\tau_{xz}(x+\delta x)-\tau_{xz}(x) &\approx \frac{\partial \tau_{xz}}{\partial x}\delta x,
+\end{align}
+%
+lo que es fácilmente extendible a las caras normales a $y$ y $z$. 
+Multiplicando los esfuerzos por las áreas correspondientes para convertirlos en fuerzas, y considerando la componente gravitacional ($m\mathbf{g}=\rho\vol\mathbf{g}$), obtenemos la siguiente expresión para la suma de fuerzas:
+%
+\begin{equation}\label{eq:suma_F}
+\sum F_x = \frac{\partial \sigma_{xx}}{\partial x}\delta x\delta y \delta z + \frac{\partial \tau_{yx}}{\partial y} \delta x \delta y \delta z + \frac{\partial \tau_{zx}}{\partial z} \delta x \delta y \delta z + \rho \vol g_x,
+\end{equation}
+%
+donde $\delta x \delta y \delta z=\vol$.
+
+Por otra parte, el lado izquierdo de la Ec. \eqref{eq:cant_mov} se puede escribir como:
+%
+\begin{equation}\label{eq:dpdt}
+\frac{D\mathbf{p}}{Dt} = \frac{D(m\mathbf{V})}{Dt} = \mathbf{V}\underbrace{\frac{Dm}{Dt}}_\text{$=0$} + \rho\vol\frac{D\mathbf{V}}{Dt}
+\end{equation}
+%
+donde $Dm/Dt=0$ por continuidad.
+Igualando las ecuaciones \eqref{eq:suma_F} y \eqref{eq:dpdt}, y dividiendo por $\vol$ llegamos a
+%
+\begin{equation} \label{eq:cant_mov_x}
+\rho\frac{Du}{Dt} = \rho g_x + \frac{\partial \sigma_{xx}}{\partial x} + \frac{\partial \tau_{yx}}{\partial y} + \frac{\partial \tau_{zx}}{\partial z}
+\end{equation}
+%
+De forma equivalente, para el eje $y$ y $z$:
+%
+\begin{align}\label{eq:cant_mov_yz}
+\rho\frac{Dv}{Dt} = \rho g_y + \frac{\partial \tau_{xy}}{\partial x} + \frac{\partial \sigma_{yy}}{\partial y} + \frac{\partial \tau_{zy}}{\partial z}\nonumber \\
+\rho\frac{Dw}{Dt} = \rho g_z + \frac{\partial \tau_{xz}}{\partial x} + \frac{\partial \tau_{yz}}{\partial y} + \frac{\partial \sigma_{zz}}{\partial z}
+\end{align}
+
+Las Ecs. \eqref{eq:cant_mov_x} y \eqref{eq:cant_mov_yz} son la ley de conservación de cantidad de movimiento, sin embargo, necesitamos hacer algo al respecto de $\tau_{ij}$ y $\sigma_{ii}$, ya que no tenemos idea cuanto valen.
+Aquí entra en juego lo que se conoce como una relación ``constitutiva'': una ecuación que depende del material, usualmente obtenida de observaciones experimentales, que relacione los términos faltantes (en este caso, $\tau$ y $\sigma$ con $\mathbf{V}$), con el cual podamos cerrar el sistema de ecuaciones.
+
+El caso de $\tau_{ij}$ es fácil: asumamos un fluido Newtoniano.
+En un flujo Newtoniano, el esfuerzo de corte y la velocidad se relacionan a través del coeficiente de viscosidad (el clásico $\tau = \mu du/dy$ que vieron en Mecánica de Fluidos General).
+Para el caso tridimensional, la ley de viscosidad de Newton es
+%
+\begin{align}\label{eq:tau}
+\tau_{xy}=\tau_{yx} &= \mu\left(\frac{\partial v}{\partial x}+\frac{\partial u}{\partial y}\right) \nonumber\\
+\tau_{yz}=\tau_{zy} &= \mu\left(\frac{\partial w}{\partial y}+\frac{\partial v}{\partial z}\right) \nonumber\\
+\tau_{zx}=\tau_{xz} &= \mu\left(\frac{\partial u}{\partial z}+\frac{\partial w}{\partial x}\right)
+\end{align}
+
+Ahora, $\sigma_{ii}$ es más complicado.
+A primera vista, uno creería que la única fuerza normal a la cara del elemento de fluido es la presión, sin embargo, esto no es así.
+Al haber deformaciones angulares, aparece un esfuerzo normal a la superficie que se denota como $\tau_{ii}$, que se debe sumar al efecto de la presión
+La derivación de $\tau_{ii}$ no es trivial, y requiere conocimientos más profundos de teoría de medio continuo de los que vemos en este curso, pero su resultado es
+%
+\begin{equation}\label{eq:sigma}
+\sigma_{ii} = -p-\frac{2}{3}\mu\nabla\cdot\mathbf{V} + 2\mu\frac{\partial u}{\partial x},
+\end{equation}
+%
+donde $p$ es la presión.
+Para los interesados, esto aparece discutido en la sección 2-4.2 de \emph{Viscous Fluid Flow} de Frank White (mismo autor del libro que ya conocen), y en la sección 3.3 de \emph{An Introduction to Fluid Dynamics} de G. Batchelor (otro clásico!).
+
+Usando las relaciones constitutivas de las Ecs. \eqref{eq:tau} y \eqref{eq:sigma} en las Ecs. \eqref{eq:cant_mov_x} y \eqref{eq:cant_mov_yz}, y asumiendo un flujo incompresible, llegamos a la forma más conocida de las ecuaciones de Navier Stokes:
+%
+\begin{align}\label{eq:NS_componente}
+\rho\left(\frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z} \right) &= -\frac{\partial p}{\partial x} + \rho g_x + \mu\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} + \frac{\partial^2 u}{\partial z^2}\right)\nonumber \\
+\rho\left(\frac{\partial v}{\partial t} + u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} + w\frac{\partial v}{\partial z} \right) &= -\frac{\partial p}{\partial y} + \rho g_y + \mu\left(\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} + \frac{\partial^2 v}{\partial z^2}\right)\nonumber \\
+\rho\left(\frac{\partial w}{\partial t} + u\frac{\partial w}{\partial x} + v\frac{\partial w}{\partial y} + w\frac{\partial w}{\partial z} \right) &= -\frac{\partial p}{\partial z} + \rho g_z + \mu\left(\frac{\partial^2 w}{\partial x^2} + \frac{\partial^2 w}{\partial y^2} + \frac{\partial^2 w}{\partial z^2}\right)
+\end{align}
+%
+las que podemos escribir vectorialmente como
+%
+\begin{equation}\label{eq:NS}
+\rho\left(\frac{\partial \mathbf{V}}{\partial t} + (\mathbf{V}\cdot\nabla)\mathbf{V} \right) = -\nabla p + \rho \mathbf{g} + \mu\nabla^2\mathbf{V}
+\end{equation}
+
+Otro caso particular de las Ecs. \eqref{eq:cant_mov_x} y \eqref{eq:cant_mov_yz} es si el fluido es no viscoso.
+Esto se conoce como la ecuación de Euler, y se escribe como
+%
+\begin{equation}\label{eq:euler}
+\rho\left(\frac{\partial \mathbf{V}}{\partial t} + (\mathbf{V}\cdot\nabla)\mathbf{V} \right) = -\nabla p + \rho \mathbf{g} 
+\end{equation}
+
+A pesar que las ecuaciones de Euler y Navier-Stokes se ven muy parecidas, una diferencia fundamental es que para llegar a la Ec. \eqref{eq:euler} no necesitamos asumir un flujo incompresible, lo que si tuvimos que hacer para llegar a la Ec. \eqref{eq:NS}.
+Por lo tanto, la Ec. \eqref{eq:euler} es válida para flujos compresibles.
