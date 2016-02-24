@@ -1,0 +1,124 @@
+\begin{framed}
+
+Objetivos:
+\begin{itemize}
+    \item Presentar el concepto de circulación y su relación con la vorticidad.
+    \item Introducir la función corriente.
+    \item Estudiar la formulación de la ecuación de Navier-Stokes en base a la función corriente y la vorticidad.
+\end{itemize}
+
+Contenidos:
+\begin{itemize}
+    \item Flujo incompresible y la función corriente.
+    \begin{itemize}
+        \item Definición e implicancias físicas
+        \item Formulación alternativa de Navier Stokes con la función corriente
+    \end{itemize}
+    \item La circulación y su relación con la vorticidad.
+    \item Flujo irrotacional y la función potencial.
+\end{itemize}
+
+Bibliografía:
+\begin{itemize}
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 4.7-4.9
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 5.2, 5.3, 6.7.
+\end{itemize}
+\end{framed}
+
+\section*{La función corriente}
+
+La clase pasada revisamos la ley de conservación de masa, que deriva en la ecuación de continuidad:
+%
+\begin{equation} \label{eq:continuidad_2}
+\frac{\partial \rho}{\partial t} + \frac{\partial(\rho u}{\partial x} + \frac{\partial(\rho v}{\partial y} + \frac{\partial(\rho w}{\partial z} = 0.
+\end{equation}
+%
+En el caso particular de dos dimensiones e incompresible, la Ec. \eqref{eq:continuidad_2} se reduce a
+%
+\begin{equation} \label{eq:continuidad2D}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0.
+\end{equation}
+
+La ecuación \eqref{eq:continuidad2D} sería satisfecha automáticamente si existiese una función $\psi$ tal que
+%
+\begin{equation} \label{eq:psi_def}
+u = \frac{\partial \psi}{\partial y} \quad v = -\frac{\partial \psi}{\partial x}.
+\end{equation}
+%
+De hecho, si reemplazamos la Ec. \eqref{eq:psi_def} en la Ec. \eqref{eq:continuidad2D}, claramente el lado izquierdo de la Ec. \eqref{eq:continuidad2D} se hace cero.
+
+\subsection*{Interpretación geométrica de $\psi$}
+El truco de usar una función $\psi$ va más allá de lo puramente matemático, ya que tiene una interpretación geométrica: la líneas de $\psi$ constante son líneas de flujo.
+Esto significa que si seguimos una partícula que va con el fluido, su trayectoria estaría definida por una línea de $\psi =\text{constante}$.
+Por esta razón, conocemos a $\psi$ como la \emph{función corriente}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.3\textwidth]{clase02/flujo.pdf}
+\caption{Línea de flujo bidimensional.}
+\label{fig:flujo}
+\end{figure}
+
+Demostremos esta propiedad de $\psi$.
+Como lo muestra la Figura \ref{fig:flujo}, la velocidad es siempre tangencial a una línea de flujo. 
+En otras palabras, la trayectoria debe tener la misma pendiente que la velocidad, o
+%
+\begin{align}\label{eq:linea_flujo}
+\frac{dy}{dx} = \frac{v}{u} \nonumber \\
+\Rightarrow udy - vdx = 0.
+\end{align}
+%
+La segunda expresión de la Ec. \eqref{eq:linea_flujo} determina una línea de flujo, y reemplazando la definición de $\psi$ de la Ec. \eqref{eq:psi_def} llegamos a
+%
+\begin{equation}
+\frac{\partial\psi}{\partial x} dx + \frac{\partial \psi}{\partial y}dy = 0 = d\psi,
+\end{equation}
+%
+lo cual es la definición de derivada total.
+Si $d\psi=0$, $\psi$ debe ser constante a lo largo de una línea de flujo.
+
+Esta propiedad de $\psi$ es muy útil para visualizar flujos.
+De hecho, en visualizaciones de modelación computacional de fluidos, comúnmente es la funcion corriente la que se grafica.
+
+\subsection*{Interpretación física de $\psi$}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{clase02/caudal.pdf}
+\caption{Caudal entre los puntos $A$ y $B$.}
+\label{fig:caudal}
+\end{figure}
+
+La función corriente también es útil para calcular el caudal que pasa por una superficie.
+Usemos la Figura \ref{fig:caudal} para guiar esta explicación.
+Digamos que $S$ es una superficie que pasa por los puntos $A$ y $B$ (acuérdense que estamos trabajando en dos dimensiones, por lo que una superficie corresponde a una línea), y queremos saber el caudal que pasa por $S$ entre $A$ y $B$.
+Por definición, el caudal a través de un diferencia de $S$ ($dS$) es 
+%
+\begin{equation}\label{eq:caudal}
+dQ = \mathbf{V}\cdot\mathbf{n}dS,
+\end{equation}
+%
+donde $\mathbf{n}$ es un vector unitario normal a la superficie, y $\mathbf{V}=u\ihat+v\jhat=u = \frac{\partial \psi}{\partial y} \ihat -\frac{\partial \psi}{\partial x}\jhat$.
+
+\mbox{?`}Cómo podemos encontrar una expresión para $\mathbf{n}$? Debemos recurrir a nuestros conocimientos de algebra lineal.
+Si la función que define $S$ es $y=y(x)$, $dx\ihat+dy\jhat$ es un vector tangencial a $S$.
+Así, podemos calcular el vector tangencial unitario, que es $\mathbf{t}=(dx\ihat+dy\jhat)/\sqrt{dx^2+dy^2}$, donde $\sqrt{dx^2+dy^2}=dS$ es el tamaño del elemento diferencial de la curva $S$.
+Sabemos que el producto punto entre $\mathbf{t}$ y $\mathbf{n}$ debe ser cero, por lo tanto, el vector normal a $S$ tiene la forma
+%
+\begin{equation}\label{eq:vec_normal}
+\mathbf{n} = \frac{dy}{dS}\ihat - \frac{dx}{dS}\jhat.
+\end{equation}
+%
+Si insertamos la Ec. \eqref{eq:vec_normal} en la Ec. \eqref{eq:caudal}, quedamos con:
+%
+\begin{align}
+dQ &= \left(\frac{\partial \psi}{\partial y} \ihat -\frac{\partial \psi}{\partial x}\jhat\right)\cdot\left( \frac{dy}{dS}\ihat - \frac{dx}{dS}\jhat\right)dS\nonumber\\
+   &= \frac{\partial \psi}{\partial y}dy +\frac{\partial \psi}{\partial x}dx = d\psi
+\end{align}
+%
+Por lo tanto, el caudal total entre $A$ y $B$ es
+\begin{equation}
+Q=\int_A^BdQ = \int_A^Bd\psi = \psi_B-\psi_A.
+\end{equation}
+%
+En otras palabras, el caudal entre $A$ y $B$ es solamente la diferencia entre la función corriente evaluada en esos dos puntos, sin importar la forma de la superficie $S$ entre ellos.
