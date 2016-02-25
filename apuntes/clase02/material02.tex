@@ -117,8 +117,78 @@ dQ &= \left(\frac{\partial \psi}{\partial y} \ihat -\frac{\partial \psi}{\partia
 \end{align}
 %
 Por lo tanto, el caudal total que pasa por $S$ entre $A$ y $B$ es
-\begin{equation}
+\begin{equation}\label{eq:caudal_psi}
 Q=\int_A^BdQ = \int_A^Bd\psi = \psi_B-\psi_A.
 \end{equation}
 %
 En otras palabras, el caudal entre $A$ y $B$ es solamente la diferencia entre la función corriente evaluada en esos dos puntos, sin importar la forma de la superficie $S$ entre ellos.
+
+\paragraph*{Ejemplo}
+(Sacado de \emph{Fluid Mechanics}, Munson et al.)
+Un flujo incompresible bidimensional tiene velocidad $\mathbf{V}=u\ihat+v\jhat$, con $u=2x$
+{\bf (a)}Calcule $v$ sabiendo que es cero sobre el eje $x$.
+{\bf (b)}Encuentre la velocidad promedio del fluido cruzando una superficie recta que une el centro del eje coordenado con el punto $(1,1)$.
+
+Al ser incompresible, sabemos que:
+%
+\begin{align}
+&\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0 \nonumber \\
+\Rightarrow &\frac{\partial v}{\partial y} = -\frac{\partial u}{\partial x} = -2 \nonumber \\
+\Rightarrow &v = -2y + C_1(x),
+\end{align}
+%
+donde $C_1(x)$ es una función de $x$.
+Nos dicen que la $v=0$ sobre el eje $x$ (donde $y=0$), por lo que $C_1(x)=0$.
+
+Podemos encontrar la velocidad promedio dividiendo el caudal por el área, y para calcular el caudal necesitamos $\psi$.
+Viendo la definición de $\psi$ en la Ec. \eqref{eq:psi_def}, podemos decir que
+%
+\begin{equation}
+\psi = \int u dy = 2xy + C_2(x)
+\end{equation}
+%
+e insertando ese resultado en la segunda expresión de la Ec. \eqref{eq:psi_def}, llegamos a
+%
+\begin{equation}
+v = -\frac{\partial \psi}{\partial x} = -2y - \frac{dC_2}{dx}.
+\end{equation}
+%
+Antes calculamos que $v=-2y$, por lo tanto, $dC_2/dx=0$ y $C_2$ es una constante
+\mbox{?`}Qué constante? En verdad, da lo mismo, y la podemos dejar en $C_2=0$, pero cualquier constante cumple con los requerimientos.
+Nosotros estamos preocupados de variaciones de $\psi$ más que $\psi$ en si, así que el valor de la constante es irrelevante.
+
+La Ec. \eqref{eq:caudal_psi} nos dice que el caudal a través de cualquier superficie que pase por los puntos $(0,0)$ y $(1,1)$ es la diferencia de $\psi$ evaluada en esos puntos, lo que es $Q=2-0=2$.
+Nos especificaron que la superficie es una línea recta entre esos puntos, por lo que el área no es más que la distancia entre ellos: $d=\sqrt{2}$, y la velocidad promedio $Q/d=1$.
+
+\subsection*{Relación de $\psi$ con la vorticidad y la ecuación de Navier-Stokes.}
+
+Vimos la clase pasada que la vorticidad es $\nabla \times\mathbf{V}$, lo que en dos dimensiones es
+%
+\begin{equation}\label{eq:vort_2D}
+\boldsymbol{\omega}=\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y} \right) \khat.
+\end{equation}
+%
+El reemplazo $\psi$ de la Ec. \eqref{eq:psi_def} en la Ec. \eqref{eq:vort_2D}, nos entrega
+%
+\begin{equation}
+\boldsymbol{\omega}=\left[\frac{\partial}{\partial x}\left(-\frac{\partial \psi}{\partial x}\right) -\frac{\partial}{\partial y}\left(\frac{\partial \psi}{\partial y}\right) \right] = -\nabla^2\psi\khat
+\end{equation}
+%
+lo que relaciona $\psi$ con $\boldsymbol{\omega}$.
+
+A partir de esto, podemos obtener una formulación diferente de la ecuación de Navier-Stokes, en función de $\psi$ (y/o $\boldsymbol{\omega}$).
+Para que se acuerden, Navier-Stokes en forma vectorial es:
+%
+\begin{equation}\label{eq:NS_2}
+\frac{D\mathbf{V}}{Dt} = -\frac{\nabla p}{\rho} + \nu\nabla^2\mathbf{V}.
+\end{equation}
+
+Si le sacamos el rotor a la Ec. \eqref{eq:NS_2} obtenemos
+%
+\begin{align}\label{eq:transp_vort}
+\frac{D(\nabla\times\mathbf{V})}{Dt} &= \underbrace{-\frac{\nabla\times\nabla p}{\rho}}_{=0} + \nu\nabla^2(\nabla\times\mathbf{V}). \nonumber\\
+\frac{D \omega_z}{Dt} &= \nabla^2 \omega_z,
+\end{align}
+%
+donde $\nabla\times\nabla p=0$ pues el rotor de un gradiente es siempre cero (revisen sus cuadernos de matemáticas, o pruebenlo!) .
+La Ec. \eqref{eq:transp_vort} se conoce como la ecuación de transporte de vorticidad.
