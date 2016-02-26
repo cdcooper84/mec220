@@ -1,0 +1,66 @@
+\begin{framed}
+
+Objetivos:
+\begin{itemize}
+    \item Estudiar las propiedades de la ecuación de Laplace. 
+    \item Presentar flujos potenciales elementales. 
+\end{itemize}
+
+Contenidos:
+\begin{itemize}
+    \item Repaso de flujos ideales.
+    \item Propiedades de la ecuación de Laplace.
+    \item Flujos potenciales elementales.
+    \item Ejemplos de aplicación de flujos potenciales.
+\end{itemize}
+
+Bibliografía:
+\begin{itemize}
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 4.9-4.10
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 6.7.
+\end{itemize}
+\end{framed}
+
+\section*{Flujo potencial}
+La clase pasada introducimos un par de conceptos nuevos, al menos en el contexto de mecánica de fluidos: la función corriente ($\psi$) y la función potencial ($\phi$). 
+Un campo de velocidad tiene una función corriente cuando éste tiene divergencia nula y bidimensional, y tiene una función potencial cuando es irrotacional, donde
+%
+\begin{align}
+u &= \frac{\partial\phi}{\partial x} = \frac{\partial\psi}{\partial y}\nonumber\\
+v &= \frac{\partial\phi}{\partial y} = -\frac{\partial\psi}{\partial x}
+\end{align}
+%
+Físicamente, esto significa que el flujo debe ser incompresible y no viscoso, o sea, un \emph{flujo ideal}.
+
+En la vida real, no exiten los flujos totalmente ideales, pero hay ciertas situaciones en que se comportan muy cercano a ideal y la teoría de flujo potencial nos ayuda a modelarlos.
+Dos ejemplos son
+\begin{itemize}
+\item Flujo sobre cuerpos sumergidos, lejos de cuerpo: muy aplicado a aerodinámica, que revisaremos en un par de clases más. El flujo se ve afectado cerca del cuerpo, pero si uno se aleja de este, el flujo es prácticamente potencial.
+\item Tornados: el flujo atmosférico de escala ``global'' puede ser visto como bidimiensional, ya que la dimensión de altura es muchísimo más chica que la extensión en los otros sentidos. Un tornado se aproxima muy bien por un vórtice ideal.
+\end{itemize}
+
+Además, vimos que al haber una función potencial de la velocidad y que el flujo sea incompresible ($\nabla\cdot\mathbf{V}=0$), el potencial $\phi$ debe satisfacer la ecuación de Laplace
+%
+\begin{equation}\label{eq:pot_laplace}
+\nabla^2\phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0.
+\end{equation}
+
+Ya vimos la clase pasada que la línea que define $\psi=$constante corresponde a una línea de flujo \mbox{?`}Cómo es el caso para $\phi=$constante?
+Consideremos la curva $y=y(x)$ que describe $\phi(x,y(x))=$constante, y derivemos esto en función de $x$:
+%
+\begin{align}\label{eq:linea_potencial}
+\frac{d\phi}{dx} &= \frac{\partial\phi}{\partial x}\frac{dx}{dx} + \frac{\partial\phi}{\partial y} \frac{dy}{dx} = 0\nonumber\\
+\Rightarrow &\frac{dy}{dx} = \frac{\partial\phi/\partial x}{\partial\phi}{\partial y} = \frac{u}{v}.
+\end{align}
+%
+La clase pasada dijimos que en una línea de flujo $dy/dx=v/u$, lo cual es exactamente perpendicular al resultados que llegamos en la Ec. \eqref{eq:linea_potencial}.
+Por lo tanto, las líneas de $\phi=$constante son perpendiculares a las líneas de $\psi=$constante.
+
+\subsection*{Condiciones de contorno}
+
+
+\section*{Propiedades de la ecuación de Laplace}
+La Ec. \eqref{eq:pot_laplace} se conoce como ecuación de Laplace.
+Ésta es la ecuación diferencial parcial más simple que podemos encontrar, sin embargo, es muy útil en la modelación de muchos fenómenos físicos: electrostática, conducción de calor, flujo potencial, etc.
+
+\section*{Flujos planos elementales}
