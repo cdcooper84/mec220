@@ -2,9 +2,9 @@
 
 Objetivos:
 \begin{itemize}
-    \item Presentar el concepto de circulación y su relación con la vorticidad.
     \item Introducir la función corriente.
-    \item Estudiar la formulación de la ecuación de Navier-Stokes en base a la función corriente y la vorticidad.
+    \item Estudiar el flujo irrotacional. 
+    \item Presentar la función potencial.
 \end{itemize}
 
 Contenidos:
@@ -170,7 +170,7 @@ Vimos la clase pasada que la vorticidad es $\nabla \times\mathbf{V}$, lo que en 
 %
 El reemplazo $\psi$ de la Ec. \eqref{eq:psi_def} en la Ec. \eqref{eq:vort_2D}, nos entrega
 %
-\begin{equation}
+\begin{equation}\label{eq:vort_laplace}
 \boldsymbol{\omega}=\left[\frac{\partial}{\partial x}\left(-\frac{\partial \psi}{\partial x}\right) -\frac{\partial}{\partial y}\left(\frac{\partial \psi}{\partial y}\right) \right] = -\nabla^2\psi\khat
 \end{equation}
 %
@@ -182,7 +182,7 @@ Para que se acuerden, Navier-Stokes en forma vectorial es:
 \begin{equation}\label{eq:NS_2}
 \frac{D\mathbf{V}}{Dt} = -\frac{\nabla p}{\rho} + \nu\nabla^2\mathbf{V}.
 \end{equation}
-
+%
 Si le sacamos el rotor a la Ec. \eqref{eq:NS_2} obtenemos
 %
 \begin{align}\label{eq:transp_vort}
@@ -191,4 +191,51 @@ Si le sacamos el rotor a la Ec. \eqref{eq:NS_2} obtenemos
 \end{align}
 %
 donde $\nabla\times\nabla p=0$ pues el rotor de un gradiente es siempre cero (revisen sus cuadernos de matemáticas, o pruebenlo!) .
-La Ec. \eqref{eq:transp_vort} se conoce como la ecuación de transporte de vorticidad.
+
+La Ec. \eqref{eq:transp_vort} se conoce como la ecuación de transporte de vorticidad, en donde la vorticidad es ``transportada'' por el flujo, tal como si fuera la concentración de algún contaminante.
+El caso tridimensional es más complicado pues aparece un término extra conocido como ``estiramiento de vorticidad'', el cual tiene profundas implicancias en la teoría de turbulencia.
+Usando la Ec. \eqref{eq:vort_laplace}, llegamos a la formulación de Navier-Stokes con la función corriente
+%
+\begin{equation}\label{eq:NS_psi}
+\frac{D(\nabla^2\psi)}{Dt} = \nu\nabla^4\psi.
+\end{equation}
+
+Usar la Navier-Stokes en las formas de las Ecs. \eqref{eq:transp_vort} o \eqref{eq:NS_psi} tiene la gran ventaja que no hay que preocuparse de la presión, y que la incompresibilidad se satisface automáticamente. 
+El problema es que las condiciones de borde se enfuerzan naturalmente en la velocidad (impermeabilidad $\mathbf{V}\cdot\mathbf{n}=0$ y no deslizamiento $\mathbf{V}=0$), y necesitamos derivar su símil para $\psi$ o $\omega_z$ (y para el caso de $\psi$ necesitamos cuatro condiciones de contorno!).
+
+\section*{La vorticidad}
+La clase anterior definimos la vorticidad como el rotor de la velocidad:
+%
+\begin{equation}\label{eq:vort_2}
+\boldsymbol{\omega} = \nabla\times\mathbf{V},
+\end{equation}
+%
+que (como sabrán ustedes), resulta en un vector.
+Vimos también que la vorticidad está relacionada con la rotación y deformación angular de un elemento de fluido: si $\boldsymbol{\omega}=0$, el elemento de fluido no está rotando ni deformándose angularmente.
+No se confundan: que $\boldsymbol{\omega}=0$ no significa que el elemento de fluido no pueda tener una trayectoria curva, como lo muestra la Figura \ref{fig:irrotacional}.
+%
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.3\textwidth]{clase02/irrotacional.pdf}
+\caption{Flujo irrotacional con trayectoria curva.}
+\label{fig:irrotacional}
+\end{figure}
+%
+Intuitivamente, uno diría que $\boldsymbol{\omega}\neq 0$ en el flujo de la Figura \ref{fig:irrotacional}, sin embargo, fíjense en la cruz, que mantiene su aspecto todo el tiempo. 
+La velocidad va cayendo a medida que nos alejamos del centro de tal manera que la cruz no rota ni pierde su forma, por lo tanto, la vorticidad del flujo es $0$.
+A este tipo de flujo se les llama \emph{irrotacionales}.
+
+\subsection*{Implicancias físicas del flujo irrotacional}
+Si un flujo es irrotacional, el elemento de fluido no rota ni se deforma angularmente. 
+Por lo tanto los esfuerzos de corte en la superficie del elemento de fluido ($\tau_{ij}$ en la clase pasada) deben ser cero.
+
+Por otra parte, en un fluido Newtoniano, el esfuerzo de corte y la velocidad se relacionan a través de la viscosidad $\mu$.
+Esto significa que un fluido sin viscosidad no es capaz de generar esfuerzos de corte $\tau_{ij}$, y por ende, de generar un rotacional.
+Así llegamos a una implicancia física: si un flujo no viscoso inicialmente tiene rotor $\nabla\times\mathbf{V}=0$, la vorticidad será siempre $\boldsymbols{\omega}=0$.
+
+\subsection*{Implicancia matemática del flujo irrotacional}
+Se acordarán de sus cursos de matemáticas de que un campo vectorial con rotor cero puede ser representado como la gradiente de un campo escalar.
+Este es exactamente el caso cuando un flujo es irrotacional: la velocidad es un campo vectorial con rotor cero, por lo tanto debe haber una función ($\phi$) tal que $\mathbf{V} = \nabla\phi = \frac{\partial \phi}{\partial x}\ihat + $
+
+\subsection{Vorticidad y circulación}
+
