@@ -225,17 +225,67 @@ Intuitivamente, uno diría que $\boldsymbol{\omega}\neq 0$ en el flujo de la Fig
 La velocidad va cayendo a medida que nos alejamos del centro de tal manera que la cruz no rota ni pierde su forma, por lo tanto, la vorticidad del flujo es $0$.
 A este tipo de flujo se les llama \emph{irrotacionales}.
 
-\subsection*{Implicancias físicas del flujo irrotacional}
+\paragraph*{Implicancia física del flujo irrotacional.}
 Si un flujo es irrotacional, el elemento de fluido no rota ni se deforma angularmente. 
 Por lo tanto los esfuerzos de corte en la superficie del elemento de fluido ($\tau_{ij}$ en la clase pasada) deben ser cero.
 
 Por otra parte, en un fluido Newtoniano, el esfuerzo de corte y la velocidad se relacionan a través de la viscosidad $\mu$.
 Esto significa que un fluido sin viscosidad no es capaz de generar esfuerzos de corte $\tau_{ij}$, y por ende, de generar un rotacional.
-Así llegamos a una implicancia física: si un flujo no viscoso inicialmente tiene rotor $\nabla\times\mathbf{V}=0$, la vorticidad será siempre $\boldsymbols{\omega}=0$.
+Así llegamos a una implicancia física: si un flujo no viscoso inicialmente tiene rotor $\nabla\times\mathbf{V}=0$, la vorticidad será siempre $\boldsymbol{\omega}=0$.
 
-\subsection*{Implicancia matemática del flujo irrotacional}
+\paragraph*{Implicancia matemática del flujo irrotacional.}
 Se acordarán de sus cursos de matemáticas de que un campo vectorial con rotor cero puede ser representado como la gradiente de un campo escalar.
-Este es exactamente el caso cuando un flujo es irrotacional: la velocidad es un campo vectorial con rotor cero, por lo tanto debe haber una función ($\phi$) tal que $\mathbf{V} = \nabla\phi = \frac{\partial \phi}{\partial x}\ihat + $
+Este es exactamente el caso cuando un flujo es irrotacional: la velocidad es un campo vectorial con rotor cero, por lo tanto debe haber una función ($\phi$) tal que $\mathbf{V} = \nabla\phi = \frac{\partial \phi}{\partial x}\ihat + \frac{\partial \phi}{\partial y}\jhat$
 
-\subsection{Vorticidad y circulación}
+\paragraph*{Vorticidad y circulación}
+Nuevamente, se acrodarán de sus cursos de matemáticas del concepto de circulación ($\Gamma$).
+Ésta es la integral cerrada de un campo vectorial (en este caso, la velocidad) a lo largo de una curva:
+%
+\begin{equation}\label{eq:circulacion}
+\Gamma = \oint_L \mathbf{V}\cdot\mathbf{t}dl,
+\end{equation}
+%
+donde $\mathbf{t}$ es un vector unitario tangente a la curva $L$, y $dl$ es un elemento diferencial de $L$.
+La circulación es una cantidad que cuesta interpretar físicamente, pero podemos operar sobre la ecuación \eqref{eq:circulacion} para visualizarlo más claramente.
+El teorema de Stokes (de nuevo, revisen sus cuadernos de matemáticas, o Google), nos permite pasar de una integral de línea a una de área:
+%
+\begin{equation}
+\oint_L\mathbf{V}\cdot\mathbf{t}dl = \int\int_A\nabla\times\mathbf{V}dS,
+\end{equation}
+%
+donde $A$ es el área encerrada por la curva $L$ y $dS$ es un elemento diferencial de $A$.
+Fácilmente pueden reconocer el integrando dentro de la integral de área como la vorticidad. 
+En dos dimensiones llegamos a
+%
+\begin{equation}\label{eq:circ_vort}
+\Gamma = \oint_L\mathbf{V}\cdot\mathbf{t}dl = \int\int_A\omega_zdS
+\end{equation}
 
+La Ec. \eqref{eq:circ_vort} nos entrega más información del significado físico de la circulación: es la rotación y deformación angular de una región del fluido ($A$), y la vorticidad no es más que la circulación por unidad de área.
+De hecho, en el caso de un fluido no viscoso ($\nu=0$), podemos reescribir la Ec. \eqref{eq:transp_vort} como $D\boldsymbol{\omega}/Dt=0$, lo que implica que
+%
+\begin{equation}\label{eq:teorema_kelvin}
+\frac{D\Gamma}{Dt}=0,
+\end{equation}
+%
+lo que se conoce como el \emph{teorema de circulación de Kelvin}.
+\mbox{?`}Qué significa este teorema físicamente? Ustedes saben que $D()/Dt$ es la variación en el tiempo de una cantidad que se mueve con el fluido; pues la circulación de una región del fluido (que se mueve con este) se mantiene constante si no hay fuerzas viscosas ($\tau$).
+Más simple, si hay una colección de moléculas que estan girando y/o deformándose angularmente, lo van a seguir haciendo al mismo ritmo si no hay viscosidad.  
+
+\section*{Flujo potencial}
+Detengámonos en la implicancia matemática del flujo irrotacional.
+Dijimos que al tener rotor nulo, existe una función escalar $\phi$ tal que $\mathbf{V}=\nabla\phi$, y $\phi$ se conoce como la función potencial.
+Si a esto le agregamos la suposición de flujo incompresible ($\nabla\cdot\mathbf{V}=0$), llegamos a
+%
+\begin{equation}\label{eq:laplace_phi}
+\nabla\cdot\mathbf{V} = \nabla\cdot\nabla\phi = \nabla^2\phi=0.
+\end{equation}
+
+La Ec. \eqref{eq:laplace_phi} es una ecuación de Laplace, y los flujos que se pueden representar de esta manera se conocen como \emph{flujo potencial}.
+
+Recapitulemos para evitar confusión:
+\begin{itemize}
+\item Si un flujo es incompresible y bidimensional, hay una función corriente $\psi$ que describe las líneas de flujo cuando $\psi=$constante.
+\item Si un flujo es irrotacional, existe una función potencial $\phi$ (escalar) tal que su gradiente es igual a la velocidad $\nabla\phi=\mathbf{V}$.
+\item Si un flujo es incompresible, bidimensional e irrotacional, es un flujo potencial y se cumple la ecuación de Laplace $\phi^2=0$.
+\end{itemize}
