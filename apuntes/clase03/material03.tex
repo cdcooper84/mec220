@@ -25,7 +25,7 @@ Bibliografía:
 La clase pasada introducimos un par de conceptos nuevos, al menos en el contexto de mecánica de fluidos: la función corriente ($\psi$) y la función potencial ($\phi$). 
 Un campo de velocidad tiene una función corriente cuando éste tiene divergencia nula y bidimensional, y tiene una función potencial cuando es irrotacional, donde
 %
-\begin{align}
+\begin{align}\label{eq:phi_def_3}
 u &= \frac{\partial\phi}{\partial x} = \frac{\partial\psi}{\partial y}\nonumber\\
 v &= \frac{\partial\phi}{\partial y} = -\frac{\partial\psi}{\partial x}
 \end{align}
@@ -57,10 +57,72 @@ La clase pasada dijimos que en una línea de flujo $dy/dx=v/u$, lo cual es exact
 Por lo tanto, las líneas de $\phi=$constante son perpendiculares a las líneas de $\psi=$constante.
 
 \subsection*{Condiciones de contorno}
+Para resolver una ecuación diferencial necesitamos condiciones de contorno y/o iniciales.
+En el caso de mecánica de fluidos, las condiciones de contorno están relacionadas con la velocidad, ya sea en el contacto del fluido con un sólido, como en la interfaz entre dos fluidos, o en regiones lejos de cualquier perturbación. 
+Necesitamos entonces traducir esas condiciones de contorno de velocidad, que son muy intuitivas, a potencial $\phi$. 
+Veámoslo caso a caso:
+%
+\begin{itemize}
+\item \emph{Superficie sólida:} ya sabemos que en el caso de un flujo viscoso, la viscosidad fuerza al fluido a tener la misma velocidad que la pared sólida en la interfaz (no deslizamiento). 
+En este caso, el flujo no es viscoso y no se cumple la condición de no deslizamiento, sin embargo, el fluido no puede penetrar la pared (condición de impermeabilidad).
+Esto significa que en la pared, la componente de la velocidad normal a la superficie debe ser cero:
+%
+\begin{equation}
+\mathbf{V}_\mathbf{n} = 0
+\end{equation}
+%
+donde $\mathbf{n}$ es un vector unitario normal a la superficie.
+Usando la Ec. \eqref{eq:phi_def_3}, vemos que en términos de $\phi$, esto es:
+%
+\begin{equation}\label{eq:phi_pared_bc}
+\nabla\phi\cdot\mathbf{n} = \frac{\partial\phi}{\partial\mathbf{n}} = 0.
+\end{equation}
+%
+La Ec. \eqref{eq:phi_pared_bc} es una condición de borde de Neumann que dice que la variación de $\phi$ normal a la superficie debe ser cero.
+Noten que si a la condición de borde en la Ec. \eqref{eq:phi_pared_bc} le agregamos que $\mathbf{V}\cdot\mathbf{t}$ donde $\mathbf{t}$ es un vector tangencial a la superficie, llegamos a la condición de borde de no deslizamiento.
 
+\item \emph{Interfaz entre dos fluidos:} si tenemos dos fluidos no viscosos, ellos van a ser capaces de deslizarse en la interfaz.
+Sin embargo, la componente normal de la velocidad en la interfaz debe ser la misma, ya que si no, se podrían crear ``hoyos'' sin fluido!
+%
+\begin{equation}
+\mathbf{V}_1\cdot\mathbf{n}=\mathbf{V}_2\cdot\mathbf{n},
+\end{equation}
+%
+donde $1$ y $2$ denotan los dos fluidos, y $\mathbf{n}$ es un vector normal a la interfaz.
+En términos de $\phi$, queda
+%
+\begin{equation}
+\frac{\partial\phi_1}{\partial\mathbf{n}} = \frac{\partial\phi_2}{\partial\mathbf{n}}
+\end{equation}
 
-\section*{Propiedades de la ecuación de Laplace}
-La Ec. \eqref{eq:pot_laplace} se conoce como ecuación de Laplace.
-Ésta es la ecuación diferencial parcial más simple que podemos encontrar, sin embargo, es muy útil en la modelación de muchos fenómenos físicos: electrostática, conducción de calor, flujo potencial, etc.
+\item \emph{Flujo al infinito:} la teoría de flujo potencial se muy usado para modelar flujos al infinito, por ejemplo, cuerpos sumergidos.
+De hecho, en este caso podemos derivar una condición de contorno muy intuitiva: el flujo que se encuentra muy lejos de un cuerpo sumergido no debiese sentir su presencia.
+Por lo tanto, si el fluido se aproxima con una velocidad $\mathbf{V}=\mathbf{V}_\infty$, podemos decir que
+%
+\begin{align}
+\mathbf{V}_{r\to\infty}=&\mathbf{V}_\infty\text{, o, }\nonumber\\
+\nabla\phi(r\to\infty) =&\mathbf{V}_\infty 
+\end{align}
+\end{itemize}
+
+%\section*{Propiedades de la ecuación de Laplace}
+%La Ec. \eqref{eq:pot_laplace} se conoce como ecuación de Laplace.
+%Ésta es la ecuación diferencial parcial más simple que podemos encontrar, sin embargo, es muy útil en la modelación de muchos fenómenos físicos: electrostática, conducción de calor, flujo potencial, etc.
 
 \section*{Flujos planos elementales}
+No haremos la demostración acá, pues es más un tema de matemática pura, pero la ecuación de Laplace para un set definido de condiciones de contorno tiene solución única
+\mbox{?`}Qué significa esto para nosotros?
+Que si tenemos una situación donde enforzamos algunas de las condiciones de borde que discutimos en la sección anterior, el resultado de la ecuación de Laplace va a ser único y éste tendrá sentido físico (en el contexto de que consideramos un flujo no viscoso e incompresible como ``físico'').
+Esto nos entrega una poderosa herramienta de modelación, ya que la ecuación de Laplace es muchísimo más simple que la de Navier-Stokes, y representa un buen modelo para flujos en que la viscosidad y la compresibilidad no juega un rol importante.
+
+Existe un grupo de flujos que llamamos ``elementales'' que no son más que soluciones de la ecuación de Laplace en la Ec. \eqref{eq:phi_def_3} con condiciones de contorno físicas.
+A partir de éstas, se hacen estudios muy elaborados en, por ejemplo, aerodinámica.
+Sin embargo, no son las únicas formas de flujo potencial: mientras la función sea solución de la ecuación de Laplace y cumpla con condiciones de borde físicas, ésta perfectamente puede representar a un flujo.
+
+\subsection*{Flujo uniforme}
+
+\subsection*{Fuente y sumidero}
+
+\subsection*{Vórtice}
+
+\subsection*{Doblete}
