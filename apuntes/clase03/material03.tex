@@ -120,6 +120,33 @@ A partir de éstas, se hacen estudios muy elaborados en, por ejemplo, aerodinám
 Sin embargo, no son las únicas formas de flujo potencial: mientras la función sea solución de la ecuación de Laplace y cumpla con condiciones de borde físicas, ésta perfectamente puede representar a un flujo.
 
 \subsection*{Flujo uniforme}
+La ecuación de Laplace involucra segundas derivadas igualadas a cero
+\mbox{?`}Cuál es la función más simple que pueden pensar que cumple con esa condición? Una función lineal ($\phi=Ax$).
+Agreguémosles a esto condiciones de contorno físicas: la velocidad al infinito es uniforme y horizontal $\mathbf{V}_{r\to\infty}=\partial\phi/\partial x=U_\infty\ihat$.
+El resultado es un flujo uniforme horizontal con velocidad $U_\infty$, como el que muestra la Figura \ref{fig:flujo_uniforme}.
+%
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{clase03/flujo_uniforme.pdf}
+\caption{Flujo uniforme eje x}
+\label{fig:flujo_uniforme}
+\end{figure}
+
+En la Figura \ref{fig:flujo_uniforme} el flujo se mueve horizontalmente, de izquierda a derecha, con velocidad $U_\infty$.
+La ecuación del potencial es $\phi=U_\infty x$, por lo que las líneas de $\phi$ constante son líneas de $x$ constante, o sea, paralelas al eje $y$.
+Por otra parte, las líneas de flujo ($\psi$ constante) deben ser perpendiculares a las líneas de equipotencial.
+Chequémos esto:
+%
+\begin{align}
+\frac{\partial\psi}{\partial y} &= u = U_\infty \Rightarrow \psi=U_\infty y + f(x) \nonumber \\
+\frac{\partial\psi}{\partial x} &= \frac{\partial}{\partial x}\left(U_\infty y + f(x)\right) = f'(x) = 0 \Rightarrow f(x) = C_0 = 0.
+\end{align}
+%
+La líneas de $\psi$ constante son líneas de $y$ constante, paralelas al eje $x$, confirmando que son perpendiculares a las líneas de equipotencial.
+
+Podemos hacer el mismo trabajo en casos parecidos.
+Por ejemplo, el flujo en dirección vertical con velocidad $V_\infty$ se obtiene con $\phi=V_\infty y$, y la solución es igual a la Figura \ref{fig:flujo_uniforme}, pero con las líneas de $\phi$ y $\psi$ constante intercambiadas.
+Otro caso: \mbox{?`}cómo obtener un flujo en la dirección contraria? Simplemente cambiando de signo las condiciones de borde ($-U_\infty$ o $-V_\infty$).
 
 \subsection*{Fuente y sumidero}
 
