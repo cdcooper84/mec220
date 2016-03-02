@@ -139,7 +139,7 @@ Chequémos esto:
 %
 \begin{align}
 \frac{\partial\psi}{\partial y} &= u = U_\infty \Rightarrow \psi=U_\infty y + f(x) \nonumber \\
-\frac{\partial\psi}{\partial x} &= \frac{\partial}{\partial x}\left(U_\infty y + f(x)\right) = f'(x) = 0 \Rightarrow f(x) = C_0 = 0.
+\frac{\partial\psi}{\partial x} &= \frac{\partial}{\partial x}\left(U_\infty y + f(x)\right) = f'(x) = -v = 0 \Rightarrow f(x) = C_0 = 0.
 \end{align}
 %
 La líneas de $\psi$ constante son líneas de $y$ constante, paralelas al eje $x$, confirmando que son perpendiculares a las líneas de equipotencial.
@@ -148,8 +148,223 @@ Podemos hacer el mismo trabajo en casos parecidos.
 Por ejemplo, el flujo en dirección vertical con velocidad $V_\infty$ se obtiene con $\phi=V_\infty y$, y la solución es igual a la Figura \ref{fig:flujo_uniforme}, pero con las líneas de $\phi$ y $\psi$ constante intercambiadas.
 Otro caso: \mbox{?`}cómo obtener un flujo en la dirección contraria? Simplemente cambiando de signo las condiciones de borde ($-U_\infty$ o $-V_\infty$).
 
+En resumen:
+%
+\begin{itemize}
+\item Flujo uniforme horizontal
+\begin{align}
+u &= U_\infty \quad v = 0 \nonumber \\
+\phi&=\pm U_\infty x \quad \psi= \pm U_\infty y
+\end{align}
+
+\item Flujo uniforme vertical
+\begin{align}
+u &= 0 \quad v = V_\infty \nonumber \\
+\phi&=\pm V_\infty y \quad \psi= \mp V_\infty x
+\end{align}
+%
+Noten que $\pm$ y $\mp$ están dados vuelta en el último caso, debido al signo negativo en la última expresión de $\psi$ en la Ec. \eqref{eq:phi_def_3}.
+\end{itemize}
+
 \subsection*{Fuente y sumidero}
+El siguiente caso simple tiene una derivación algo más complicada, pero vale la pena hacerla porque la encontramos en muchas aplicaciones físicas (electromagnetismo, acústica, entre otras).
+Digamos que queremos resolver la siguiente ecuación, con condición de borde de velocidad cero al infinito:
+%
+\begin{align}\label{eq:fuente_laplace}
+\nabla^2\phi=q\delta(r)\nonumber\\
+\mathbf{V}(r\to\infty)=\nabla\phi(r\to\infty) = 0,
+\end{align}
+%
+donde $q$ es una constante y $\delta(r)$ se conoce como la función \emph{delta de Dirac}:
+%
+\begin{equation}
+\delta(r) = 
+\begin{cases}
+\infty \text{ si } r=0,\\
+0 \text{ en otro caso.}
+\end{cases}
+\end{equation}
+%
+Ustedes debiesen conocer la función $\delta(r)$ de sus clases de matemáticas, pero si no se acuerdan, solamente necesitan saber dos propiedades:
+%
+\begin{align}\label{eq:prop_delta}
+\int_{\vol} \delta(\mathbf{r}-\mathbf{r}_0)d\mathbf{r}=&
+\begin{cases}
+1 \text{ si $\mathbf{r}_0$ está dentro del volumen $\vol$}\\
+0 \text{ si $\mathbf{r}_0$ está fuera de $\vol$}
+\end{cases}\nonumber\\
+\int_{\vol} f(\mathbf{r}) \delta(\mathbf{r}-\mathbf{r}_0)d\mathbf{r}=&
+\begin{cases}
+f(\mathbf{r}_0) \text{ si $\mathbf{r}_0$ está dentro del volumen $\vol$}\\
+0 \text{ si $\mathbf{r}_0$ está fuera de $\vol$.}
+\end{cases}
+\end{align}
+%
+En palabras, si el dominio de la integral pasa por el punto donde $delta$ está centrado ($\mathbf{r}_0$), su integral es $1$ y si está multiplicando a una función cualquiera, el resultado de la integral es la función evaluada en ($\mathbf{r}_0$).
+Si la integral no pasa por $\mathbf{r}_0$, todo da cero.
+
+Al mirar la Ec. \eqref{eq:fuente_laplace}, lo primero que salta a la vista es que no hay un cero a la derecha \mbox{!`}no es la ecuación de Laplace!
+Pero $\delta$ es diferente a cero solamente en el origen ($r=0$), por lo que para $r>0$ la Ec. \eqref{eq:fuente_laplace} si es la ecuación de Laplace.
+
+Veamos la Ec. \eqref{eq:fuente_laplace} de cerca para responder dos cosas {\bf(1)} \mbox{?`}Qué significa la constante $q$? y {\bf(2)} \mbox{?`}Cuál es la solución de la ecuación?
+
+\paragraph{El significado físico de $q$}
+Agarremos la Ec. \eqref{eq:fuente_laplace} e integrémosla en un dominio $\vol$ que incluya el origen, donde $\delta$ está ubicado:
+%
+\begin{equation}
+\int_{\vol}\nabla^2\phi d\mathbf{r}= \int_{\vol}q\delta d\mathbf{r}. 
+\end{equation}
+%
+La integral a la derecha es fácilmente resolvible con las propiedades de la Ec. \eqref{eq:prop_delta}, y a la de la izquierda se le puede aplicar el teorema de la divergencia:
+%
+\begin{equation}\label{eq:fuente_int}
+\int_{\partial\vol}\nabla\phi\cdot\mathbf{n}dS = q,
+\end{equation}
+%
+donde $\partial\vol$ es la frontera de $\vol$, $dS$ un elemento diferencial de $\vol$, y $\mathbf{n}$ es un vector unitario normal a $\partial\vol$.
+Pero $\nabla\phi=\mathbf{V}$, por lo que obtenemos
+%
+\begin{equation}
+\int_{\partial\vol}\mathbf{V}\cdot\mathbf{n}dS = q,
+\end{equation}
+%
+y lo que tenemos en el lado izquierdo de la ecuación no es más que la definición de caudal que pasa por la superficie $\partial\vol$, dándole un sentido físico a la constante $q$..
+Todavía no hemos definido la superficie $\partial\vol$, y solamente hemos dicho que encierra al origen, por lo que sería perfectamente válido que fuera un círculo con un radio muy muy pequeño centrado en el origen \mbox{?`}de dónde sale el caudal $q$?
+Como $q\neq0$, dentro del volumen $\vol$ tiene que haber algo que esté generando (o sacando) flujo: la función $\delta$ es una fuente (o sumidero) de fluido.
+
+\paragraph{Solución de $\phi$}
+En coordenadas polares, y considerando solamente un flujo radial, la Ec. \eqref{eq:fuente_laplace} en el dominio $r>0$ es
+%
+\begin{equation}
+\frac{1}{r}\frac{\partial\phi}{\partial r} + \frac{\partial^2\phi}{\partial r^2} = 0.
+\end{equation}
+%
+Considerando la condición de contorno $\nabla\phi(r\to\infty)=0$, por inspección podemos llegar a que la solución tiene la forma 
+%
+\begin{equation}
+\phi = A_0\ln(r) + B_0,
+\end{equation}
+%
+y necesitamos saber el valor de $A_0$ (por simplicidad, asumiremos $B_0=0$).
+Revisitemos la Ec. \eqref{eq:fuente_int} conociendo la solución para $\phi$ que propusimos recién.
+Para hacernos la vida más fácil, consideremos que $\vol$ es un círculo de radio $R$, ya que así la componente $r$ y el vector normal $\mathbf{n}$ están alineados, y no nos molesta el producto punto.
+Sabiendo que $\nabla\phi=\partial\phi/\partial r$, llegamos a que
+%
+\begin{align}
+\int_{\partial\vol}\frac{\partial(A\ln(r))}{\partial{r}}dS &= q\nonumber\\
+\frac{A_0}{R}2\pi R&= q\nonumber\\
+\Rightarrow A_0 &= \frac{q}{2\pi}.
+\end{align}
+%
+Así llegamos a que
+\begin{equation}
+\phi=\frac{q}{2\pi}\ln(r)\nonumber\\
+\end{equation}
+
+Esta última ecuación se conoce como función de Green para el operador laplaciano en dos dimensiones. 
+La función de Green es tremendamente útil en muchas aplicaciones: electroestática, electrodinámica, acústica, y un largo etc. y de ahí lo interesante de que vean de donde viene.
+De hecho, probablemente ya la han usado sin darse cuenta.
+En tres dimensiones, la función de Green es $\frac{1}{r}$ \mbox{?`}se acuerdan del potencial electrostático de una carga puntual? Es exactamente el mismo concepto.
+De hecho, si cambiamos $\mathbf{V}$ por el campo eléctrico $\mathbf{E}$, todo lo que hemos visto se aplica a electrostática.
+Otro ejemplo más cercano a la mecánica: el $\frac{1}{r}$ del potencial gravitacional de planetas aparece al modelar planetas como masas puntuales en el espacio, y se modela con la ecuación de Laplace.
+
+En coordenadas polares, la gradiente se define como $\nabla()=(\partial()/\partial r,1/r\partial()/\partial\theta)$, donde la primera componente es radial y la segunda angular.
+Sabiendo que $\nabla\phi=\mathbf{V}=(V_r,V_\theta)$:
+%
+\begin{equation}\label{eq:Vfuente}
+V_r = \frac{\partial\phi}{\partial r} = \frac{q}{2\pi r}\quad V_\theta= \frac{1}{r}\frac{\partial\phi}{\partial\theta}=0.
+\end{equation}
+%
+Esto nos dice que la solución ecuación diferencial en \eqref{eq:fuente_laplace} es un flujo radial, con una fuente en el centro, donde su velocidad decae a medida que nos alejamos del centro.
+
+Por otra parte, sabemos que las líneas de corriente ($\psi=$constante) son perpendiculares a la líneas de equipotencial, así es que podemos escribir $\psi$ intercambiando $V_r$ y $V_\theta$:
+\begin{equation}\label{eq:psi_polar}
+V_r=\frac{1}{r}\frac{\partial\psi}{\partial\theta} \quad V_\theta=-\frac{\partial\psi}{\partial r}
+\end{equation}
+
+Insertando la expresión de $V_r$ en la Ec. \eqref{eq:Vfuente} en la Ec. \eqref{eq:psi_polar} e integrando, llegamos a que
+%
+\begin{equation}
+\psi = \int V_rr d\theta = \int\frac{q}{2\pi r} rd\theta = -\frac{q}{2\pi}\theta. 
+\end{equation}
+
+En resumen:
+\begin{itemize}
+\item Fuente:
+\begin{align}
+V_r &= \frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
+\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
+\end{align}
+\item Sumidero:
+\begin{align}
+V_r &= -\frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
+\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
+\end{align}
+\end{itemize}
+%
+y el flujo se muestra en la Figura \ref{fig:fuente}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase03/fuente.pdf}
+\caption{Fuente o sumidero.}
+\label{fig:fuente}
+\end{figure}
+
+En la Figura \ref{fig:fuente} se ve que las líneas de flujo son de $\theta=$constante y las de equipotencial de $r=$constante.
 
 \subsection*{Vórtice}
+Demos vuelta un poco las cosas.
+Acabamos de resolver la ecuación $\nabla^2\phi=\delta$, y vimos que las líneas de equipotencial eran circulares (Figura \ref{fig:fuente}).
+Tratemos de generar un flujo donde las líneas de flujo sean las circulares: reemplacemos $\phi$ por $\psi$ en la Ec. \eqref{eq:fuente_laplace}
+%
+\begin{align}\label{eq:lap_psi}
+\nabla^2\psi=\Gamma\delta(r)\nonumber\\
+\mathbf{V}(r\to\infty)=0.
+\end{align}
+%
+Donde $\Gamma$ es, por ahora, solamente una constante.
+\mbox{?`}Tiene algún sentido lo que estamos haciendo? La respuesta es si.
+Ya vimos la clase pasada que $\nabla^2\psi=\omega_z$, por lo que la Ec. \eqref{eq:lap_psi} es una distribución tipo ``delta'' de la vorticidad, y el flujo sigue siendo irrotacional (y potencial o ideal) para $r>0$.
+
+No es necesario repetir todo lo que hicimos anteriormente, sabemos que la solución es 
+%
+\begin{align}
+V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
+\phi&=\frac{\Gamma}{2\pi}\theta \quad \psi = -\frac{\Gamma}{2\pi}\ln(r).
+\end{align}
+%
+Este flujo se llama vórtice, donde la velocidad es angular y su magnitud va decayendo a medida que nos alejamos del centro del vórtice.
+Este tipo de flujos es muy útil para modelar, por ejemplo, tornados, que se comportan como flujo potencial alejados de su centro.
+
+Gráficamente, el vórtice es igual a la Figura \ref{fig:fuente}, pero con las líneas de corriente y equipotenciales intercambiadas, como aparece en la Figura \ref{fig:vortice}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase03/vortice.pdf}
+\caption{Vórtice.}
+\label{fig:vortice}
+\end{figure}
+
+La pregunta es, así como encontramos que $q$ era el caudal que salía de la fuente (o se iba por el sumidero) \mbox{?`}Cuál es el significado físico de $\Gamma$?
+Ya discutimos que el lado derecho de la Ec. \eqref{eq:lap_psi} es una distribución puntual de vorticidad ($\Gamma\delta=\omega_z$).
+Si integramos esto en todo el espacio, y viendo las propiedades en la Ec. \eqref{eq:prop_delta}, llegamos a
+%
+\begin{align}
+\int\Gamma\delta d\mathbf{r} &= \int\omega_z d\mathbf{r}\nonumber\\
+\Gamma &= \int\omega_z d\mathbf{r},
+\end{align}
+%
+lo cual es la definición de circulación que discutimos la clase pasada.
+$\Gamma$ es la circulación.
 
 \subsection*{Doblete}
+Por último, el doblete aparece de la superposición de una fuente y un sumidero de igual $q$ que están infinitesimalmente cerca en el origen.
+Para esta derivación, necesitaremos saber como expresar una fuente y sumidero que no están ubicados en el centro, y luego veremos como se comporta esa solución a medida que los acercamos al límite en que la distancia entre ellos tiende a cero.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{clase03/fuente_sumidero.pdf}
+\caption{Fuente y sumidero a distancia $a$ del centro.}
+\label{fig:fuente_sumidero}
+\end{figure}
