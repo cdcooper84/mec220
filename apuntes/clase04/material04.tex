@@ -23,3 +23,65 @@ Bibliografía:
 \end{itemize}
 \end{framed}
 
+\section*{Flujos elementales}
+
+La clase pasada estudiamos flujos potenciales elementales.
+Estos son, básicamente, soluciones analíticas de la ecuación de Laplace (con un $\delta$ de Dirac en algunos casos) con condiciones de contorno que tienen sentido físico.
+Para el caso de los flujos elementales que estudiamos, la condición de que usamos es de velocidad hacia el infinito, que era $U_\infty$ en el flujo uniforme, y cero en los vórtices, fuente, sumidero y dobletes.
+Sin embargo, no hay que confundirse: cualquier solución de la ecuación de Laplace que cumpla con condiciones de borde físicas representa el movimiento de un flujo ideal.
+De hecho, hoy vamos a encontrar más soluciones de flujo potencial.
+
+Solo como recordatorio de la clase pasada, los flujos elementales son:
+
+\begin{itemize}
+\item Flujo uniforme horizontal (dirección $+x$):
+\begin{align}
+u &= U_\infty \quad v = 0 \nonumber \\
+\phi&=\pm U_\infty x \quad \psi= \pm U_\infty y
+\end{align}
+
+\item Flujo uniforme vertical (dirección $+y$):
+\begin{align}
+u &= 0 \quad v = V_\infty \nonumber \\
+\phi&=\pm V_\infty y \quad \psi= \mp V_\infty x
+\end{align}
+
+\item Fuente:
+\begin{align}
+V_r &= \frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
+\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
+\end{align}
+
+\item Sumidero:
+\begin{align}
+V_r &= -\frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
+\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
+\end{align}
+
+\item Vórtice (dirección contra reloj):
+\begin{align}
+V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
+\phi&=\frac{\Gamma}{2\pi}\theta \quad \psi = -\frac{\Gamma}{2\pi}\ln(r).
+\end{align}
+
+\item Doblete: 
+\begin{align}
+V_r = -K\frac{\cos(\theta)}{r^2}\quad V_\theta = -K\frac{\sin(\theta)}{r^2}\nonumber\\
+\phi=K\frac{\cos(\theta)}{r}\quad \psi = K\frac{\sin(\theta)}{r}.
+\end{align}
+
+\end{itemize}
+
+\section*{Principio de superposición}
+Sabemos que para flujos ideales tanto $\phi$ como $\psi$ satisfacen la ecuación de Laplace.
+La ecuación de Laplace es homogenea (todos los términos de la ecuación contienen la variable dependiente) y lineal (la variable dependiente no está elevada a una potencia), por lo tanto, si $\phi_1$ y $\phi_2$ satisfacen la ecuación de Laplace, $\phi_3=\phi_1+\phi_2$ también es una solución.
+Si aterrizamos esto al caso de flujo potencial, podríamos decir que $\mathbf{V}_3=\mathbf{V}_1+\mathbf{V}_2$, además $\psi_3=\psi_1+\psi_2$.
+Esta propiedad nos permite combinar soluciones simples de flujo potencial, como los flujos elementales, para modelar flujos más interesantes para aplicaciones reales.
+De hecho, esta ya lo hicimos sin darnos cuenta cuando realizamos la derivación del doblete: sumamos la solución de una fuente y un sumidero.
+En esta clase, vamos a revisar algunas soluciones con superposición que son relevantes en mecánica de fluidos.
+
+Algo que no hemos discutido en profundidad todavía, y que hoy tomará importancia, es la interpretación de líneas de flujo como cuerpos sólidos.
+La característica de las líneas de flujo es que la velocidad es tangencial a ellas, por lo tanto, no existe flujo ``a través'' de una línea de flujo.
+Por otra parte, al ser este un flujo no viscoso, la condición de contorno correspondiente es la de impermeabilidad (flujo no pasa a través de un sólido, $\mathbf{V}\cdot\mathbf{n}=0$), pero si puede resbalar por él.
+Si se fijan, la condición de borde de impermeabilidad es equivalente a una línea de flujo, por lo que podemos mirar a una línea de flujo como un cuerpo sólido.
+Vamos a revisitar esto en los ejemplos que veremos a continuación, y les quedará mucho más claro.
