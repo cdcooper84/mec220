@@ -258,9 +258,105 @@ Despreciando el efecto de la diferencia de altura (que de hecho se cancela), pod
 
 Usemos la Ec. \eqref{eq:cilindro_p} para encontrar la fuerza que está resistiendo el cilindro.
 Si hacemos un volúmen de control justo por el contorno del cilindro, no hay flujo que entre al volumen de control y la única fuerza presente es la que la presión hace sobre el contorno del volúmen de control.
-Integremos la Ec. \eqref{eq:cilindro_p} de $0$ a $2\pi$:
+Esta fuerza es siempre normal a la superficie y con dirección opuesta a la normal $\mathbf{n}$ que sale del cilindro, la cual es equivalente a un vector unitario $\mathbf{r}/|\mathbf{r}|$ en dirección radial (ver Figura \ref{fig:presion_cilindro}).
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{clase04/presion_cilindro.pdf}
+\caption{Presión alrededor del cilindro}
+\label{fig:presion_cilindro}
+\end{figure}
+
+Integremos la Ec. \eqref{eq:cilindro_p} sobre toda la superficie del cilindro para encontrar la componente $x$ de la fuerza.
+%
+\begin{align}\label{eq:fuerza_x}
+&F_x = \oint_A -p\mathbf{n}dS\cdot\ihat = -\oint_A p\mathbf{r}\cdot\ihat Rd\theta \nonumber\\
+&\mathbf{r}\cdot\ihat =\frac{r_x}{R} \text{, donde, } r_x = R\cos(\theta),
+\end{align}
+%
+donde $R$ es el radio del cilindro, $\mathbf{r}=(r_x,r_y)$ es en este caso la superficie del cilindro, y un elemento de superficie es $dS-Rd\theta$.
+Si usamos la Ec. \eqref{eq:cilindro_p}, llegamos a
 %
 \begin{align}
-F &= \oint_A p dS = \int_0^{2\pi} p(\theta) \sqrt{\frac{K}{U_\infty}}d\theta \nonumber\\ 
-&=\int_0^{2\pi}\left[\frac{U_\infty^2\rho}{2}\left(1+4\sin^2(\theta)\right) - p_\infty \right]\sqrt{\frac{K}{U_\infty}} d\theta = 0
+F_x = -\int_0^{2\pi}\left[\frac{U_\infty^2\rho}{2}(1+4\sin^2(\theta))-p_\infty\right]R\cos(\theta)d\theta=0.
 \end{align}
+El primer y segundo término son la integral $\int_0^{2\pi}\cos(\theta)d\theta=0$.
+El segundo término es $\int_0^{2\pi}\sin^2\theta\cos\theta d\theta=0$, lo cual es fácil de demostrar al reemplazar $u=\sin\theta$.
+
+En conclusión, la componente $x$ de la fuerza es $F_x=0$, lo cual va totalmente contra la intuición: si viene un flujo sobre un cuerpo \mbox{?`}no debiese empujarlo? En un flujo ideal, no.
+Esto se conoce como la paradoja de D'Alembert, y fue resuelta por Prandtl en 1904, cuando considera la viscosidad. 
+
+\subsection*{Cilindro con circulación}
+Al cilindro que ya calculamos en la sección anterior, sumémosle un vórtice de circulación $\Gamma$ que gira en sentido horario:
+%
+\begin{align}\label{eq:cilindro_circ_pot}
+\phi_L &= \phi_U+\phi_d+\phi_v = U_\infty r\cos(\theta) + K\frac{\cos(\theta)}{r} - \frac{\Gamma}{2\pi}\theta \nonumber\\
+\psi_L &= \psi_U+\psi_d+\psi_v = U_\infty r\sin(\theta) - K\frac{\sin(\theta)}{r} + \frac{\Gamma}{2\pi}\ln(r)
+\end{align}
+%
+y sacando el gradiente podemos obtener la velocidad:
+%
+\begin{align}\label{eq:cilindro_circ_vel}
+V_r = \frac{\partial\phi}{\partial r} = U_\infty\cos(\theta) - K\frac{\cos(\theta)}{r^2} \nonumber\\
+V_\theta = \frac{1}{r}\frac{\partial\phi}{\partial\theta} = -U_\infty\sin(\theta) - K\frac{\sin(\theta)}{r^2} - \frac{\Gamma}{2\pi r}
+\end{align}
+
+\paragraph*{Ejemplo.}
+Grafiquemos las líneas de flujo de un flujo uniforme con $U_\infty=1$ sumado a un doblete con $K=1$ y un vórtice centrado con $\Gamma=5$.
+La ecuación de $\psi_L$ es
+%
+\begin{equation}
+\psi_L = r\sin(\theta) - \frac{\sin(\theta)}{r} + \frac{5}{2\pi}\ln(r)
+\end{equation}
+%
+y sus curvas de nivel están graficadas en la Figura \ref{fig:cilindro_circ}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase04/cilindro_circ.pdf}
+\caption{Cilindro con circulación}
+\label{fig:cilindro_circ}
+\end{figure}
+
+Miremos la Figura \ref{fig:cilindro_circ} más de cerca.
+Es muy parecido al caso anterior, con dos regiones separadas por la línea $\psi_L=0$, sin embargo, los puntos de estancamiento se corrieron hacia abajo!
+Pensemos en las implicancias físicas de este hecho; por Bernoulli, sabemos que el punto de menor velocidad es el punto de mayor presión.
+Antes, los puntos de estancamiento estaban centrados y en puntos opuestos, pero ahora ambos están en la parte inferior: existe una fuerza neta que empuja al cilindro hacia arriba.
+
+Esto se conoce como el \emph{efecto Magnus}, y existen muchos ejemplos bien domésticos que estoy seguro que han visto (si no, pregúntenle a Fabien Barthez\footnote{\url{https://www.youtube.com/watch?v=XdL7EDKr_rk}})
+El efecto Magnus es la base del estudio de la aerodinámica, y la búsqueda de geometrías que puedan volar.
+En las clases siguientes vamos a adentrarnos más en estos temas.
+
+\paragraph*{Fuerza de sustentación}
+Así como en el cilindro anterior, calculemos la fuerza sobre el cilindro.
+Sabemos que la velocidad en la superficie del cilindro tiene solamente componente en $\theta$, por lo tanto, usando la Ec. \eqref{eq:cilindro_circ_vel} en $r=\sqrt{K/U_\infty}$ (el radio del cilindro), obtenemos
+%
+\begin{align}\label{eq:cilindro_vel_superficie}
+V_L &= -U_\infty\sin(\theta) - U_\infty\sin(\theta) - \frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\nonumber\\
+V_L &= -2U_\infty\sin(\theta) - \frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}.
+\end{align}
+%
+Aplicando Bernoulli entre el infinito y la superficie del cilindro (despreciando efectos de altura), llegamos a:
+%
+\begin{align}\label{eq:cilindro_circ_p}
+p(\theta) &= \frac{\rho}{2}\left(U_\infty^2-V_L^2\right) - p_\infty \nonumber\\
+&= \frac{\rho}{2}\left(U_\infty^2+4U_\infty^2\sin^2(\theta) + 2\frac{\Gamma U_\infty}{\pi}\sqrt{\frac{U_\infty}{K}}\sin(\theta) + \left[\frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\right]^2\right) - p_\infty
+\end{align}
+
+Diferente a la Ec. \eqref{eq:fuerza_x}, en este caso estamos interesados en calcular la componente $y$ de la fuerza, por lo tanto, la ecuación queda: 
+%
+\begin{align}\label{eq:fuerza_y}
+&F_y = \oint_A -p\mathbf{n}dS\cdot\jhat \text{, con }\mathbf{r}\cdot\jhat =r_y\sqrt{\frac{U_\infty}{K}} \text{ y } r_y = \sqrt{\frac{K}{U_\infty}}\sin(\theta),\nonumber\\
+&F_y = -\int_0^{2\pi}\left[p(\theta)\right]\sqrt{\frac{K}{U_\infty}}\sin(\theta)d\theta.
+\end{align}
+%
+La intregral del primer, tercer y cuarto término de la Ec. \eqref{eq:cilindro_circ_p} es básicamente $\int_0^{2\pi}\sin(theta)d\theta$, cual da cero.
+Por otra parte, la integral del segundo término es $\int_0^{2\pi}\sin^3(\theta)d\theta=\int_0^{2\pi}(1-\cos^2(\theta))\sin(\theta)d\theta$, que también da cero (reemplacen $u=cos(\theta)$).
+Finalmente, el único término que no se hace cero es el tercero, donde se cancela el $\sqrt{K/U_\infty}$, y es
+%
+\begin{align}
+F_y &= 2\frac{\rho}{2}\frac{\Gamma U_\infty}{\pi}\int_0^{2\pi}\sin^2(\theta)d\theta = \rho\frac{\Gamma U_\infty}{\pi}\int_0^{2\pi}\frac{1}{2}(1-\cos(2\theta))d\theta\nonumber\\
+    &= \rho\frac{\Gamma U_\infty}{\pi}\frac{1}{4}(2\theta-\sin(2\theta))_0^{2\pi} = \rho\frac{\Gamma U_\infty}{\pi}\pi = \rho\Gamma U_\infty.
+\end{align}
+
+Este resultado nos indica que un cilindro que gira produce una sustentación $L=\rho\Gamma U_\infty$ por unidad de largo.
