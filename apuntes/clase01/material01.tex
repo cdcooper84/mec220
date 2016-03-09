@@ -263,7 +263,7 @@ En otras palabras, la cantidad de masa dentro del elemento de fluido no puede ca
 Tenemos todos los elementos para hacer una rápida derivación de la ecuación de continuidad, la cual aparece en el libro \emph{Hydrodynamics} de Horace Lamb (un clásico, para quien esté interesado):
 %
 \begin{align}
-\frac{Dm}{Dt} &= \frac{D(\rho\vol)}{Dt} = \rho\frac{D\vol}{Dt} + \vol\frac{D\vol}{Dt} = 0 \left/\cdot\frac{1}{\vol}\right. \nonumber \\
+\frac{Dm}{Dt} &= \frac{D(\rho\vol)}{Dt} = \rho\frac{D\vol}{Dt} + \vol\frac{D\rho}{Dt} = 0 \left/\cdot\frac{1}{\vol}\right. \nonumber \\
 \Rightarrow & \rho \underbrace{\frac{1}{\vol}\frac{D\vol}{Dt}}_\text{$=\nabla\cdot\mathbf{V}$} + \frac{D\rho}{Dt} = 0,
 \end{align}
 %

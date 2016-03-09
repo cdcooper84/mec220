@@ -1,3 +1,5 @@
 *.svg
 *.aux
 *.log
+*.m
+.ipynb_checkpoints*
