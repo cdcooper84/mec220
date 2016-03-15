@@ -69,7 +69,7 @@ Usando las variables de la Ec. \eqref{eq:z_complejo}, podemos escribir los flujo
 
 \end{itemize}
 
-Usar esta formulación nos simplificará mucho la vida a la hora de operar sobre dobletes y vórtices que no están centrados en el origen.
+Usar esta formulación nos simplificará mucho la vida a la hora de operar sobre dobletes y vórtices que no están centrados en el origen, ya que solamente hay que reemplazar $z$ por $z-z_0$, donde $z_0$ es el centro del vórtice, doblete o fuente.
 Es más, podemos generalizar las expresiones de flujo uniforme y doblete a considerar una inclinación de éstos. 
 Para un ángulo de inclinación $\alpha$, el flujo uniforme nos queda:
 %
@@ -81,3 +81,40 @@ y el doblete
 \begin{equation} \label{eq:doblete_complejo_angulo}
 \Phi_d = \frac{K}{z}e^{i\alpha} 
 \end{equation}
+
+Utilizando números complejos, podemos calcular $\phi$ y $\psi$ de un flujo que entra en un ángulo $\alpha$ alrededor de un cilindro centrado en $z_0$ con una sola ecuación:
+%
+\begin{align} \label{eq:cilindro}
+\Phi_\text{cil} = \phi_\text{cil}+i\psi_\text{cil} = U_\infty z e^{-i\alpha} + \frac{K}{z-z_0}e^{i\alpha} -i\frac{\Gamma}{2\pi} \log(z-z_0).
+\end{align}
+
+Por ejemplo, un flujo entrante con velocidad $U_\infty=1$ y $\alpha=8^\circ$ que pasa alrededor de un cilindro con radio $r=1.1$, centrado en $(-0.1,0)$ y con circulación $\Gamma=1$ tiene las siguientes líneas de flujo:
+%
+\begin{figure}\label{fig:flujo_cil}
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_cil.pdf}
+\caption{Líneas de flujo alrededor de cilindro con circulación}
+\end{figure}
+%
+y las líneas de equipotencial
+%
+\begin{figure}\label{fig:flujo_cil}
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_cil.pdf}
+\caption{Líneas de flujo alrededor de cilindro con circulación}
+\end{figure}
+
+Para calcular la fuerza del doblete ($K$) usamos el radio del cilindro, que de la clase anterior sabemos que es $r=\sqrt{K/U_\infty}$.
+
+\section*{Transformación de Joukowsky}
+
+La transformación de Joukowsky nos permite mapear un círculo a un perfil aerodinámico. 
+Si $\zeta = \xi + i\eta$ son los puntos de un círculo en el plano $\zeta$, la tranformación de Joukowsky es
+%
+\begin{equation}
+z = \frac{a}{2}\left(\zeta + \frac{1}{\zeta}\right)
+\end{equation}
+%
+donde $z=x+iy$ son los puntos que definen el perfil aerodinámico, y $a$ es un factor que define el tamaño. 
+Eso si, existe una condición: el contorno del círculo debe intersectar el punto $\xi=1, \eta=0$, y el punto $\xi=-1, \eta=0$ debe estar contenido dentro del círculo. 
+De no cumplir estas condicones, la transformación genera geomterías que no se asemejan a un perfil aerodinámico.
