@@ -88,20 +88,20 @@ Utilizando números complejos, podemos calcular $\phi$ y $\psi$ de un flujo que 
 \Phi_\text{cil} = \phi_\text{cil}+i\psi_\text{cil} = U_\infty z e^{-i\alpha} + \frac{K}{z-z_0}e^{i\alpha} -i\frac{\Gamma}{2\pi} \log(z-z_0).
 \end{align}
 
-Por ejemplo, un flujo entrante con velocidad $U_\infty=1$ y $\alpha=8^\circ$ que pasa alrededor de un cilindro con radio $r=1.1$, centrado en $(-0.1,0)$ y con circulación $\Gamma=1$ tiene las siguientes líneas de flujo:
+Por ejemplo, un flujo entrante con velocidad $U_\infty=1$ y $\alpha=8^\circ$ que pasa alrededor de un cilindro con radio $r=1.1$, centrado en $(-0.1,0)$ y con circulación $\Gamma=1$ tiene las líneas de flujo de la Figura \ref{fig:flujo_cil} y las líneas de equipotencial \ref{fig:phi_cil}
 %
-\begin{figure}\label{fig:flujo_cil}
+\begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{clase05/flujo_cil.pdf}
-\caption{Líneas de flujo alrededor de cilindro con circulación}
+\caption{Líneas de flujo a $U_\infty=1$ y $\alpha=8^\circ$ alrededor de cilindro $r=1.1$ centrado en $(-0.1,0)$ con circulación $\Gamma=1$}\label{fig:flujo_cil}
 \end{figure}
 %
 y las líneas de equipotencial
 %
-\begin{figure}\label{fig:flujo_cil}
+\begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{clase05/flujo_cil.pdf}
-\caption{Líneas de flujo alrededor de cilindro con circulación}
+\includegraphics[width=0.7\textwidth]{clase05/phi_cil.pdf}
+\caption{Líneas de equipotencial a $U_\infty=1$ y $\alpha=8^\circ$ alrededor de cilindro $r=1.1$ centrado en $(-0.1,0)$ con circulación $\Gamma=1$}\label{fig:phi_cil}
 \end{figure}
 
 Para calcular la fuerza del doblete ($K$) usamos el radio del cilindro, que de la clase anterior sabemos que es $r=\sqrt{K/U_\infty}$.
@@ -117,4 +117,142 @@ z = \frac{a}{2}\left(\zeta + \frac{1}{\zeta}\right)
 %
 donde $z=x+iy$ son los puntos que definen el perfil aerodinámico, y $a$ es un factor que define el tamaño. 
 Eso si, existe una condición: el contorno del círculo debe intersectar el punto $\xi=1, \eta=0$, y el punto $\xi=-1, \eta=0$ debe estar contenido dentro del círculo. 
-De no cumplir estas condicones, la transformación genera geomterías que no se asemejan a un perfil aerodinámico.
+Esto es porque un perfil aerodinámico tiene un lado puntiagudo atrás (cúspide), los cuales son reproducidos por los puntos singulares de la transformación (donde la derivada de la transformación es cero); esto ocurre en $\xi=1, \eta=0$ y $\xi=-1, \eta=0$.
+De hecho, si el círculo está centrado e intersecta los dos puntos críticos, la transformación entrega una línea (Figura \ref{fig:perfil_linea}), que es la única forma de tener dos cúspides.
+Por lo tanto, de no cumplir estas condiciones, la transformación genera geometrías que no se asemejan a un perfil aerodinámico.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_linea.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio 1 centrado en el origen}\label{fig:perfil_linea}
+\end{figure}
+
+
+La Figura \ref{fig:perfil_simetrico} muestra la tranformación de Joukouwsky sobre un círculo centrado en $\xi=-0.1, \eta=0$, con radio $r=1.1$ (para que intersecte el punto $\xi=1, \eta=0$).
+Como ven, se genera un perfil aerodinámico simétrico.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.1$ centrado en $\xi=-0.1, \eta=0$}\label{fig:perfil_simetrico}
+\end{figure}
+%
+Podemos así jugar con la posición del cilindro para variar la geometría del perfil, donde la posición $\xi$ del centro modifica el ancho del perfil, y $\eta$ la curvatura.
+Por ejemplo, la Figura \ref{fig:perfil_simetrico_ancho} es el resultado de la transformación de un cilindro centrado en $\xi=-0.2, \eta=0$, y como ven, es mucho más ancho que la Figura \ref{fig:perfil_simetrico}.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico_ancho.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.2$ centrado en $\xi=-0.2, \eta=0$}\label{fig:perfil_simetrico_ancho}
+\end{figure}
+
+Por otra parte, la Figura \ref{fig:perfil_curvo} resulta de aplicar la transformación a un círculo centrado en $\xi=-0.1, \eta=0.1$, ejemplificando que de mover el centro en el eje $\eta$ el perfil toma una curvatura.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_curvo.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.1, \eta=0.1$}\label{fig:perfil_curvo}
+\end{figure}
+
+\section*{Flujo alrededor de un perfil alar y la condición de Kutta}
+
+Utilicemos la transformación de Joukowsky para estudiar el flujo alrededor de un perfil alar.
+El caso más simple es el cilindro sin circulación, y un flujo de entrada sin ángulo.
+Si centramos el cilindro en el punto $(-0.1,0)$ (el radio es tal que el círculo intersecta el punto $(1,0)$) y el flujo de entrada tiene $U_\infty=1$, obtenemos el flujo de la primera imagen de la Figura \ref{fig:flujo_cil_simple}, y si a eso le aplicamos la transformación de Joukowsky, obtenemos el flujo al rededor del perfil de la misma figura.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_cil_simple.pdf}
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.1$ con un flujo entrante de $U_\infty=1$.}\label{fig:flujo_cil_simple}
+\end{figure}
+
+El flujo de la Figura \ref{fig:flujo_cil_simple} se comporta como esperamos, pero no es muy interesante.
+En aplicaciones reales, las alas de los aviones se enfrentan al flujo en un ángulo (el ángulo de ataque).
+Podemos agregar este efecto a través de $\alpha$ en la Ec. \eqref{eq:cilindro}.
+A modo de ejemplo, si en el flujo en la Figura \ref{fig:flujo_cil_simple} consideramos $\alpha=15^\circ$, llegamos a la Figura \ref{fig:flujo_perfil_alpha15} 
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_alpha15.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.1$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_alpha15}
+\end{figure}
+
+La Figura \ref{fig:flujo_perfil_alpha15} tiene algo raro: el flujo en la parte de atrás se escapa del perfil alar en un ángulo diferente al del perfil, lo que no tiene mucho sentido físico.
+Si uno revisa imágenes del flujo detrás de perfiles alares\footnote{\url{https://www.youtube.com/watch?v=6UlsArvbTeo}}, se da cuenta que el perfil alar desvía al flujo, y sale tangencial a la punta posterior.
+Es más, en la figura \ref{fig:flujo_perfil_alpha15} da la impresión que las líneas de flujo de la parte inmediatamente inferior al perfil alar están curvándose hacia arriba y ``devolviéndose'' aguas arriba por la parte superior, lo cual es algo que la viscosidad no permite hacer.
+Sabemos que la viscosidad tiene que ver con el ``arrastre'' que un elemento de fluido produce en su vecino, y se podrán imaginar que si un elemento de fluido es arrastrado por sus vecinos, este no puede doblar por una esquina tan pronunciada.
+A pesar que nuestro modelo es no viscoso, por lo que genera este tipo de resultados no físicos, debemos hacernos cargo de alguna forma de este efecto viscoso.
+
+Hasta ahora, no hemos considerado una circulación; agreguémosla a nuestro modelo.
+Si consideramos $\Gamma=2$ en el flujo de la Figura \ref{fig:flujo_perfil_alpha15}, obtenemos el flujo de la Figura \ref{fig:flujo_perfil_gamma2}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma2.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.1$ con $\Gamma=2$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma2}
+\end{figure}
+
+La Figura \ref{fig:flujo_perfil_gamma2} parece mejorar con respecto a \ref{fig:flujo_perfil_alpha15}, ya que las líneas se acercan a ser tangentes al perfil alar, pero todavía no lo son.
+Probemos con $\Gamma=5$, como lo muestra la Figura \ref{fig:flujo_perfil_gamma5}.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma5.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.1$ con $\Gamma=5$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma5}
+\end{figure}
+
+En el caso de la Figura \ref{fig:flujo_perfil_gamma5} nos hemos pasado con mucha circulación , ya que las líneas de flujo aparecen apuntando hacia abajo.
+
+Intentémoslo con $\Gamma=3.8$.
+Este resultado corresponde a la Figura \ref{fig:flujo_perfil_gamma3}, y parece ser que el flujo sale perfectamente tangencial al perfil alar.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma3.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.1$ con $\Gamma=3.8$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma3}
+\end{figure}
+
+El resultado de la Figura \ref{fig:flujo_perfil_gamma3} es el físicamente correcto.
+A pesar de que todas las pruebas que hicimos acá cumplen con el flujo potencial, solamente una de ellas tiene relevancia física, pues se hace cargo del efecto de la viscosidad.
+Esta condición de tangencialidad a la salida del perfil alar se conoce como \emph{condición de Kutta}.
+
+\section*{La condición de Kutta y sustentación}
+
+En palabras más técnicas, la condición de Kutta dice que un cuerpo con un lado puntiagudo genera la cantidad de circulación al rededor de si mismo necesario para mantener un punto de estancamiento en la punta.
+Esto tiene trementa implicancia en la física, y empezamos a responder la pregunta \mbox{?`}Por qué vuelan los aviones?
+La gracia de que trabajamos con el perfil de Joukowsky es que se hace patente que al estar en un ángulo genera sustentación, pues es equivalente a un cilindro con sustentación.
+Si $\Gamma_\text{Kutta}$ es la circulación que cumple con la condición de Kutta (para que la solución tenga relevancia física), la fuerza sobre el perfil alar es
+%
+\begin{equation}
+L = \rho\Gamma_\text{Kutta}U_\infty,
+\end{equation}
+%
+que es la sustentación sobre el cilindro equivalente.
+
+En resumen \mbox{?`}por qué un ala es capaz de levantar un avión? Por que el ángulo del ala desvía el flujo hacia abajo y la punta de la parte posterior del perfil alar fuerza al flujo a salir tangencial (por viscosidad).
+Esto genera una circulación alrededor del ala que resulta en una fuerza de sustentación.
+El flujo potencial no es capaz de reproducir esto por si solo, ya que no considera viscosidad, y debemos agregarle al flujo una circulación $\Gamma_\text{Kutta}$ tal que se cumple la condición de Kutta.
+
+\subsection*{Vórtice de arranque}
+Hace un par de clases discutimos algo que quizás pasó algo desapercibido, pero hoy lo revisitamos: el teorema de circulación de Kelvin
+%
+\begin{equation}
+\frac{D\Gamma}{Dt}=0
+\end{equation}
+
+El teorema de circulación de Kelvin dice que para un flujo no viscoso, la circulación se mantiene constante en el tiempo.
+La solución que aparece graficada en la Figura \ref{fig:flujo_perfil_gamma3} no es más que el estado estacionario de un problema transiente, que tiene que haber partido con velocidad cero.
+Aquí salta algo extraño: si el flujo está quieto, $\Gamma=0$, sin embargo, en el estado estacionario $\Gamma=\Gamma_\text{Kutta}$, por lo que se generó circulación de alguna manera y aparentemente estamos violando el teorema de circulación de Kelvin.
+Resulta que cuando el flujo inicia su movimiento, se desprende del perfil alar un vórtice con exactamente la circulación contraria $\Gamma=-\Gamma_\text{Kutta}$, que se conoce como \emph{vórtice de arranque}, cancelando la circulación total.
+El vórtice de arranque se puede ver en simulaciones\footnote{\url{https://www.youtube.com/watch?v=B-tcx5hTf_A}} y con experimentos muy simples.\footnote{\url{https://www.youtube.com/watch?v=t7Sp4Nd9cg0}}
+
+La circulación se define como
+%
+\begin{equation}
+\Gamma = \oint_L\mathbf{V}\cdot\mathbf{t}dl,
+\end{equation}
+%
+donde $L$ es una curva cerrada, de la cual el vector $\mathbf{t}$ es tangente, y $dl$ es un elemento de $L$.
+Si $L$ es una curva que encierra al perfil alar solamente, inicialmente calcularíamos $\Gamma=0$, y en el estado estacionario $\Gamma=\Gamma_\text{Kutta}$.
+Sin embargo, si $L$ encierra tanto el perfil alar como el vórtice de arranque (que probablemente está lejos aguas abajo), $\Gamma=0$ y se cumple el teorema de la circulación de Kelvin.
