@@ -49,7 +49,7 @@ Consideremos la curva $y=y(x)$ que describe $\phi(x,y(x))=$constante, y derivemo
 %
 \begin{align}\label{eq:linea_potencial}
 \frac{d\phi}{dx} &= \frac{\partial\phi}{\partial x}\frac{dx}{dx} + \frac{\partial\phi}{\partial y} \frac{dy}{dx} = 0\nonumber\\
-\Rightarrow &\frac{dy}{dx} = \frac{\partial\phi/\partial x}{\partial\phi}{\partial y} = \frac{u}{v}.
+\Rightarrow &\frac{dy}{dx} = \frac{\partial\phi/\partial x}{\partial\phi/\partial y} = \frac{u}{v}.
 \end{align}
 %
 La clase pasada dijimos que en una línea de flujo $dy/dx=v/u$, lo cual es exactamente perpendicular al resultados que llegamos en la Ec. \eqref{eq:linea_potencial}.
@@ -232,7 +232,13 @@ Todavía no hemos definido la superficie $\partial\vol$, y solamente hemos dicho
 Como $q\neq0$, dentro del volumen $\vol$ tiene que haber algo que esté generando (o sacando) flujo: la función $\delta$ es una fuente (o sumidero) de fluido.
 
 \paragraph{Solución de $\phi$}
-En coordenadas polares, y considerando solamente un flujo radial, la Ec. \eqref{eq:fuente_laplace} en el dominio $r>0$ es
+En coordenadas polares, el operador Laplaciano es 
+%
+\begin{equation}
+\nabla^2\phi = \frac{1}{r}\frac{\partial\phi}{\partial r} + \frac{\partial^2\phi}{\partial r^2} + \frac{1}{r^2}\frac{\partial^2\phi}{\partial\theta}.
+\end{equation}
+%
+y considerando solamente un flujo radial, la Ec. \eqref{eq:fuente_laplace} en el dominio $r>0$ es
 %
 \begin{equation}
 \frac{1}{r}\frac{\partial\phi}{\partial r} + \frac{\partial^2\phi}{\partial r^2} = 0.
@@ -284,7 +290,7 @@ V_r=\frac{1}{r}\frac{\partial\psi}{\partial\theta} \quad V_\theta=-\frac{\partia
 Insertando la expresión de $V_r$ en la Ec. \eqref{eq:Vfuente} en la Ec. \eqref{eq:psi_polar} e integrando, llegamos a que
 %
 \begin{equation}
-\psi = \int V_rr d\theta = \int\frac{q}{2\pi r} rd\theta = -\frac{q}{2\pi}\theta. 
+\psi = \int V_rr d\theta = \int\frac{q}{2\pi r} rd\theta = \frac{q}{2\pi}\theta. 
 \end{equation}
 
 En resumen:
@@ -292,12 +298,12 @@ En resumen:
 \item Fuente:
 \begin{align}
 V_r &= \frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
+\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
 \end{align}
 \item Sumidero:
 \begin{align}
 V_r &= -\frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
+\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
 \end{align}
 \end{itemize}
 %
@@ -329,8 +335,9 @@ Ya vimos la clase pasada que $\nabla^2\psi=\omega_z$, por lo que la Ec. \eqref{e
 No es necesario repetir todo lo que hicimos anteriormente, sabemos que la solución es 
 %
 \begin{align}
-V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
-\phi&=\frac{\Gamma}{2\pi}\theta \quad \psi = -\frac{\Gamma}{2\pi}\ln(r).
+\phi&=\frac{\Gamma}{2\pi}\theta \nonumber\\
+\Rightarrow V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
+\Rightarrow \psi &= -\int V_\theta dr = -\frac{\Gamma}{2\pi}\ln(r)
 \end{align}
 %
 Este flujo se llama vórtice, donde la velocidad es angular y su magnitud va decayendo a medida que nos alejamos del centro del vórtice.
@@ -368,12 +375,12 @@ Para esta derivación, necesitaremos saber como expresar una fuente y sumidero q
 \label{fig:fuente_sumidero}
 \end{figure}
 
-La función corriente de la fuente es $\psi_f=-\frac{q}{2\pi}\theta_1$ y el del sumidero $\psi_s=\frac{q}{2\pi}\theta_2$, por lo tanto, la función corriente del doblete es la suma de estas dos contribuciones $\psi=-\frac{q}{2\pi}(\theta_1-\theta_2)$.
+La función corriente de la fuente es $\psi_f=\frac{q}{2\pi}\theta_1$ y el del sumidero $\psi_s=-\frac{q}{2\pi}\theta_2$, por lo tanto, la función corriente del doblete es la suma de estas dos contribuciones $\psi=\frac{q}{2\pi}(\theta_1-\theta_2)$.
 El punto $P$ en la Figura \ref{fig:fuente_sumidero} está ubicado en el punto $(x,y)$, por lo tanto $\tan(\theta_1)=\frac{y}{x+a}$ y $\tan(\theta_2)=\frac{y}{x-a}$, y usando identidades trigonométricas, podemos decir que
 %
 \begin{align}
 \tan(\theta_1-\theta_2) &= \frac{\tan(\theta_1)-\tan(\theta_2)}{1+\tan(\theta_1)\tan(\theta_2)}\nonumber\\
-&=\frac{\frac{y}{x+a}-\frac{y}{x-a}}{1+\frac{y}{x+a}\frac{y}{x-a}} = \frac{y(x-a)-y(x+a)}{x^2-a^2+y^2} = \frac{2ya}{x^2-a^2+y^2}.
+&=\frac{\frac{y}{x+a}-\frac{y}{x-a}}{1+\frac{y}{x+a}\frac{y}{x-a}} = \frac{y(x-a)-y(x+a)}{x^2-a^2+y^2} = -\frac{2ya}{x^2-a^2+y^2}.
 \end{align}
 %
 Veamos ahora que pasa en el límite en que $a\to0$.
@@ -383,7 +390,7 @@ Por otra parte, y para que todo nuestro resultado no se vaya a cero, saquemos el
 Con todo esto, la suma de la fuente más el sumidero, queda
 %
 \begin{equation}
-\psi=-\frac{q}{2\pi}(\theta_1-\theta_2) = -\frac{q}{2\pi}\frac{2ya}{x^2+y^2}.
+\psi=\frac{q}{2\pi}(\theta_1-\theta_2) = -\frac{q}{2\pi}\frac{2ya}{x^2+y^2}.
 \end{equation}
 %
 Llamemos $K=\frac{qa}{\pi}$, y reemplacemos por coordenadas polares ($y=r\sin\theta$, $r=\sqrt{x^2=y^2})$:
