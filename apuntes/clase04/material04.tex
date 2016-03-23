@@ -253,7 +253,7 @@ Despreciando el efecto de la diferencia de altura (que de hecho se cancela), pod
 %
 \begin{align}\label{eq:cilindro_p}
 &\frac{p_\infty}{\rho} + \frac{U_\infty^2}{2} = \frac{p_c(\theta)}{\rho} + \frac{V_c^2}{2}\nonumber\\
-&p(\theta) = \frac{\rho}{2}\left(U_\infty^2-V_c^2\right) - p_\infty = \frac{U_\infty^2\rho}{2}\left(1+4\sin^2(\theta)\right) - p_\infty
+&p(\theta) = \frac{\rho}{2}\left(U_\infty^2-V_c^2\right) + p_\infty = \frac{U_\infty^2\rho}{2}\left(1+4\sin^2(\theta)\right) + p_\infty
 \end{align}
 
 Usemos la Ec. \eqref{eq:cilindro_p} para encontrar la fuerza que está resistiendo el cilindro.
@@ -278,7 +278,7 @@ donde $R$ es el radio del cilindro, $\mathbf{r}=(r_x,r_y)$ es en este caso la su
 Si usamos la Ec. \eqref{eq:cilindro_p}, llegamos a
 %
 \begin{align}
-F_x = -\int_0^{2\pi}\left[\frac{U_\infty^2\rho}{2}(1+4\sin^2(\theta))-p_\infty\right]R\cos(\theta)d\theta=0.
+F_x = -\int_0^{2\pi}\left[\frac{U_\infty^2\rho}{2}(1+4\sin^2(\theta))+p_\infty\right]R\cos(\theta)d\theta=0.
 \end{align}
 El primer y segundo término son la integral $\int_0^{2\pi}\cos(\theta)d\theta=0$.
 El segundo término es $\int_0^{2\pi}\sin^2\theta\cos\theta d\theta=0$, lo cual es fácil de demostrar al reemplazar $u=\sin\theta$.
@@ -339,8 +339,8 @@ V_L &= -2U_\infty\sin(\theta) - \frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}.
 Aplicando Bernoulli entre el infinito y la superficie del cilindro (despreciando efectos de altura), llegamos a:
 %
 \begin{align}\label{eq:cilindro_circ_p}
-p(\theta) &= \frac{\rho}{2}\left(U_\infty^2-V_L^2\right) - p_\infty \nonumber\\
-&= \frac{\rho}{2}\left(U_\infty^2+4U_\infty^2\sin^2(\theta) + 2\frac{\Gamma U_\infty}{\pi}\sqrt{\frac{U_\infty}{K}}\sin(\theta) + \left[\frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\right]^2\right) - p_\infty
+p(\theta) &= \frac{\rho}{2}\left(U_\infty^2-V_L^2\right) + p_\infty \nonumber\\
+&= \frac{\rho}{2}\left(U_\infty^2+4U_\infty^2\sin^2(\theta) + 2\frac{\Gamma U_\infty}{\pi}\sqrt{\frac{U_\infty}{K}}\sin(\theta) + \left[\frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\right]^2\right) + p_\infty
 \end{align}
 
 Diferente a la Ec. \eqref{eq:fuerza_x}, en este caso estamos interesados en calcular la componente $y$ de la fuerza, por lo tanto, la ecuación queda: 
@@ -350,7 +350,7 @@ Diferente a la Ec. \eqref{eq:fuerza_x}, en este caso estamos interesados en calc
 &F_y = -\int_0^{2\pi}\left[p(\theta)\right]\sqrt{\frac{K}{U_\infty}}\sin(\theta)d\theta.
 \end{align}
 %
-La intregral del primer, tercer y cuarto término de la Ec. \eqref{eq:cilindro_circ_p} es básicamente $\int_0^{2\pi}\sin(theta)d\theta$, cual da cero.
+La intregral del primer, cuarto y quinto término de la Ec. \eqref{eq:cilindro_circ_p} es básicamente $\int_0^{2\pi}\sin(\theta)d\theta$, cual da cero.
 Por otra parte, la integral del segundo término es $\int_0^{2\pi}\sin^3(\theta)d\theta=\int_0^{2\pi}(1-\cos^2(\theta))\sin(\theta)d\theta$, que también da cero (reemplacen $u=cos(\theta)$).
 Finalmente, el único término que no se hace cero es el tercero, donde se cancela el $\sqrt{K/U_\infty}$, y es
 %
