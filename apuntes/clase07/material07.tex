@@ -9,8 +9,8 @@ Objetivos:
 
 Contenidos:
 \begin{itemize}
-    \item La energía cinética y disipación
     \item Escalas de movimiento.
+    \item La energía cinética y disipación
     \item La cascada de energía.
     \item La escala de Kolmogorov.
     \item Los modelos de turbulencia.
@@ -23,3 +23,76 @@ Bibliografía:
 \end{itemize}
 \end{framed}
 
+\section*{Escalas de movimiento}
+
+Hagamos el siguiente experimento mental: digamos que tenemos un vaso con agua, la cual revolvemos con una cuchara.
+En la macro escala, uno esperaría que la cuchara empuje al fluido y este comience a moverse en una trayectoria circular, similar a la de la cuchara.
+Esa intuición es correcta, sin embargo, si nos acercamos, nos podremos dar cuenta que el paso de la cuchara no solo genera un movimiento en la escala del movimiento de la cuchara, si no que además genera pequeños vórtices que se desprenden del flujo ``grande''.
+Luego, si nos acercamos aún más, veremos que esos vórtices generan escalas de movimiento aún más pequeñas, y así sucesivamente.
+Por lo tanto, a pesar que nosotros estamos introduciendo un flujo del porte de la cuchara y las vueltas que damos para revolver, finalmente estamos generando vórtices de muchas escalas.
+
+Estos vórtices más pequeños ocurren por la inestabilidad del flujo laminar. 
+De hecho, si revolviésemos suficientemente lento las perturbaciones en las otras direcciones serían aplacadas por la viscosidad, y no tendríamos vórtices más pequeños.
+Esto nos dice que esta distribución de escalas de movimiento es una indicación de turbulencia, y resulta en el flujo aparentemente desordenado del que hemos estado conversando.
+
+En esta clase vamos a estudiar esta cascada de escalas, y veremos que es lo que ocurre en cada una de ellas.
+
+\section*{Energía cinética y disipación}
+
+La clase pasada introdujimos el concepto de energía cinética turbulenta:
+%
+\begin{equation}
+K = \frac{1}{2}\overline{u'_iu'_i},
+\end{equation}
+%
+que corresponde a la energía cinética debido a las fluctuaciones en la velocidad.
+Por otra parte, presentamos una ecuación de conservación de la energía cinética turbulenta, la cual es:
+%
+\begin{align}\label{eq:K_conservacion}
+\frac{DK}{Dt} =& -\frac{\partial}{\partial x_i} \left[ \overline{u'_i\left(\frac{1}{2}u'_iu'_j+\frac{p'}{\rho}\right)}\right] - \overline{u'_iu'_j}\frac{\partial\overline{u}_j}{\partial x_i} \nonumber\\
+               & + \frac{\partial}{\partial x_i}\left[\overline{\nu u_j'\left(\frac{\partial u'_i}{\partial x_j} + \frac{\partial u_j'}{\partial x_i}\right)}\right] -\nu\overline{\frac{\partial u_j'}{\partial x_i}\left(\frac{\partial u_i'}{\partial x_j}+\frac{\partial u_j'}{\partial x_i}\right)},
+\end{align}
+%
+y describimos el significado físico de cada uno de los términos.
+Detengámonos en el último de ellos, que llamamos disipación:
+%
+\begin{equation}\label{eq:disipacion}
+\epsilon_T = \nu\overline{\frac{\partial u_j'}{\partial x_i}\left(\frac{\partial u_i'}{\partial x_j}+\frac{\partial u_j'}{\partial x_i}\right)}.
+\end{equation}
+%
+Este término es el responsable de la disipación de la energía cinética en forma de calor, mediante fricción molecular. 
+Podemos descomponer la disipación en dos términos:
+%
+\begin{align} \label{eq:disipacion_iso}
+\epsilon_T &= \epsilon + \nu\overline{\frac{\partial u_j'}{\partial x_i}\frac{\partial u_j'}{\partial x_i}} \text{, donde,} \nonumber \\
+\epsilon &= \nu\overline{\left(\frac{\partial u_j}{\partial x_i}\right)^2},
+\end{align}
+%
+y a $\epsilon$ lo llamamos la disipación isotrópica.
+De hecho, en el caso de turbulencia homogénea homogénea, el término $\overline{\frac{\partial u_j'}{\partial x_i}\frac{\partial u_j'}{\partial x_i}}= \frac{\partial}{\partial x_j}\left(\overline{u_i\frac{\partial u_j}{\partial x_i}}\right) = 0$, y $\epsilon_T=\epsilon$.
+
+A continuación intentaremos dilucidar la escala a la cual ocurre la disipación.
+Esta es una derivación bastante más larga de lo que presentamos acá, pero intentaremos de darle sentido sin entrar en demasiados detalles.
+
+Definamos una función $R_{ij}(\mathbf{x},\mathbf{y},t) = \overline{u'_i(\mathbf{x},t)u'_j(\mathbf{y},t)}$ que llamamos la función de correlación entre dos puntos.
+Esta función de correlación no es más que el promedio de la multiplicación de la velocidad evaluada en dos puntos $\mathbf{x}$ y $\mathbf{y}$, y nos entrega información de que tanto cambian las fluctuaciones de velocidad en el espacio; si un flujo es extremadamente desordenado y turbulento, es muy probable que $R_{ij}$ sea muy cercano a cero, y en general, uno esperaría que se alejara de cero a medida que $\mathbf{x}$ e $\mathbf{y}$ se acerquen.
+Fíjense que $R_{ii}$ para $\mathbf{x}\to\mathbf{y}$ no es más que dos veces la energía cinética ($2K$).
+
+Pensemos que estamos hablando de turbulencia homogénea isotrópica (sus propiedades son homogéneas en el dominio, y no dependen de la dirección).
+En este caso, es intuitivo pensar que la correlación $R_{ij}$ no depende de los puntos absolutos $\mathbf{x}$ y $\mathbf{y}$, si no que de la distancia entre ellos $\mathbf{r} = \mathbf{y}-\mathbf{x}$.
+De esta forma, podemos definir una función de correlación $R'_{ij}$ tal que $R'_{ij}(\mathbf{r},t) = R_{ij}(\mathbf{x},\mathbf{y},\mathbf{t})$, y sus derivadas son:
+%
+\begin{align}
+\frac{\partial R_{ij}}{\partial x_k} &= -\frac{\partial R'_{ij}}{\partial r_k} \nonumber \\
+\frac{\partial R_{ij}}{\partial y_k} &= \frac{\partial R'_{ij}}{\partial r_k} 
+\frac{\partial^2 R_{ij}}{\partial x_k^2} = \frac{\partial^2 R_{ij}}{\partial y_k^2} = -\frac{\partial^2 R_{ij}}{\partial x_k\partial y_k} = \frac{\partial^2 R'_{ij}}{\partial r_k^2} 
+\end{align}
+%
+Si derivamos $R_{ij}$ con respecto a $\mathbf{x}$ e $\mathbf{y}$, llegamos a
+%
+\begin{equation}
+\frac{\partial^2R_{ij}}{\partial x_k\partial y_k} = \frac{\partial}{\partial x_k}\frac{\partial}{\partial y_k} R_{ij} =\frac{\partial}{\partial x_k}\frac{\partial}{\partial y_k} \overline{u'_i(\mathbf{x},t)u'_j(\mathbf{y},t)} = \overline{\frac{\partial u'_i}{\partial x_k}\frac{\partial u'_j}{\partial y_k}} = -\frac{\partial^2 R'_{ij}}{\partial r_k^2},
+\end{equation}
+%
+lo que es igual a $\epsilon/\nu$.
+De esta forma encontramos una relación entre la energía cinética turbulenta y la disipación isotrópica, ya que $R'_{ij} = 2K$, y $\frac{\partial^2 R'_{ij}}{\partial r_k^2} = \frac{\epsilon}{\nu}$.

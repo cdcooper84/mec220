@@ -291,11 +291,12 @@ Después de bastante algebra, llegamos a
                & + \frac{\partial}{\partial x_i}\left[\overline{\nu u_j'\left(\frac{\partial u'_i}{\partial x_j} + \frac{\partial u_j'}{\partial x_i}\right)}\right] -\nu\overline{\frac{\partial u_j'}{\partial x_i}\left(\frac{\partial u_i'}{\partial x_j}+\frac{\partial u_j'}{\partial x_i}\right)}
 \end{align}
 
-La Ec. \eqref{eq:K_conservacion} es tremendamente complicada, pero hay algunas cosas que podemos sacar en limpio.
+La Ec. \eqref{eq:K_conservacion} es tremendamente complicada, pero hay algunas cosas que podemos sacar en limpio, sobre todo si la integramos en un volúmen fijo en el espacio.
 El término a la izquierda es la derivada material, en otras palabras, la razón de cambio de $K$ en un elemento de fluido que se mueve con el flujo.
-El segundo término incluye $u'_i\frac{1}{2}u'_ju'_j$, y puede ser visto como una convección de energía cinética.
+Al integrar el segundo término, podemos utilizar el teorema de la divergencia para visualizarlo como convección de energía cinética a través de la superficie.
 El tercer término no tiene una forma que se pueda asociar a un proceso de convección o difusión, y puede ser visto como una fuente, o producción de energía cinética.
-El cuarto término es el trabajo realizado por los esfuerzos viscosos, y finalmente el quinto es la disipación viscosa.
+El cuarto término también toma importancia en el borde del volumen de integración con el teorema de la divergencia, y es el trabajo realizado por los esfuerzos viscosos en ese borde.
+Finalmente el quinto es la disipación viscosa.
 
 
 \subsection*{La viscosidad turbulenta}
@@ -322,5 +323,5 @@ Otros casos son un chorro circular, donde $l_m = 0.75\delta$, donde $\delta$ es 
 Usando el modelo de longitud de mezcla de Prandtl, el tensor de esfuerzos de Reynolds queda
 %
 \begin{equation}
-\overline{u_1'u'_2} = l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|frac{\partial \overline{u}_1}{\partial x_2}
+\overline{u_1'u'_2} = l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|\frac{\partial \overline{u}_1}{\partial x_2}
 \end{equation}
