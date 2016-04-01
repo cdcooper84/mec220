@@ -71,6 +71,7 @@ Podemos descomponer la disipación en dos términos:
 y a $\epsilon$ lo llamamos la disipación isotrópica.
 De hecho, en el caso de turbulencia homogénea homogénea, el término $\overline{\frac{\partial u_j'}{\partial x_i}\frac{\partial u_j'}{\partial x_i}}= \frac{\partial}{\partial x_j}\left(\overline{u_i\frac{\partial u_j}{\partial x_i}}\right) = 0$, y $\epsilon_T=\epsilon$.
 
+\paragraph*{La función de correlación.}
 A continuación intentaremos dilucidar la escala a la cual ocurre la disipación.
 Esta es una derivación bastante más larga de lo que presentamos acá, pero intentaremos de darle sentido sin entrar en demasiados detalles.
 
@@ -95,4 +96,55 @@ Si derivamos $R_{ij}$ con respecto a $\mathbf{x}$ e $\mathbf{y}$, llegamos a
 \end{equation}
 %
 lo que es igual a $\epsilon/\nu$.
-De esta forma encontramos una relación entre la energía cinética turbulenta y la disipación isotrópica, ya que $R'_{ij} = 2K$, y $\frac{\partial^2 R'_{ij}}{\partial r_k^2} = \frac{\epsilon}{\nu}$.
+De esta forma encontramos una relación entre la energía cinética turbulenta y la disipación isotrópica, ya que $R'_{ij}(\mathbf{r}=0) = 2K$, y $\frac{\partial^2 R'_{ij}}{\partial r_k^2}(\mathbf{r}=0) = \frac{\epsilon}{\nu}$.
+
+\paragraph*{Turbulencia en el espacio de Fourier.}
+Podemos descomponer una función como una expansión infinita de transformadas de Fourier.
+Por ejemplo, la descomposición de Fourier de $R_{ij}'(\mathbf{r},t)$ es
+%
+\begin{equation}\label{eq:expansion_fourier}
+R_{ij}'(\mathbf{r},t) = \int_0^\infty \hat{R}_{ij}(\mathbf{k},t)e^{ik\mathbf{r}}d\mathbf{k},
+\end{equation}
+%
+y la pregunta se reduce a encontrar la función $\hat{R}_{ij}(\mathbf{k},t)$, tal que esa integral represente a la función original fielmente.
+Afortunadamente, tenemos la transformada de Fourier para calcular ese término:
+%
+\begin{equation}\label{eq:transformada_fourier}
+\hat{R}_{ij}'(\mathbf{k},t) = \int_0^\infty R_{ij}(\mathbf{r},t)e^{-ik\mathbf{r}}d\mathbf{r}.
+\end{equation}
+%
+\mbox{?`}Para qué sirve todo esto? Quizás es más fácil visualizarlo en forma discreta: pensemos que en vez de una integral tenemos una suma (la integral puede ser vista de esta manera).
+Fíjense que el término $e^{ik\mathbf{r}}=\cos(kr)+i\sin(kr)$ es una suma de un seno y un coseno, donde $k$ es el número de onda (o frecuencia espacial).
+Por lo tanto, la expansión de Fourier en la Ec. \eqref{eq:expansion_fourier} puede ser visto como una suma de senos y cosenos de diferente frecuencia, y $\hat{R}_{ij}(\mathbf{k},t)$ es la constante que acompaña a cada seno y coseno.
+De esta forma, podemos pensar que para representar una función que varía muy lento, proablemente encontremos que $\hat{R}_{ij}(\mathbf{k},t)$ son altos para $\mathbf{k}$ pequeños.
+Por otra parte, para una función que varía muy rápido en el espacio, los factores $\hat{R}_{ij}(\mathbf{k},t)$ que dominen van a ser de $\mathbf{k}$ altos.
+
+Así podemos ver la utilidad de la transformada de Fourier en la Ec. \eqref{eq:transformada_fourier}, ya que nos indicará la naturaleza de la función: es de ``alta'' o ``baja'' variabilidad.
+Volvamos a hablar de mecánica de fluidos.
+Dijimos anteriormente que al revolver un vaso de agua generamos movimientos en muchas escalas, la más grande es la escala del giro de la cuchara, y que se generarían vórtices cada vez más pequeños.
+En término relativos, la escala grande varía ``lento'' en el espacio, y mientras más chica la escala, más ``rápida'' es la variación.
+Si hacemos una descomposición de Fourier del flujo, las escalas grandes excitarán los $\mathbf{k}$ más pequeños, y los vórtices chicos los $\mathbf{k}$ más grandes.
+Un ejemplo: un flujo laminar solo tiene una escala de movimiento, por lo que excitaría solo un $\mathbf{k}$ (o un pequeños conjunto de $\mathbf{k}$s que están muy cerca uno de otro).
+
+Para encontrar la expansión de Fourier de la energía cinética, solamente debemos hacer $i=j$ en la Ec. \eqref{eq:trnasformada_fourier} y evaluar $\mathbf{r}=0$ (pues $\mathbf{x}\to\mathbf{y}$), y llegamos a
+%
+\begin{equation}
+K(t) = \int_0^\infty \hat{R}'_{ij}(\mathbf{k},t)d\mathbf{k}
+\end{equation}
+
+Encontrar la transformada de Fourier de la derivada de una función es muy fácil. 
+Derivemos la Ec. \eqref{eq:expansion_fourier}:
+%
+\begin{align}
+\frac{\partial R_{ij}'}{\partial r_i}(\mathbf{r},t) &= \int_0^\infty \hat{R}_{ij}(\mathbf{k},t)\frac{\partial}{\partial r_i}e^{ik\mathbf{r}}d\mathbf{k} = \int_0^\infty ik\hat{R}_{ij}(\mathbf{k},t)e^{ik\mathbf{r}}d\mathbf{k}\nonumber\\
+\frac{\partial^2 R_{ij}'}{\partial r_i^2}(\mathbf{r},t) &= \int_0^\infty \hat{R}_{ij}(\mathbf{k},t)\frac{\partial^2}{\partial r^2_i}e^{ik\mathbf{r}}d\mathbf{k} = \int_0^\infty -k^2\hat{R}_{ij}(\mathbf{k},t)e^{ik\mathbf{r}}d\mathbf{k},
+\end{align}
+%
+por cada derivada, simplemente multiplicamos por $ik$ para encontrar la transformada de Fourier!
+Ya encontramos la relación entre la energía cinética turbulenta y la disipación isotrópica, donde $R'_{ij}(\mathbf{r}=0) = 2K$, y $\frac{\partial^2 R'_{ij}}{\partial r_k^2}(\mathbf{r}=0) = \frac{\epsilon}{\nu}$.
+Por lo tanto, la transformada de Fourier asociada a la disipación es igual a la transformada de Fourier de la energía cinética, multiplicada por $\k^2$.
+Entonces podemos escribir una expansión de Fourier para la disipación:
+%
+\begin{equation}
+\epsilon(t) = -k^2 \int_0^\infty \hat{R}'_{ij}(\mathbf{k},t)d\mathbf{k}
+\end{equation}
