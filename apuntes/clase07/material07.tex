@@ -124,11 +124,12 @@ Volvamos a hablar de mecánica de fluidos.
 Dijimos anteriormente que al revolver un vaso de agua generamos movimientos en muchas escalas, la más grande es la escala del giro de la cuchara, y que se generarían vórtices cada vez más pequeños.
 En término relativos, la escala grande varía ``lento'' en el espacio, y mientras más chica la escala, más ``rápida'' es la variación.
 Si hacemos una descomposición de Fourier del flujo, las escalas grandes excitarán los $\mathbf{k}$ más pequeños, y los vórtices chicos los $\mathbf{k}$ más grandes.
+Por lo tanto, si $l_e$ es la longitud característica de un vórtice, $\l_e\sim 1/k$.
 Un ejemplo: un flujo laminar solo tiene una escala de movimiento, por lo que excitaría solo un $\mathbf{k}$ (o un pequeños conjunto de $\mathbf{k}$s que están muy cerca uno de otro).
 
-Para encontrar la expansión de Fourier de la energía cinética, solamente debemos hacer $i=j$ en la Ec. \eqref{eq:trnasformada_fourier} y evaluar $\mathbf{r}=0$ (pues $\mathbf{x}\to\mathbf{y}$), y llegamos a
+Para encontrar la expansión de Fourier de la energía cinética, solamente debemos hacer $i=j$ en la Ec. \eqref{eq:transformada_fourier} y evaluar $\mathbf{r}=0$ (pues $\mathbf{x}\to\mathbf{y}$), y llegamos a
 %
-\begin{equation}
+\begin{equation}\label{eq:K_fourier}
 K(t) = \int_0^\infty \hat{R}'_{ij}(\mathbf{k},t)d\mathbf{k}
 \end{equation}
 
@@ -142,9 +143,25 @@ Derivemos la Ec. \eqref{eq:expansion_fourier}:
 %
 por cada derivada, simplemente multiplicamos por $ik$ para encontrar la transformada de Fourier!
 Ya encontramos la relación entre la energía cinética turbulenta y la disipación isotrópica, donde $R'_{ij}(\mathbf{r}=0) = 2K$, y $\frac{\partial^2 R'_{ij}}{\partial r_k^2}(\mathbf{r}=0) = \frac{\epsilon}{\nu}$.
-Por lo tanto, la transformada de Fourier asociada a la disipación es igual a la transformada de Fourier de la energía cinética, multiplicada por $\k^2$.
+Por lo tanto, la transformada de Fourier asociada a la disipación es igual a la transformada de Fourier de la energía cinética, multiplicada por $k^2$.
 Entonces podemos escribir una expansión de Fourier para la disipación:
 %
-\begin{equation}
-\epsilon(t) = -k^2 \int_0^\infty \hat{R}'_{ij}(\mathbf{k},t)d\mathbf{k}
+\begin{equation}\label{eq:disipacion_fourier}
+\epsilon(t) = -\nu k^2 \int_0^\infty \hat{R}'_{ij}(\mathbf{k},t)d\mathbf{k}
 \end{equation}
+
+Pensemos bien en lo que nos dice la Ec. \eqref{eq:disipacion_fourier} en comparación con la Ec. \eqref{eq:K_fourier}.
+Imaginen que tenemos un flujo turbulento del cual conocemos su campo de velocidades, calculamos su energía cinética y la transformada de Fourier $\hat{R}'_{ij}$.
+Esta transformada de Fourier nos indicará cuales son los $\mathbf{k}$ más excitados, por ejemplo, en la Figura \ref{fig:energia_fourier}, el peak de $\hat{R}'_{ij}$ ocurre en $k_d$.
+Pero al multiplicarlo por $k^2$ el peak se corre hacia la derecha, y ahora se encuentra en $k_e$
+\mbox{?`}Qué significa esto? Que la disipación a alto $k$, o sea, en los vórtices más pequeños.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{clase07/energia_fourier.pdf}
+\caption{Gráfico de energía con respecto a escalas de movimiento}
+\label{figenergia_fourier}
+\end{figure}
+
+Aquí ocurre algo interesante: mientras la energía cinética entra al sistema por las grandes escalas (la cuchara que revuelve), la disipación de energía cinética ocurre en las pequeñas escalas.
+Esto nos dice que tiene que haber un mecanismo de transferencia de energía cinética desde los vórtices grandes a los pequeños, en lo que se llama la \emph{cascada de energía}.
