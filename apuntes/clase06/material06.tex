@@ -259,11 +259,36 @@ y la Ec. \eqref{eq:RANS_prev2} queda
 
 La Ec. \eqref{eq:RANS} se conoce como la ecuación de Reynolds.
 La ecuación de Reynolds es muy parecida a la ecuación de Navier-Stokes con cada término promedidado por si solo, más $\frac{\partial \overline{u'_iu'_j}}{\partial x_j}$.
-El término $\overline{u'_iu'_j}$ se conoce como el tensor de esfuerzos de Reynolds \mbox{?`}Por qué tensor? $i$ y $j$ pueden tomar tres valores (1, 2 o 3), por lo que ecisten 9 posibles valores, que podemos ordenar en una matriz $3\times 3$.
+El término $\overline{u'_iu'_j}$ se conoce como el tensor de esfuerzos de Reynolds \mbox{?`}Por qué tensor? $i$ y $j$ pueden tomar tres valores (1, 2 o 3), por lo que existen 9 posibles valores, que podemos ordenar en una matriz $3\times 3$.
 Es el tensor de esfuerzos de Reynolds el que produce todas las complicaciones en el estudio de turbulencia, y se ha gastado mucho tiempo y recursos en generar ecuaciones que nos permitan modelar este término.
 
-El nombre tensor de esfuerzos no parece ser muy adecuado, ya que son solamente términos de la intercia turbulenta, no esfuerzos.
-Pero podemos escribirlos como si fueran esfuerzos si generamos la variable $\tau$, tal que:
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{clase06/flujo_momentum.pdf}
+\caption{Flujo de momentum en un flujo turbulento}
+\label{fig:flujo_momentum}
+\end{figure}
+%
+El nombre tensor de esfuerzos no parece ser muy adecuado, ya que son solamente términos de la inercia turbulenta, no esfuerzos.
+Sin embargo, podemos visualizar este tensor como un esfuerzo, pues genera un flujo de momentum.
+Usemos la Figura \ref{fig:flujo_momentum} para ejemplificar esto.
+Esta figura presenta un flujo uniforme turbulento con velocidad en el eje $i$, $u_i = \overline{u}_i + u'_i$, y un área $dA$ alineada con el flujo (su normal es perpendicular a $i$, $\mathbf{n}_j$).
+La cantidad de fluido que pasa por $dA$ en un tiempo $dt$ es igual a $u_jdAdt$, y el caudal $Q=u_jdA$, pero el flujo promedio no tiene componente en el eje $j$, por lo tanto, $\overline{u}_j=0$ y $u_j = u'_j$.
+El flujo de cantidad de movimiento en el eje $i$ que pasa por $dA$ entonces es 
+%
+\begin{equation}
+\frac{dp_i}{dt} = \rho u_i \rho \mathbf{u}\cdot\mathbf{n}_j dA = \rho u_i Q = \rho u_i u'j dA.
+\end{equation}
+%
+En un flujo turbulento las cantidades instantáneas no nos dicen mucho, saquemos el promedio
+%
+\begin{equation}
+\frac{d\overline{p}_i}{dt} = \rho \overline{u_i u'j} dA = \rho \overline{u'_iu'_j}dA.
+\end{equation}
+%
+Esto nos indica que el tensor de esfuerzo de Reynolds está presente en el cálculo del flujo de cantidad de movimiento, sin embargo, sigue sin ser un esfuerzo.
+
+Podemos escribir el tensor de Reynolds como si fueran esfuerzos si generamos la variable $\tau$, tal que:
 %
 \begin{equation}
 \tau_{ij} = \mu\left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) - \rho \overline{u_i'u_j'},
@@ -274,6 +299,8 @@ y lo pasamos al lado derecho de la ecuación:
 \begin{equation}\label{eq:tensor}
 \rho\frac{\partial \overline{u}_i}{\partial t} + \rho\overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j} +  = -\frac{\partial \overline{p}}{\partial x_i} + \frac{\partial}{\partial x_j}\tau_{ij},
 \end{equation}
+
+
 
 \subsection*{Energía cinética turbulenta}
 En el afán de comprender la turbulencia de mejor manera, se ha intentado agregar algo así como ``leyes de conservación turbulenta''.
