@@ -326,29 +326,4 @@ El cuarto término también toma importancia en el borde del volumen de integrac
 Finalmente el quinto es la disipación viscosa.
 
 
-\subsection*{La viscosidad turbulenta}
-Al poner el tensor de esfuerzos de Reynolds en la derecha de la ecuación en la Ec. \eqref{eq:tensor}, se hace natural pensar en los efectos turbulentos como un paralelo a la viscosidad.
-Para que sea más claro, conviene reescribir el tensor de esfuerzos de Reynolds de la forma
-%
-\begin{equation}
-\rho\overline{u'_iu'_j}=\mu_t\frac{\partial \overline{u}_i}{\partial x_j}, 
-\end{equation}
-%
-La pregunta es \mbox{?`}Cuánto es el valor de la constante de viscosidad $\mu_t$, que reproduzca los efectos viscosos correctamente?
 
-Quizás el modelo más simple para encontrar $\mu_t$ es el modelo de longitud de mezcla de Prandtl, que escribe $\mu_t$ como
-%
-\begin{equation}
-\mu_t = \rho l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|
-\end{equation}
-%
-donde $x_1$ corre en la dirección del flujo y $x_2$ perpendicular a él.
-El término $l_m$ se conoce como longitud de mezcla, y es un valor que depende del caso que estamos analizando.
-Si estamos viendo turbulencia isotrópica, $l_m$ seria una constante, sin embargo, si el problema es turbulencia cerca de una pared, un buen modelo es considerar que la longitud de mezcla varía linealmente $l_m=Ky$.
-Otros casos son un chorro circular, donde $l_m = 0.75\delta$, donde $\delta$ es el diámetro del chorro.
-
-Usando el modelo de longitud de mezcla de Prandtl, el tensor de esfuerzos de Reynolds queda
-%
-\begin{equation}
-\overline{u_1'u'_2} = l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|\frac{\partial \overline{u}_1}{\partial x_2}
-\end{equation}

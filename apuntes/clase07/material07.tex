@@ -264,3 +264,63 @@ Un problema muy simple: una persona ($l\sim 2$m) trotando ($v\sim 5$m/s) en aire
 Solamente para guardar la posición del nodo en la malla necesitamos 3 valores ($x, y, z$), a 4 bytes cada valor son $16\cdot10^{13}$ bytes, \mbox{!`}$160$ TBytes!
 Esto hace que el desarrollo de modelos de turbulencia tenga mucho sentido.
 
+\section*{Modelación de la turbulencia}
+
+Como vimos recién, se hace prácticamente imposible modelar todas las escalas de un flujo turbulento para la gran mayoría de las aplicaciones interesantes de ingeniería.
+Por esta razón, en vez de resolver la ecuación de Navier-Stokes completa, utilizamos la ecuación promediada de Reynolds que estudiamos la clase pasada. 
+A modo de recordatorio, esta ecuación es
+%
+\begin{equation}\label{eq:RANS7}
+\frac{\partial \overline{u}_i}{\partial t} + \overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j} + \frac{\partial \overline{u'_iu'_j}}{\partial x_j} = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_i} + \nu \frac{\partial}{\partial x_j}\frac{\partial \overline{u}_i}{\partial x_j},
+\end{equation}
+
+Esta ecuación tiene la particularidad de ser muy parecida a la ecuación de Navier-Stokes con todos sus términos promediados, más la derivada del tensor de esfuerzos de Reynolds ($\overline{u_i'u_j'}$).
+Es de hecho el tensor de esfuerzos de Reynolds la fuente de todos los problemas en la simulación de la turbulencia, y es este término el que los modelos de turbulencia intentan modelar.
+
+Existen muchos modelos de turbulencia que se pueden separar en dos familias: simulaciones RANS, que utilizan la ecuación \eqref{eq:RANS7}, y las simulaciones con grandes vórtices (Large Eddy Simulations, LES).
+En ingeniería, RANS es más utilizado que LES porque es un método más maduro, pero se considera a LES un modelo más exacto.
+A continuación repasaremos algunos modelos RANS, pues es lo que más se encuentra en aplicaciones reales.
+
+\subsection*{Modelos RANS}
+Los modelos para calcular $l_m$ se clasifican en:
+%
+\begin{itemize}
+\item Modelos de ninguna ecuación
+\item Modelos de una ecuación
+\item Modelos de dos ecuaciones
+\end{itemize}
+
+
+\subsection*{Modelos de ninguna ecuación.}
+\paragraph*{La viscosidad turbulenta.}
+Al poner el tensor de esfuerzos de Reynolds en la derecha de la ecuación en la Ec. \eqref{eq:RANS7}, se hace natural pensar en los efectos turbulentos como un paralelo a la viscosidad.
+Para que sea más claro, conviene reescribir el tensor de esfuerzos de Reynolds de la forma
+%
+\begin{equation}
+\rho\overline{u'_iu'_j}=\mu_t\frac{\partial \overline{u}_i}{\partial x_j}, 
+\end{equation}
+%
+La pregunta es \mbox{?`}Cuánto es el valor de la viscosidad $\mu_t$, que reproduzca los efectos viscosos correctamente?
+Lo más simple es considerar $\mu_t$ como una constante.
+A pesar de que $\mu_t$ tiene dimensiones de viscosidad, este no es una propiedad del fluido, y varía dependiendo de la condición del flujo y la geometría.
+
+\paragraph*{Longitud de mezcla de Prandtl.} Otro modelo simple es el de longitud de mezcla de Prandtl, que escribe $\mu_t$ como
+%
+\begin{equation}
+\mu_t = \rho l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|
+\end{equation}
+%
+donde $x_1$ corre en la dirección del flujo y $x_2$ perpendicular a él.
+El término $l_m$ se conoce como longitud de mezcla, y es un valor que depende del caso que estamos analizando y el modelo a utilizar.
+Usando el modelo de longitud de mezcla de Prandtl, el tensor de esfuerzos de Reynolds queda
+%
+\begin{equation}
+\overline{u_1'u'_2} = l_m^2\left|\frac{\partial \overline{u}_1}{\partial x_2}\right|\frac{\partial \overline{u}_1}{\partial x_2}
+\end{equation}
+
+El término $l_m$ se conoce como longitud de mezcla, y es un valor que depende del caso que estamos analizando. 
+Si estamos viendo turbulencia isotrópica, l m seria una constante, sin embargo, si el problema es turbulencia cerca de una pared, un buen modelo es considerar que la longitud de mezcla varía linealmente $l_m = Ky$. 
+Otros casos son un chorro circular, donde $l_m$ = 0,75$\delta$, donde $\delta$ es el diámetro del chorro.
+
+\subsection*{Modelos de una ecuación}
+\subsection*{Modelos de dos ecuaciones}
