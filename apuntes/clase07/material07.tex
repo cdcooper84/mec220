@@ -160,8 +160,107 @@ Pero al multiplicarlo por $k^2$ el peak se corre hacia la derecha, y ahora se en
 \centering
 \includegraphics[width=0.6\textwidth]{clase07/energia_fourier.pdf}
 \caption{Gráfico de energía con respecto a escalas de movimiento}
-\label{figenergia_fourier}
+\label{fig:energia_fourier}
 \end{figure}
 
 Aquí ocurre algo interesante: mientras la energía cinética entra al sistema por las grandes escalas (la cuchara que revuelve), la disipación de energía cinética ocurre en las pequeñas escalas.
 Esto nos dice que tiene que haber un mecanismo de transferencia de energía cinética desde los vórtices grandes a los pequeños, en lo que se llama la \emph{cascada de energía}.
+
+\section*{La cascada de energía y escalas de movimiento}
+
+\subsection*{La escala de Kolmogorov}
+La forma en que la energía cinética entra al flujo es a través de la cuchara, por lo que se hace intuitivo que la energía cinética se inyecta en la escalas grandes de movimiento.
+La pregunta ahora es, \mbox{?`}En que escala ocurre la disipación? En otras palabras, \mbox{?`}cuanto es $k_d$ en la Figura \ref{fig:energia_fourier}?
+Una estimación de esta escala se la debemos a Andrey Komogorov.
+En su analisis, Komogorov supone que el flujo de escalas pequeñas, alejado de cualquier borde, tiene un carácter universal.
+Esto es, a pesar de que el flujo en las escalas grandes es claramente dependiente de la naturaleza del flujo (por ejemplo, flujo en tubería, chorro, etc.), cuando uno se fija solamente en las escalas pequeñas, la fuente de la energía cinética es irrelevante.
+A esas escalas, sea un flujo en tubaría, chorro, o una cuchara revolviendo un vaso, el flujo es equivalente.
+Y como ya vimos antes, es en estas escalas donde ocurrirá la disipación, lo que transfiere la energía cinética a calor gracias a la viscosidad.
+
+A partir de esta suposición, Kolmogorov usó principios del análisis dimensional para encontrar $k_d$.
+En las escalas pequeñas, los únicos parámetros relevantes son la disipación (que contiene la velocidad), la viscosidad (que transfiere la energía cinética a calor), y el tamaño de los vórtices ($\eta$).
+Podemos decir entonces que el tamaño de los vórtices más pequeños debe ser función de $\epsilon$ y  $\nu$ solamente, y por análisis dimensional, la única forma de obtener unidades de longitud es con
+%
+\begin{equation}\label{eq:l_kol}
+\eta = \left(\frac{\nu^3}{\epsilon}\right)^{1/4}.
+\end{equation}
+%
+donde $\eta\sim\frac{1}{k_d}$, y $\eta$ se conoce como la escala de Kolmogorov.
+
+Un flujo laminar tiene solamente una escala, y en esta escala la difusión es la que domina.
+De esta forma, podemos hacer el paralelo con la escala de Kolmogorov para decir que un flujo turbulento puede ser visto como una colección de pequeños flujos laminares, y por tanto, la escala de Kolmogorov es la escala más pequeña de movimiento.
+
+Usando este mismo principio, el tiempo característico del flujo en esta escala (o escala temporal de Kolmogorov) es:
+%
+\begin{equation}\label{eq:t_kol}
+t_d = \left(\frac{\nu}{\epsilon}\right)^{1/2}
+\end{equation}
+
+A pesar que la derivación de estas ecuaciones parece ser poco rigurosa, si es una muy buena estimación.
+De hecho, hay resultados experimentales que demuestran que la mayor parte de la disipación ocurre para escalas $k<0.5/\eta$.
+
+\subsection*{La escala inercial}
+Ya hemos conversado de las grandes escalas ($k_e$), donde la energía cinética es creada, y las pequeñas escalas ($k_d$), donde la energía cinética es disipada.
+\mbox{?`}Qué ocurre entonces entre $k_e$ y $k_d$ en la Figura \ref{fig:energia_fourier}?
+Este sector intermedio se conoce como la escala inercial. 
+En la escala inercial no hay producción ni disipación importante de energía cinética, ya que, como aparece en la Figura \ref{fig:energia_fourier} los peaks de producción y disipación no se encuentran en esta región.
+La escala inercial solamente transfiere la energía de las grandes escalas (donde se produce) a las pequeñas escalas (donde se disipa).
+Usemos nuevamente el análisis dimensional para estudiar como se comporta la energía en esta región, sabiendo que en este caso, la viscosidad no es importante.
+Primero, sabemos que la disipación tiene unidades de $[\epsilon] = L^2/S^3$ y que el número de onda tiene unidades de $[k] = 1/L$.
+Además, la transformada de Fourier en la Ec. \eqref{eq:K_fourier} ($\hat{R}'_{ij}$) debe tener unidades de energía dividido por número de onda ($K/k$), que da $L^3/T^2$.
+De esta forma, la única manera en que se pueden relacionar estos valores para que tengan sentido dimensional es
+%
+\begin{equation}\label{eq:energia_inercial}
+\hat{R}'_{ij}(k) = C_K k^{-5/3}\epsilon^{2/3}
+\end{equation}
+%
+donde $C_K$ se conoce como la constante de Kolmogorov.
+Nuevamente, a pesar que esta derivación parece ser poco rigurosa, experimentalmente se ha visto que la energía cae con $k$ como lo predice la Ec. \eqref{eq:energia_inercial}, y normalmente $C_K=1.4$ funciona bastante bien.
+Con esta nueva información, podemos completar la Figura \ref{fig:energia_fourier} con el rango inercial, como lo muestra la Figura \ref{fig:energia_inercial}.
+Esta transferencia de energía desde las grandes a las pequeñas escalas se conoce como cascada de energía. 
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{clase07/energia_inercial.pdf}
+\caption{La cascada de energía en escala logarítmica.}
+\label{fig:energia_inercial}
+\end{figure}
+
+La interpretación más física de la cascada de energía esta representada por la Figura \ref{fig:escala_vortice}, donde la energía cinética es producida por los vórtices grandes (por ejemplo, generados por una cuchara que revuelve un vaso de agua), luego es transferida a las pequeñas escalas a través del rango inercial, y finalmente se disipa en los pequeños vórtices por viscosidad.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{clase07/escala_vortice.png}
+\caption{Interpretación de la escala de energía.}
+\label{fig:escala_vortice}
+\end{figure}
+
+\subsection*{La escala de Kolmogorov y el número de Reynolds}
+
+Pensemos en la energía cinética turbulenta y la disipación en términos de la conservación.
+Si hay energía cinética turbulenta disipándose, es porque esta fue generada en las grandes escalas.
+Esta idea nos permite decir que debe una relación entre la disipación y las variables en las grandes escalas.
+Usemos, nuevamente, análisis dimensional para encontrar tal relación.
+En las grandes escalas, las variables importantes son la longitud característica de los grandes vórtices ($l$), y la velocidad ($v$).
+Por análisis dimensional, la única forma de obtener disipación a partir de estos valores de la ``macro'' escala es
+%
+\begin{equation}\label{eq:disipacion_macro}
+\epsilon\sim\frac{u}{l}.
+\end{equation}
+%
+Juntando la Ec. \eqref{eq:disipacion_macro} con la Ec. \eqref{eq:l_kol}, llegamos a:
+%
+\begin{align}\label{eq:disipacion_Re}
+\eta &= \left(\frac{\nu^3}{\epsilon}\right)^{1/4} \sim \left(\frac{\nu^3 l}{u^3}\right) = l\left(\frac{\nu^3}{u^3l^3}\right)^{1/4} \nonumber\\
+\Rightarrow & \frac{\eta}{l} \sim \left(\frac{\nu}{ul}\right)^{3/4} = Re^{-3/4}.
+\end{align}
+
+Esto nos entrega una nueva interpretación del número de Reynolds.
+Normalmente se presenta como el ratio entre fuerzas inerciales y fuerzas viscosas, sin embargo, también puede ser visto como el ratio entre las pequeñas y grandes escalas.
+Este resultado tiene profundo efecto en la simulación numérica de fluidos (CFD), ya que, para simular correctamente un flujo, la malla debe ser lo suficientemente fina como para resolver de buena forma hasta las escalas más pequeñas del flujo.
+La Ec. \eqref{eq:disipacion_Re} nos permite estimar el número de nodos que necesitaremos. 
+Por ejemplo, si la escala del problema es 1m, el número de nodos que necesitaremos es $1/\eta$, y considerando que una simulación completa implica 3 dimensiones, el número de nodos será $N=Re^{9/4}$.
+Un problema muy simple: una persona ($l\sim 2$m) trotando ($v\sim 5$m/s) en aire ($\nu\sim10^{-5}$) da un $Re\sim10^6$, o sea $N\sim10^{13}$ nodos.
+Solamente para guardar la posición del nodo en la malla necesitamos 3 valores ($x, y, z$), a 4 bytes cada valor son $16\cdot10^{13}$ bytes, \mbox{!`}$160$ TBytes!
+Esto hace que el desarrollo de modelos de turbulencia tenga mucho sentido.
+
