@@ -322,5 +322,53 @@ El término $l_m$ se conoce como longitud de mezcla, y es un valor que depende d
 Si estamos viendo turbulencia isotrópica, l m seria una constante, sin embargo, si el problema es turbulencia cerca de una pared, un buen modelo es considerar que la longitud de mezcla varía linealmente $l_m = Ky$. 
 Otros casos son un chorro circular, donde $l_m$ = 0,75$\delta$, donde $\delta$ es el diámetro del chorro.
 
-\subsection*{Modelos de una ecuación}
+\subsection*{Modelo de una ecuación: Prandtl-Kolmogorov}
+Este modelo acopla la ecuación de energía cinética turbulenta (Ec. \eqref{eq:K_conservacion}) a las ecuaciones de continuidad y cantidad de movimiento (Ec. \eqref{eq:RANS7}).
+Para cerrar el modelo de Prandtl-Kolmogorov necesitamos hacer algo al respecto de $\mu_t$ y los términos de generación y disipación de energía cinética:
+%
+\begin{align}
+\nu_t &= \frac{\mu_t}{\rho} = C_1\frac{K^{1/2}}{L} \nonumber\\ 
+\epsilon &= C_2\frac{K^{3/2}}{L} \nonumber\\
+\overline{-v\left(\frac{1}{2}u_i'u_i'+\frac{p'}{\rho}\right)} &= C_3\frac{\partial K}{\partial y}
+\end{align}
+%
+donde las constantes $C_1$, $C_2$ y $C_3$ son obtenidas de experimentos.
+Cabe destacar que en el modelo de Prandtl-Kolmogorov resuelve tres ecuaciones en vez de dos, lo que lo hace computacionalmente más intenso.
+
+
 \subsection*{Modelos de dos ecuaciones}
+En general, los modelos de dos ecuaciones son los más aceptados en términos de su exactitud, y son ampliamente encontrados en programas de modelación computacional de fluidos.
+Algunos de estos modelos son
+%
+\begin{itemize}
+\item $K-\epsilon$ con métodos de renormalización (Yakhot y Smith (1992))
+\item $K-\omega$ de Prandtl
+\item $K-L$ de Rotta
+\item $K-\omega^2$ de Wilcox
+\end{itemize}
+
+Todos estos modelos son relativamente parecidos.
+Los modelos de dos ecuaciones no solo agregan una ecuación como el modelo de Prandtl-Kolmogorov, si no que agregan una segunda ecuación, y es donde difiere cada modelo.
+Por ejemplo $k-\epsilon$ agrega una ecuación para la disipación o $K-L$ para la longitud de la escala turbulenta.
+Revisemos el más conocido, el $K-\epsilon$.
+
+\paragraph*{Modelo $K-\epsilon$}
+El modelo $K-\epsilon$ agrega a la Ec. \eqref{eq:K_conservacion} con las aproximaciones del modelo de Prndtl-Kolmogorov, la siguiente ecuación para la disipación
+%
+\begin{equation}
+\frac{D\epsilon}{Dt} = \frac{\partial}{\partial x_j} \left(\frac{\nu_t}{\sigma_\epsilon}\frac{\partial\epsilon}{\partial x_j}\right) + C_1\nu_t\frac{\epsilon}{K}\frac{\partial\overline{u}_i}{\partial x_j} \left(\frac{\partial\overline{u}_I}{\partial x_j}+\frac{\partial\overline{u}_j}{\partial x_i}\right) - C_2\frac{\epsilon^2}{K}
+\end{equation}
+%
+con
+%
+\begin{equation}
+\nu_t = \frac{C_\mu K^2}{\epsilon}
+\end{equation}
+%
+y las constantes
+%
+\begin{align}
+C_\mu = 0.09 \quad C_1=1.44 \quad C_2 = 1.92 \quad \sigma_K = 1 \quad \sigma_\epsilon=1.3. 
+\end{align}
+%
+Lamentablemente estas constantes no son universales y dependen del tipo de flujo.
