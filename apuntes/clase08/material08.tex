@@ -56,7 +56,14 @@ El caudal (por unidad de ancho) que pasa dentro de la capa límite es
 \begin{equation}
 Q = \int_0^\delta u(y)\mathrm{d}y.
 \end{equation}
-%
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{clase08/espesor_desplazamiento.pdf}
+\caption{Espesor de desplazamiento.}
+\label{fig:espesor_desplazamiento}
+\end{figure}
+
 Por otra parte, sabemos que para un flujo no viscoso, el caudal por unidad de ancho sería simplemente $Q_\text{NV} = U_\infty \cdot l$, donde $l$ es el alto de la sección transversal.
 Para que $Q=Q_\text{NV}$, $l=Q/U_\infty$, y sabemos que $\delta^*=\delta-l$, por lo tanto
 %
@@ -141,3 +148,55 @@ lo que implica que
 Esta última relación se conoce como la relación integral de momentum para flujo en la capa límite sobre una placa plana.
 
 \section*{Ecuaciones en la capa límite}
+En esta sección veremos como se reducen las ecuacines de conservación para el caso de flujo en una capa límite.
+Para nuestro análisis, este flujo es incompresible, bidimiensional y estacionario, para lo cual continuidad y Navier-Stokes quedan como
+%
+\begin{align}\label{eq:NS_capa}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
+u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\left( \frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}\right) \nonumber\\
+u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial y} + \nu\left( \frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2}\right).
+\end{align}
+
+Empecemos con aproximaciones propias de flujo en una capa límite.
+En primer lugar, a pesar que es un flujo bidimensional, hay una clara dirección preferente ($x$ por sobre $y$).
+Por esto, podemos esperar que $u>>v$.
+Además, las variaciones en el eje perpendicular a la placa deben ser muchísimo más drásticas que en el eje paralelo a la placa:
+%
+\begin{equation}
+\frac{\partial u}{\partial x} << \frac{\partial u}{\partial y}, \quad \frac{\partial v}{\partial x} << \frac{\partial v}{\partial y}, \quad \frac{\partial^2 u}{\partial x^2} << \frac{\partial^2 u}{\partial y^2}
+\end{equation}
+
+Por parte de la presión, nos ayuda mucho lo que ya sabemos de flujo no viscoso. 
+Afuera de la capa límite tenemos prácticamente un flujo uniforme, igual al flujo potencial, donde la ecuación de Bernoulli es válida:
+%
+\begin{equation}
+\frac{\partial p}{\partial x} = -\frac{\partial}{\partial x}\left(\rho \frac{U_\infty^2}{2}\right) = - \rho\frac{\partial U_\infty}{\partial x} = -\rho U_\infty\frac{dU_\infty}{dx} 
+\end{equation}
+
+Con estas aproximaciones, la Ec. \eqref{eq:NS_capa} queda
+%
+\begin{align}\label{eq:NS_capa_x}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
+u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &\approx U_\infty \frac{dU_\infty}{dx} + \nu \frac{\partial^2u}{\partial y^2},
+\end{align}
+%
+y condiciones de borde
+%
+\begin{align}
+u &= v = 0 \text{ en } y=0\nonumber\\
+u &= U_\infty \text{ en } y=\delta.
+\end{align}
+
+La Ec. \eqref{eq:NS_capa_x} solamente menciona el eje $x$.
+En el eje $y$, al aplicar las mismas aproximaciones llegamos a una aseveración muy potente:
+%
+\begin{equation}\label{eq:NS_capa_y}
+\frac{\partial p}{\partial y} = 0,
+\end{equation}
+%
+lo que nos dice que la presión es constante dentro de la capa límite, a medida que nos alejamos de la placa.
+Esto es algo que sin darse cuenta, ya han visto experimentalmente.
+Cuando midieron la presión en la superficie del cilindro en el laboratorio, se dieron cuenta que el flujo potencial es una muy buena aproximación.
+El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
+La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
+El flujo fuera de la capa límite se representa muy bien por un flujo potencial, como ya hemos comentado, y es este flujo el que define la presión en la superficie del cilindro.
