@@ -200,3 +200,31 @@ Cuando midieron la presión en la superficie del cilindro en el laboratorio, se 
 El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
 La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
 El flujo fuera de la capa límite se representa muy bien por un flujo potencial, como ya hemos comentado, y es este flujo el que define la presión en la superficie del cilindro.
+
+\section*{Solución de capa límite en flujo laminar}
+La Ec. \eqref{eq:NS_capa_x} se puede resolver analíticamente para un flujo laminar y velocidad $U_\infty$ constante, la cual fue propuesta por Blasius (quien era estudiante de Prandtl) en 1908.
+Blasius hizo el siguiente cambio de coordenadas
+%
+\begin{equation}
+\frac{u}{U_\infty} = f'(\eta)
+\end{equation}
+%
+donde 
+%
+\begin{equation}
+\eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}.
+\end{equation}
+%
+Reemplacemos esta transformación en la Ec. \eqref{eq:NS_capa_x}.
+Las derivadas de $\eta$ son
+%
+\begin{align}
+\frac{\partial \eta}{\partial x} = \frac{1}{2}y\left(\frac{U_\infty}{\nu x}\right)^{-1/2} \frac{-U_\infty}{\nu x^2} = -\frac{1}{2x} \eta \nonumber\\
+\frac{\partial \eta}{\partial y} = \left(\frac{U_\infty}{\nu x}\right)^{1/2},
+\end{align}
+%
+por lo que
+%
+\begin{equation}
+\frac{\partial u}{\partial x} = U_\infty f''(\eta) \frac{\partial \eta}{\partial x} =-U_\infty f''(\eta) \frac{1}{2x} \eta
+\end{equation}
