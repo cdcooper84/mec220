@@ -44,5 +44,100 @@ El flujo fuera de la capa límite es un flujo uniforme que perfectamente puede s
 
 \section*{Definiciones de capa límite}
 Una pregunta válida es \mbox{?`}dónde consideramos que el flujo finalmente a retomado su velocidad $U_\infty$? 
-En otras palabras, \mbox{?`}cuál es el criterio para dibujar la línea punteada en la Figura \ref{fig:capa_limite}?
+En otras palabras, \mbox{?`}cuál es el criterio para dibujar la línea punteada en la Figura \ref{fig:capa_limite}, y definir el espesor $\delta(x)$?
 Aquí simplemente tenemos que ponernos de acuerdo, y la convención dice que consideraremos que el fin de la capa límite se encuentra donde la velocidad paralela a la placa ha alcanzado $0.99U_\infty$.
+Sin embargo, existen otras formas de definir el espesor de la capa límite, que se conocen como el espesor de desplazamiento y el espesor de momentum.
+
+\subsection*{Espesor de desplazamiento}
+El espesor de desplazamiento ($\delta^*$) corresponde a la distancia que debiese desplazarse la pared para que pasara el mismo caudal asumiendo un flujo no viscoso. 
+Esto se explica mejor por la Figura \ref{fig:espesor_desplazamiento}, donde si el flujo no fuese viscoso, la pared se tendría que correr $\delta^*$ más arriba para que pase el mismo caudal.
+El caudal (por unidad de ancho) que pasa dentro de la capa límite es
+%
+\begin{equation}
+Q = \int_0^\delta u(y)\mathrm{d}y.
+\end{equation}
+%
+Por otra parte, sabemos que para un flujo no viscoso, el caudal por unidad de ancho sería simplemente $Q_\text{NV} = U_\infty \cdot l$, donde $l$ es el alto de la sección transversal.
+Para que $Q=Q_\text{NV}$, $l=Q/U_\infty$, y sabemos que $\delta^*=\delta-l$, por lo tanto
+%
+\begin{equation}
+\delta^* = \delta - l = \delta - \int_0^\delta \frac{u(y)}{U_\infty}\mathrm{d}y.
+\end{equation}
+%
+Podemos reescribir $\delta = \int_0^\delta 1\mathrm{d}y$, y reemplazando en la última ecuación llegamos a la siguiente expresión para $\delta^*$
+%
+\begin{equation}\label{eq:espesor_desplazamiento}
+\delta^* = \int_0^\delta \left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
+\end{equation}
+
+\subsection*{Espesor de momentum}
+\paragraph*{Análisis de von Kármán --- Fuerza sobre la placa.}
+La placa de la Figura \ref{fig:capa_limite} es suficientemente delgada como para no bloquear el flujo, sin embargo, la condición de deslizamiento hace que la velocidad sea cero sobre la placa, afectando el perfil de velocidad.
+Hagamos un análisis integral de la cantidad de movimiento como lo que hacíamos en el curso anterior.
+%
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{clase08/analisis_integral.pdf}
+\caption{Análisis integral de von Kármán.}
+\label{fig:analisis_integral}
+\end{figure}
+%
+Elijamos el volumen de control que muestra la Figura \ref{fig:analisis_integral}, donde la parte de abajo está justo sobre la placa, el lado derecho va desde la placa hasta el fin de la capa límite $\delta(x)$, la línea superior coincide con una línea de flujo, y el lado izquierdo tiene altura $h$.
+Recordando el análisis integral de la cantidad de movimiento, la ecuación para la fuerza en el eje $x$ es
+%
+\begin{equation}
+\sum F_x = \frac{\partial}{\partial t} \int_{\vol} u\rho \mathrm{d}\vol + \oint_{\partial\vol} u\rho\mathbf{V}\cdot\mathbf{n}\mathrm{d}S.
+\end{equation}
+%
+En este caso, la única fuerza es debido a la condición de no delizamiento. Además, el primer término de acumulación es cero, no pasa flujo ni por abajo (pared) ni por arriba (línea de flujo), y considerando que el flujo a la entrada es constante $U_\infty$, llegamos a
+%
+\begin{equation}\label{eq:capa_limite_momentum1}
+F_x = -\rho U_\infty^2 bh + \rho b \oint_0^\delta u^2\mathrm{d}y.
+\end{equation}
+%
+También, el principio de continuidad nos dice que todo lo que entra por la izquierda, sale por la derecha
+%
+\begin{align}\label{eq:capa_limite_cont}
+\rho U_\infty bh &= \rho b \int_0^\delta u(y)\mathrm{d}y \nonumber\\
+\Rightarrow U_\infty h &= \int_0^\delta u(y)\mathrm{d}y.
+\end{align}
+%
+Reemplazando la Ec. \eqref{eq:capa_limite_cont} en la Ec. \eqref{eq:capa_limite_momentum1}, podemos reescribir la Ec. \eqref{eq:capa_limite_momentum1} como
+%
+\begin{equation}\label{eq:capa_limite_momentum}
+D = -F_x = \rho b \oint_0^\delta u(U_\infty - u)\mathrm{d}y.
+\end{equation}
+%
+donde $D$ es la fuerza sobre la placa.
+
+\paragraph*{Espesor de momentum}
+Como podemos imaginarnos, la fuerza sobre la placa depende del largo de esta (o el largo $L$ de la Figura \ref{fig:analisis_integral}), por lo tanto $D=D(x)$.
+De aquí podemos definir el espesor de momentum ($\theta$) como:
+%
+\begin{equation}\label{eq:espesor_momentum}
+\theta = \int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y
+\end{equation}
+%
+por lo tanto,
+%
+\begin{equation}
+D(x) = \rho b U_\infty^2\theta.
+\end{equation}
+
+La fuerza sobre la placa $D(x)$ es el resultado de esfuerzos cortantes ($\tau_w$) a lo largo de la placa.
+Matemáticamente, esto es
+%
+\begin{equation}
+D(x) = b\int_0^x \tau_w(x)\mathrm{d}x,
+\end{equation}
+%
+lo que implica que
+%
+\begin{align}
+\frac{dD}{dx}=b\tau_w \text{ y, }\nonumber\\
+\tau_w=\rho U_\infty^2 \frac{d\theta}{dx}.
+\end{align}
+%
+Esta última relación se conoce como la relación integral de momentum para flujo en la capa límite sobre una placa plana.
+
+\section*{Ecuaciones en la capa límite}
