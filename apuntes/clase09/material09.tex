@@ -52,24 +52,21 @@ Como pueden imaginarse, esto tiene un importante efecto en el arrastre sobre la 
 
 A continuación veremos algunas soluciones de capa límite, que dependen del número de Reynolds definido en la Ec. \eqref{eq:Re_capa}, tanto para flujo laminar, como para turbulento.
 
-\section*{Espesor de capa límite laminar}
+\section*{Espesor de capa límite laminar sin gradiente de presión}
 
 \subsection*{El análisis de von Kármán}
-\paragraph*{La relación integral de momentum}
+\paragraph*{La relación integral de momentum.}
 
 Quizás la forma más fácil de encontrar una expresión para el espesor de capa límite $\delta$ es a través de un análisis de cantidad de movimiento de la placa.
-De hecho, la clase pasada hicimos este análisis para el caso particular en que la velocidad fuera de la capa límite $U_\infty$ sea independiente de $x$.
-De no ser independiente, por Bernoulli podemos darnos cuenta que habría un gradiente de presión, y considerando que $dp/dy=0$ dentro de la capa límite, tendríamos que sumar la contribución de este $\Delta p$ a la suma de fuerzas.
-Usemos la Figura \ref{fig:analisis_integral} de la semana pasada, y consideremos que el largo de .
+De hecho, la clase pasada hicimos este análisis para el caso particular en que la velocidad fuera de la capa límite $U_\infty$ sea independiente de $x$, y llegamos a
 %
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.8\textwidth]{clase08/analisis_integral.pdf}
-\caption{Análisis integral.}
-\label{fig:analisis_integral}
-\end{figure}
+\begin{align}
+D(x) &= \rho bU_\infty\theta\text{, con el espesor de momentum,}\nonumber\\
+\theta &= \int_0^\delta\frac{u(y)}{U_\infty}\left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
+\end{align}
 
-\paragraph*{Espesor de capa límite sin gradiente de presión}
+De no ser $U_\infty$  independiente de $x$, por Bernoulli podemos darnos cuenta que habría un gradiente de presión, y considerando que $dp/dy=0$ dentro de la capa límite, tendríamos que sumar la contribución de este $\Delta p$ a la suma de fuerzas.
+De este caso ya hablaremos más adelante.
 
 La fuerza sobre la placa $D(x)$ es el resultado de esfuerzos cortantes ($\tau_w$) a lo largo de la placa.
 Matemáticamente, esto es
@@ -80,15 +77,59 @@ D(x) = b\int_0^x \tau_w(x)\mathrm{d}x,
 %
 lo que implica que
 %
-\begin{align}
+\begin{align}\label{eq:tau_w}
 \frac{dD}{dx}=b\tau_w \text{ y, }\nonumber\\
 \tau_w=\rho U_\infty^2 \frac{d\theta}{dx}.
 \end{align}
 %
 Esta última relación se conoce como la relación integral de momentum para flujo en la capa límite sobre una placa plana.
 
-\subsection*{Espesor de capa límite de von Kármán}
+\paragraph*{Espesor de capa límite de von Kármán.}
+Para obtener una expresión de $\delta(x)$, von Kármán asumió un perfil de velocidad con forma parabólica:
+%
+\begin{equation}\label{eq:perfil_vk}
+u(x,y) = U_\infty\left(\frac{2y}{\delta}-\frac{y^2}{\delta^2}\right) \quad 0\leq y\leq \delta(x).
+\end{equation}
+%
+Reemplazando la Ec. \eqref{eq:perfil_vk} en el espesor de momentum $\theta$, llegamos a
+%
+\begin{equation}\label{eq:espesor_mom_vk}
+\theta = \int_0^\delta \left(\frac{2y}{\delta} - \frac{y^2}{\delta^2}\right)\left(1-\frac{2y}{\delta} + \frac{y^2}{\delta^2}\right)\mathrm{d}y=\frac{2}{15}\delta.
+\end{equation}
+%
+Podemos también calcular $\tau_w$ usando:
+%
+\begin{equation}\label{eq:tau_w2}
+\tau_w = \mu\frac{du}{dy} = 2\frac{\mu U_\infty}{\delta}.
+\end{equation}
+%
+Reemplazando la relación integral de momentum (Ec. \eqref{eq:tau_w}) en la Ec. \eqref{eq:tau_w2}, y usando la Ec. \eqref{eq:espesor_mom_vk} llegamos a una expresión para $\delta$:
+%
+\begin{align}
+2\frac{\mu U_\infty}{\delta} &= \rho U_\infty^2 \frac{d\theta}{dx} = \rho U_\infty^2 \frac{2}{15}\frac{d\delta}{dx}\nonumber\\
+\Rightarrow \delta d\delta &= 15\frac{\nu}{U_\infty}dx
+\end{align}
+% 
+e integrando esta última expresión, tomando en cuenta que $\delta=0$ para $x=0$, obtenemos:
+%
+\begin{align}
+\frac{1}{2}\delta^2 &= 15 \frac{\nu x}{U_\infty} \nonumber\\
+\Rightarrow \frac{\delta}{x} &= 5.5\left(\frac{\nu}{U_\infty x}\right)^{1/2} = \frac{5.5}{\sqrt{Re_x}}.
+\end{align}
+%
+Como adelantamos al principio de la clase, obtuvimos una expresión en función de $Re_x$.
 
+Por otra parte, podemos también calcular el coeficiente de arrastre local $c_f$ como:
+%
+\begin{equation}
+c_f = \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = 4\frac{1}{\rho U_\infty^2}\frac{\mu U_\infty}{\delta} = \frac{0.73}{\sqrt{Re_x}}
+\end{equation}
+%
+y el espesor de desplazamiento:
+%
+\begin{align}
+
+\end{align}
 \section*{Espesor de capa límite de Blasius}
 
 
