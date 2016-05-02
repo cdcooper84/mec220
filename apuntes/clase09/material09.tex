@@ -112,7 +112,7 @@ Reemplazando la relación integral de momentum (Ec. \eqref{eq:tau_w}) en la Ec. 
 % 
 e integrando esta última expresión, tomando en cuenta que $\delta=0$ para $x=0$, obtenemos:
 %
-\begin{align}
+\begin{align}\label{eq:delta_vk}
 \frac{1}{2}\delta^2 &= 15 \frac{\nu x}{U_\infty} \nonumber\\
 \Rightarrow \frac{\delta}{x} &= 5.5\left(\frac{\nu}{U_\infty x}\right)^{1/2} = \frac{5.5}{\sqrt{Re_x}}.
 \end{align}
@@ -121,16 +121,21 @@ Como adelantamos al principio de la clase, obtuvimos una expresión en función 
 
 Por otra parte, podemos también calcular el coeficiente de arrastre local $c_f$ como:
 %
-\begin{equation}
+\begin{equation}\label{eq:cf_vk}
 c_f = \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = 4\frac{1}{\rho U_\infty^2}\frac{\mu U_\infty}{\delta} = \frac{0.73}{\sqrt{Re_x}}
 \end{equation}
 %
 y el espesor de desplazamiento:
 %
-\begin{align}
+\begin{align}\label{eq:desplazamiento_vk}
 \delta^* &= \int_0^\delta\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y = \int_0^\delta \left(1-\frac{2y}{\delta}+\frac{y^2}{\delta^2}\right)\nonumber\\
-&= \left. y-\frac{y^2}{\delta}+\frac{y^3}{3\delta}\right/_0^\delta = \frac{\delta}{3}
+&= \left. y-\frac{y^2}{\delta}+\frac{y^3}{3\delta}\right/_0^\delta = \frac{\delta}{3}\nonumber\\
+\Rightarrow \frac{\delta^*}{x} &= \frac{1.83}{\sqrt{Re_x}}
 \end{align}
+
+Los valores de espesor de capa límite obtenidos con el análisis de von Kármán dependen de la aproximación que la velocidad dentro de la capa límite tiene forma parabólica. 
+En la realidad, esto no es así, sin embargo los valores de $\delta$, $\delta^*$, $c_f$, $\tau_w$ y $\theta$ dados por este análisis hacen buenas predicciones y, en general, están a menos de un 10\% del valor real.
+
 \section*{Espesor de capa límite de Blasius}
 
 
