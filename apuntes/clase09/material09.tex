@@ -167,3 +167,64 @@ Además, vemos en la Figura \ref{fig:capa_limite_blasius} que el perfil paraból
 \caption{Perfil de velocidad dentro de la capa límite para $x=0.1$, $x=1$ y $x=2$. Línea sólida representa el perfil de Blasius, los puntos sólidos el fin de la capa límite, y la línea punteada el perfil parabólico de von Kármán.}
 \label{fig:capa_limite_blasius}
 \end{figure}
+
+\paragraph*{Espesor de desplazamiento}
+
+El espesor de desplazamiento de define como 
+%
+\begin{equation}
+\delta^* = \int_0^\infty\left(1-\frac{u(y)}{U_\infty}\right)dy
+\end{equation}
+%
+lo cual podemos reescribir en términos de $f(\eta)$, con $dy = d\eta\left(\frac{\nu x}{U_\infty}\right)^{1/2}$
+%
+\begin{align}
+\delta^* &= \left(\frac{\nu x}{U_\infty}\right)^{1/2}\int_0^\infty(1-f'(\eta))d\eta\\
+& = \left.\left(\frac{\nu x}{U_\infty}\right)^{1/2} (\eta-f(\eta))\right|_\infty
+\end{align}
+
+Usando el mismo código que antes, nos damos cuenta que al infinito el valor de $\eta-f'(\eta)$ tiende a 1.721, y podemos escribir
+%
+\begin{equation}
+\frac{\delta^*}{x} = \frac{1.721}{\sqrt{Re_x}}
+\end{equation}
+
+\paragraph*{Esfuerzo cortante.}
+Sabemos que la definición de $\tau_w$ es
+%
+\begin{equation}
+\tau_w = \left.\mu\frac{du}{dy}\right|_0
+\end{equation}
+%
+lo cual se puede escribir en términos de $f$ y $\eta$ como
+%
+\begin{align}
+\tau_w &= \left. U_\infty\mu \frac{df'}{dy}\right|_0 = U_\infty\mu \left(\frac{U_\infty}{\nu x}\right)^{1/2}f''(0) \nonumber\\
+&= U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2}f''(0) = 0.332055 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} 
+\end{align}
+%
+Por otra parte, el coeficiente de arrastre es
+%
+\begin{equation}
+c_f = \frac{\tau_w}{\frac{1}{2}U_\infty^2\rho} = \frac{2\cdot0.332055}{\sqrt{Re_x}} = \frac{0.664}{\sqrt{Re_x}}
+\end{equation}
+
+\paragraph*{Espesor de momentum.}
+En la definición del espesor de momentum dijimos que
+%
+\begin{equation}
+\tau_w = \rho U_\infty^2 \frac{d\theta}{dx}
+\end{equation}
+%
+y usando la expresión que encontramos recién para $\tau_w$, quedamos con
+%
+\begin{align}
+\theta &= \int_0^x 0.332 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} \frac{1}{\rho U_\infty^2} dx \nonumber\\
+&= \int_0^\infty 0.332 \left(\frac{\mu}{xU_\infty\rho}\right)^{1/2} dx = 2\cdot0.332 x^{1/2}
+\end{align}
+%
+y dividiendo por $x$, queda
+%
+\begin{equation}
+\frac{\theta}{x} = \frac{0.664}{\sqrt{Re_x}}
+\end{equation}
