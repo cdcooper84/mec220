@@ -138,4 +138,32 @@ En la realidad, esto no es así, sin embargo los valores de $\delta$, $\delta^*$
 
 \section*{Espesor de capa límite de Blasius}
 
+ La clase pasada derivamos la ecuación de Blasius, que describe el perfil de velocidad dentro de la capa límite sobre una placa plana sin gradiente de presión:
+ %
+ \begin{align}\label{eq:blasius2}
+f'''&+\frac{1}{2}ff''=0\nonumber\\
+f'(\eta) &= \frac{u}{U_\infty} \nonumber\\
+\eta &= y\left(\frac{U_\infty}{\nu x}\right)^{1/2}\nonumber\\
+f(0) &= 0\nonumber\\
+f'(0) &= 0\nonumber\\
+f'(\infty) &= 1
+ \end{align}
 
+ La ecuacion de Blasius es una ecuación diferencial ordinaria que no tiene solución analítica, sin embargo, podemos resolverla numéricamente.
+ Si se fijan en el código del repositorio Github,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase09/blasius.ipynb}} verán  que resolvemos esta ecuación con un método de Euler, y que el borde de la capa límite (donde $u=0.99U_\infty$), se da para $\eta=5$.
+En este punto $y=\delta$, y reemplazando en la Ec. \eqref{eq:blasius2} llegamos a
+%
+\begin{equation}\label{eq:delta_blasius}
+\frac{\delta}{x} = \frac{5}{\sqrt{Re_x}}
+\end{equation}
+
+Comparando las Ecs. \eqref{eq:delta_vk} y \eqref{eq:delta_blasius}, nos podemos dar cuenta que la solución dada por von Kármán, que asume un perfil parabólico, no está tan lejos de la solución real.
+En el caso de von Kármán, llegamos a un factor $5.5$ y en Blasius de $5$, solamente un 10\% de diferencia.
+Además, vemos en la Figura \ref{fig:capa_limite_blasius} que el perfil parabólico de von Kármán (línea punteada) es una buena aproximación del perfil de Blasius (línea sólida) dentro de la capa límite.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{clase09/capa_limite_blasius.pdf}
+\caption{Perfil de velocidad dentro de la capa límite para $x=0.1$, $x=1$ y $x=2$. Línea sólida representa el perfil de Blasius, los puntos sólidos el fin de la capa límite, y la línea punteada el perfil parabólico de von Kármán.}
+\label{fig:capa_limite_blasius}
+\end{figure}
