@@ -64,7 +64,7 @@ Esta no es la excepción, e intentaremos encontrar estas expresiones para el cas
 Debido a que estamos asumiendo un perfil de velocidades, este análisis debiese ser equivalente al de von Kármán cuando asumimos el perfil parabólico.
 En ese caso, igualamos los esfuerzos de pared calculados con la relación integral de von Kármán:
 %
-\begin{equation}
+\begin{equation}\label{eq:integral_vK}
 \tau_w = \rho U_\infty^2 \frac{d\theta}{dx}
 \end{equation}
 %
@@ -75,4 +75,79 @@ donde $\theta$ es el espesor de momentum, a la ecuación de Newton $\tau_w = \le
 \end{equation}
 %
 Claramente, tenemos un problema con el perfil escogido, y vamos a tener que sacar $\tau_w$ de otra manera.
-La forma más fácil es hacer un símil con flujo en tuberías
+La forma más fácil es hacer un símil con flujo en tuberías, y usar el resultado de $\tau_w$ de ahí para igualarlo a la ecuación integral de momentum de von Kármán.
+En este símil, la velocidad al infinito ($U_\infty$) será la velocidad al centro de la tubería, por lo tanto, $\delta=R$.
+Partamos analizando el volumen de control de la Figura \ref{fig:volumen_control}, de ancho $dx$ que ocupa toda la sección transversal de la tubería.
+Aplicando el principio de conservación de la cantidad de movimiento, los flujos se cancelan por continuidad, las únicas fuerzas son por la presión y el esfuerzo de pared y quedamos con
+%
+\begin{align}\label{eq:deltap_tuberia}
+\Delta p\pi R^2 &= \tau_w2\pi Rdx\nonumber\\
+\Delta p &= \frac{2\tau_w dx}{R}.
+\end{align}
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth]{clase11/volumen_control.pdf}
+\caption{Volumen de control en una tubería.}
+\label{fig:volumen_control}
+\end{figure}
+
+Por otra parte, del estudio de flujo en tuberías sabemos que un Bernoulli modificado entre $1$ y $2$ da que la caída de presión es solamente debido a la altura de pérdidas:
+%
+\begin{equation}\label{eq:perdida_altura}
+\frac{\Delta p}{\rho} = h_L g = f \frac{dx}{D}\frac{\overline{V}^2}{2}.
+\end{equation}
+%
+Reemplazando la Ec. \eqref{eq:deltap_tuberia} en la Ec. \eqref{eq:perdida_altura}, nos deja
+%
+\begin{equation}
+\tau_w = \frac{f}{8}\rho\overline{V}^2
+\end{equation}
+
+El factor $f$ es el factor de fricción.
+En Mecánica de Fluidos General aprendimos que hay muchas formas de calcular $f$: a través del diagrama de Moody, o con las ecuaciones de Haaland, Colebrook, Blasius, etc.
+Usemos la ecuación de Blasius, que tiene la ventaja de ser explícita, y válida hasta $Re=10^5$ (ojo: $Re$, no $Re_x$):
+%
+\begin{equation}
+f = \frac{0.316}{Re^{1/4}}
+\end{equation}
+%
+y reemplazando quedamos con 
+%
+\begin{equation}\label{eq:tau_tuberia}
+\tau_w = \frac{0.0395\rho\overline{V}^2}{Re^{1/4}} = \frac{0.0332\rho\overline{V}^2}{\left(\frac{R\overline{V}}{\nu}\right)^{1/4}}
+\end{equation}
+
+Acordémonos que estamos haciendo el simil de flujo sobre una placa con flujo en tubería, y sobre la placa, la velocidad que nos interesa es $U_\infty$, correspondiente a la velocidad en el centro de la tubería $U_c$.
+Para parar los valores de $\overline{V}$ a $U_c=U_\infty$ en la Ec. \eqref{eq:tau_tuberia} podemos usar el caudal:
+%
+\begin{equation}
+Q = \overline{V}A = \int_0^Ru2\pi r dr.
+\end{equation}
+%
+Si reemplazamos en esta ecuación que $u=U\infty(y/\delta)^{1/7}$, y que $y=R-r$ llegamos a
+%
+\begin{align}
+\overline{V}A=2\pi U_\infty\int_0^R\left(1-\frac{r}{R}\right)^{1/7}rdr = \frac{49}{120}R^22\pi U_\infty\nonumber\\
+\Rightarrow \overline{V} = U_\infty\frac{49\cdot2\pi R^2}{120\pi R^2} = 0.817 U_\infty.
+\end{align}
+%
+Sabiendo que $R=\delta$, podemos reescribir la Ec. \eqref{eq:tau_tuberia} como
+%
+\begin{equation}\label{eq:tau_placa}
+\tau_w = \frac{0.0332\rho(0.817 U_\infty)^2}{\left(\frac{\delta0.817 U_\infty}{\nu}\right)^{1/4}} = 0.0233\rho U_\infty^2\left(\frac{\nu}{\delta U_\infty}\right)^{1/4}
+\end{equation}
+
+La Ec. \eqref{eq:tau_placa} está mucho mejor, ya que $\tau_w$ no es infinito como cuando usamos la ley de viscosidad de Newton.
+Igualemos la Ec. \eqref{eq:tau_placa} a la relación integral de von Kármán (Ec. \eqref{eq:integral_vK}):
+%
+\begin{align}
+\tau_w = \rho U_\infty^2\frac{d\theta}{dx} &= \rho U_\infty^2 \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right]\nonumber\\
+0.0233 \left(\frac{\nu}{\delta U_\infty}\right)^{1/4} &= \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right] = \frac{d}{dx}\left[\frac{7}{72}\delta\right]\nonumber\\
+\Rightarrow 0.0233\cdot\frac{72}{7}\left(\frac{\nu}{U_\infty}\right)^{1/4} dx &= \delta^{1/4}d\delta\nonumber\\
+\delta^{5/4} &= \frac{0.3}{\left(\frac{U_\infty x}{\nu}\right)^{1/4}}x^{5/4}\nonumber\\
+\frac{\delta}{x} &= \frac{0.382}{Re_x^{1/5}}
+\end{align}
+
+
+
