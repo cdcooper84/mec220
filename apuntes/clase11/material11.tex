@@ -141,7 +141,7 @@ Sabiendo que $R=\delta$, podemos reescribir la Ec. \eqref{eq:tau_tuberia} como
 La Ec. \eqref{eq:tau_placa} está mucho mejor, ya que $\tau_w$ no es infinito como cuando usamos la ley de viscosidad de Newton.
 Igualemos la Ec. \eqref{eq:tau_placa} a la relación integral de von Kármán (Ec. \eqref{eq:integral_vK}):
 %
-\begin{align}
+\begin{align}\label{eq:delta_turb}
 \tau_w = \rho U_\infty^2\frac{d\theta}{dx} &= \rho U_\infty^2 \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right]\nonumber\\
 0.0233 \left(\frac{\nu}{\delta U_\infty}\right)^{1/4} &= \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right] = \frac{d}{dx}\left[\frac{7}{72}\delta\right]\nonumber\\
 \Rightarrow 0.0233\cdot\frac{72}{7}\left(\frac{\nu}{U_\infty}\right)^{1/4} dx &= \delta^{1/4}d\delta\nonumber\\
@@ -149,5 +149,136 @@ Igualemos la Ec. \eqref{eq:tau_placa} a la relación integral de von Kármán (E
 \frac{\delta}{x} &= \frac{0.382}{Re_x^{1/5}}
 \end{align}
 
+Por otra parte, de la Ec. \eqref{eq:tau_placa} tenemos el esfuerzo sobre la placa plana y el valor de $\delta$ con la Ec. \eqref{eq:delta_turb}, y el coeficiente de fricción es
+%
+\begin{align}
+c_f &= \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = \frac{0.0233\rho U_\infty^2\left(\frac{\nu}{\delta U_\infty}\right)^{1/4}}{\frac{1}{2}\rho U_\infty^2 }\nonumber\\
+    &= 0.0466\left(\frac{\nu}{\delta U_\infty}\right)^{1/4} = 0.0466\left(\frac{\nu}{\frac{0.382x}{Re_x^{1/5} U_\infty}}\right)^{1/4} \nonumber\\
+    &= \frac{0.0594}{Re_x^{1/5}}
+\end{align}
 
+Además, podemos integrar la ecuación para espesor de desplazamiento usando el perfil de velocidad $\sim y^{1/7}$ para obtener
+%
+\begin{equation}
+\frac{\delta^*}{x}=\frac{0.0463}{Re^{1/5}} 
+\end{equation}
 
+\subsection*{Unidades de pared}
+
+Así como en el análisis de von Kármán para el caso laminar, uno podría alegar que el asumir un perfil de velocidad es poco riguroso (sobre todo en el caso turbulento), pero funciona bastante bien.
+En todo caso, podemos hacer un análisis más detallado, y con mayor trasfondo físico, para obtener u perfil de velocidades.
+Ocurre que el comportamiento de la capa límite en la zona cercana a la pared (el primer $\sim20\%$ de $\delta$), tiene un comportamiento muy universal, que es independiente de si estamos frente a una placa plana, curva, una tubería, etc.
+
+Para llegar a este comportamiento universal, primero debemos adimensionalizar las variables; usemos análisis dimensional para esto.
+La primera pregunta es \mbox{?`}cuáles son las variables importantes? Las más fáciles son: $\mu$, $\rho$, $y$ y $u$.
+En la zona cercana a la pared, el flujo externo está muy lejos, y consideraremos que $U_\infty$ no es una variable importante en el problema, eso si, al estar la placa cerca, $\tau_w$ es importante.
+Quedamos entonces con $5$ parámetros importantes, que se describen por $3$ unidades dimensionales básicas (T,L,M), y el problema se describe usando solamente dos variables adimensionales.
+Usando el teorema de Buckingham, llegamos a los siguientes parámetros adimensionales:
+%
+\begin{align}
+u^+ = u\sqrt{\frac{\rho}{\tau_w}}\nonumber\\
+y^+ = \frac{y}{\nu}\sqrt{\frac{\tau_w}{\rho}}
+\end{align}
+%
+y si definimos $u_\tau=\sqrt{\tau_w/\rho}$ podemos reescribir los parámetros adimenisonales como
+%
+\begin{align}\label{eq:unidades_pared}
+u^+=\frac{u}{u_\tau}\nonumber\\
+y^+=\frac{yu_\tau}{\nu}.
+\end{align}
+%
+Las variables $u^+$ y $y^+$ son la velocidad y distancia en \emph{unidades de pared}.
+
+Recordemos un poco de lo que aprendimos estudiando turbulencia.
+Cuando el flujo es turbulento, conviene usar la ecuación de Navier-Stokes promediada, que conocemos como ecuación RANS (Reynolds Averaged Navier-Stokes):
+%
+\begin{equation}\label{eq:RANS}
+\frac{\partial \overline{u}_i}{\partial t} + \overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j}  = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_i} + \frac{\partial}{\partial x_j}\left(\nu \frac{\partial \overline{u}_i}{\partial x_j} - \overline{u'_iu'_j}\right).
+\end{equation}
+%
+Hagamos las siguientes aproximaciones y consideraciones:
+%
+\begin{itemize}
+\item $\overline{u} >> \overline{v}$, $\overline{w}$
+\item $\frac{\partial}{\partial y} >> \frac{\partial}{\partial x}$, $\frac{\partial}{\partial z}$
+\item Flujo estacionario
+\item Presión constante
+\end{itemize}
+%
+Las primera aproximación de la lista viene simplemente de decir que, en promedio, el flujo tiene una dirección claramente preferente: la dirección $x$.
+Por otra parte, la segunda es que la variación de velocidad en la dirección $y$ (alejándose de la placa) es muchísimo más rápida que en la dirección del flujo y en la dirección perpendicular.
+Aplicando esas consideraciones, y la ecuación de continuidad, la Ec. \eqref{eq:RANS} en la dirección $x$ se simplifica a 
+%
+\begin{equation}
+\nu\frac{\partial^2 \overline{u}}{\partial y^2} - \frac{\partial \overline{u'v'}}{\partial v} = 0.
+\end{equation}
+%
+Adimensionalizando con $u_\tau$, llegamos a
+%
+\begin{align}
+\nu\frac{\partial^2\overline{u^+}u_\tau}{\partial y^{+2}\left(\frac{u_tau}{\nu}\right)^2} - \frac{\partial \overline{u^{+\prime}v^{+\prime}}}{\partial y^+\frac{u_\tau}{\nu}}u_\tau^2 = 0\nonumber\\
+\frac{\partial^2\overline{u^+}}{\partial y^{+2}}-\frac{\partial \overline{u^{+\prime}v^{+\prime}}}{\partial y^+} = 0\nonumber\\
+\frac{\partial}{\partial y^+}\left(\frac{\partial\overline{u^+}}{\partial y^+}-\overline{u^{+\prime}v^{+\prime}}\right) = 0
+\end{align}
+%
+e integrando queda
+%
+\begin{equation}\label{eq:uplus_aux}
+\frac{\partial\overline{u^+}}{\partial y^+}-\overline{u^{+\prime}v^{+\prime}}= C_0
+\end{equation}
+
+El valor de $C_0$ no es importante, y podemos elegit $C_0=1$.
+La Ec. \eqref{eq:uplus_aux} muestra que la fuerza en un elemento de fluido el equilibrio entre las fuerzas viscosas ($\partial \overline{u^+}/\partial y^+$ esta relacionada con el esfuerzo de un fluido Newtoniano), y el esfuerzo de Reynolds (acuérdense de la interpretación de $\overline{u'_iu'_j}$ como un esfuerzo).
+Veamos dos casos extremos:
+
+\paragraph*{Flujo cerca de la pared.} En este caso, los esfuerzos viscosos debido a la presencia de la pared van a dominar sobre los esfuerzos turbulentos:
+%
+\begin{align}
+&\frac{\partial\overline{u^+}}{\partial y^+} >> \overline{u^{+\prime}v^{+\prime}}\nonumber\\
+&\Rightarrow \frac{\partial\overline{u^+}}{\partial y^+} = 1.
+\end{align}
+%
+Integrando, llegamos a
+%
+\begin{equation}\label{eq:subcapa_viscosa}
+\overline{u^+} = y^+.
+\end{equation}
+%
+La zona de la capa límite que se comporta de esta manera lineal es la subcapa viscosa (vean la Figura \ref{fig:capa_limite_Re}).
+
+\paragraph*{Flujo alejado de la pared.} En este caso, la pared está suficientemente lejos que el esfuerzo viscoso no es importante:
+%
+\begin{align}
+&\frac{\partial\overline{u^+}}{\partial y^+} << \overline{u^{+\prime}v^{+\prime}}\nonumber\\
+&\Rightarrow \overline{u^{+\prime}v^{+\prime}} = 1.
+\end{align}
+%
+Hay que tener en consideración que, a pesar que llamamos a esta zona ``lejos'', sigue estando dentro de la zona \emph{interna} de la capa límite (bajo el primer 20\%).
+Este caso es un poco más complicado, ya que no sabemos como se comportan las fluctuaciones.
+La forma de enfrentar esto es usando modelos que representen el efecto de las fluctuaciones.
+El modelo más simple es representar el esfuerzo de Reynolds usando el concepto de viscosidad turbulenta (acuérdense de las clases de turbulencia!):
+%
+\begin{equation}\label{eq:visc_turb}
+\overline{u'v'} = \nu_t \frac{\partial\overline{u}}{\partial v}.
+\end{equation}
+%
+Adimensionalicemos esta ecuación:
+%
+\begin{align}
+\overline{u^{+\prime}v^{+\prime}} = \nu_t \frac{\partial\overline{u}}{\partial v}\frac{1}{u_\tau^2} = 1\nonumber\\
+\Rightarrow u_\tau^2 = \nu_t \frac{\partial \overline{u}}{\partial y}
+\end{align}
+%
+Ahora necesitamos un modelo para representar $\nu_t$.
+El más básico que estudiamos era el modelo de longitud de mezcla de Prandtl:
+%
+\begin{equation}\label{eq:long_mezcla}
+\nu_t = l_m^2\left|\frac{\partial\overline{u}}{\partial y}\right|,
+\end{equation}
+%
+y reemplazando en la Ec. \eqref{eq:visc_turb} llegamos a
+%
+\begin{align}
+u_\tau^2 &= l_m^2\left|\frac{\partial\overline{u}}{\partial y}\right|\frac{\partial\overline{u}}{\partial y} \nonumber\\
+\Rightarrow u_\tau &= l_m\frac{\partial\overline{u}}{\partial y}
+\end{align}
