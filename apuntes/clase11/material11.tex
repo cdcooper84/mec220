@@ -18,8 +18,6 @@ Bibliografía:
 \end{itemize}
 \end{framed}
 
-\section*{Capa límite turbulenta}
-
 En clases anteriores hemos estado analizando la capa límite de diferentes maneras usando von Kármán, Blasius, Flakner-Skan, y considerando succión y soplido.
 Todos estos análisis tienen una cosa en común: la capa límite es considerada laminar.
 Ya vimos también que el número de Reynolds en el caso de placa plana es variable en el espacio, y va subiendo a medida que nos movemos por la placa ($Re_x=U_\infty x/\nu$).
@@ -36,7 +34,7 @@ Un ejemplo de esto se ve en la Figura \ref{fig:capa_limite_Re}, donde la capa l�
 
 En esta clase vamos a analizar la capa límite turbulenta más en detalle.
 
-\subsection*{Perfil de velocidad dado}
+\section*{Capa límite con un perfil de velocidad dado}
 
 Así como vimos hace algunas clases cuando estudiamos turbulencia, sabemos que el perfil de velocidades va a ser bastante más desordenado en el caso laminar.
 Es más, la velocidad va a ir variando con respecto a un promedio $\overline{u}$ debido a fluctuaciones turbulentas $u'$\footnote{Vean el siguiente video desde el minuto 18:40: \url{https://www.youtube.com/watch?v=wMxK2GtFFq0}}, lo que hace muy difícil su análisis.
@@ -161,7 +159,7 @@ Además, podemos integrar la ecuación para espesor de desplazamiento usando el 
 \frac{\delta^*}{x}=\frac{0.0463}{Re^{1/5}} 
 \end{equation}
 
-\subsection*{Ley de pared}
+\section*{Ley de pared}
 
 Así como en el análisis de von Kármán para el caso laminar, uno podría alegar que el asumir un perfil de velocidad es poco riguroso (sobre todo en el caso turbulento), pero funciona bastante bien.
 En todo caso, podemos hacer un análisis más detallado, y con mayor trasfondo físico, para obtener u perfil de velocidades.
@@ -314,3 +312,39 @@ La gráfica en la Figura \ref{fig:ley_pared} demuestra lo cercana que está la l
 \caption{Comparación de la ley de pared con experimentos. Gráfica obtenida de Clauser, Francis H. ``The turbulent boundary layer.'' Advances in applied mechanics 4 (1956): 1-51.}
 \label{fig:ley_pared}
 \end{figure}
+
+En la Figura \ref{fig:ley_pared} podemos ver que la subcapa laminar (donde $u^+=y^+$) llega hasta $y^+\approx5$, y que la zona logaritmica comienza alrededor de $y^+=30$.
+En la zona intermedia no hay un término dominante en la Ec. \eqref{eq:uplus_aux}, y existen varios modelos que intentan reproducir el perfil de velocidades.
+En general, el flujo de la capa límite turbulenta se presenta con las tres zonas independientes (subcapa viscosa, zona intermedia, capa logarítmica), sin embargo, hay modelos que cubren las tres en una sola ecuación.
+Un ejemplo de esto es el modelo de Spalding (1961):
+%
+\begin{equation}\label{eq:spalding}
+y^+ = u^+ + e^{-\kappa B}\left[e^{\kappa u^+} -1 -\kappa u^+ -\frac{(\kappa u^+)^2}{2} - \frac{(\kappa U^+)^3}{6}\right].
+\end{equation}
+%
+De hecho, utilizando el modelo de Spalding (más algunas aproximaciones), es posible llegar a la siguiente expresión para el coeficiente de arrastre:
+%
+\begin{equation}\label{eq:cf}
+C_f = \frac{0.455}{\ln^2(0.06 Re_x)}.
+\end{equation}
+
+\section*{Efecto de la rugosidad}
+
+Hasta ahora, nada hemos hablado de la rugosidad de la placa, considerándola despreciable.
+La pregunta entonces es \mbox{?`}Hasta que punto podemos considerar la rugosidad despreciable? Esto guarda relación con el tamaño de la subcapa laminar.
+Si la rugosidad media de la pared ($\epsilon$) es más pequeña que la subcapa viscosa (en otras palabras, $\epsilon^+<y^+$=5), la rugosidad no afectará al resto de la capa límite, y se considera que es hidráulicamente lisa.
+Conectemos esto con cosas que hemos estudiado antes: el diagrama de Moody.
+En el diagrama de Moody, el factor de fricción es función del número de Reynolds y la rugosidad relativa $\epsilon/D$.
+Si uno se fija en la curva que se encuentra más abajo, verán que dice ``tubería lisa'', es decir, con rugosidad despreciable. 
+Esto es exactamente a lo que se refiere esa curva, donde el factor de fricción no se ve influenciado por la rugosidad, pues es más pequeña que el límite de la subcapa viscosa.
+
+Si $\epsilon$ es más grande que la subcapa viscosa, necesitamos hacer algunos ajustes en las Ecs. \eqref{eq:ley_pared} y \eqref{eq:cf}.
+Existen varios modelos (empíricos) que intentan describir este efecto, donde los más aceptados son:
+%
+\begin{align}
+u^+ &= \frac{1}{\kappa} \ln(y^+) + B - \frac{1}{\kappa}\ln(1+0.3\epsilon^+)\nonumber\\
+c_f &= \left[2.87+1.58\log_{10}\left(\frac{x}{\epsilon}\right)\right]^{-2/5}\nonumber\\
+C_D &= \left[1.89+1.62\log_{10}\left(\frac{L}{\epsilon}\right)\right]^{-2/5}
+\end{align}
+%
+donde $\epsilon^+ =\epsilon u_\tau/\nu$, $L$ es el largo total de la placa, y $c_f$ y $C_D$ son los coeficientes de arrastre local y total, respectivamente.
