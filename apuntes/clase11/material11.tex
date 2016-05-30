@@ -3,14 +3,12 @@
 Objetivos:
 \begin{itemize}
     \item Encontrar expresiones para la velocidad, espesor de capa límite y coeficiente de fricción cuando el flujo en la capa límite es turbulento. 
-    \item Predecir la separación de la capa límite
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
     \item Expresiones de capa límite turbulenta para perfil supuesto.
     \item La ley de pared. 
-    \item Separación de capa límite.
 \end{itemize}
 
 Bibliografía:
@@ -163,7 +161,7 @@ Además, podemos integrar la ecuación para espesor de desplazamiento usando el 
 \frac{\delta^*}{x}=\frac{0.0463}{Re^{1/5}} 
 \end{equation}
 
-\subsection*{Unidades de pared}
+\subsection*{Ley de pared}
 
 Así como en el análisis de von Kármán para el caso laminar, uno podría alegar que el asumir un perfil de velocidad es poco riguroso (sobre todo en el caso turbulento), pero funciona bastante bien.
 En todo caso, podemos hacer un análisis más detallado, y con mayor trasfondo físico, para obtener u perfil de velocidades.
@@ -280,5 +278,39 @@ y reemplazando en la Ec. \eqref{eq:visc_turb} llegamos a
 %
 \begin{align}
 u_\tau^2 &= l_m^2\left|\frac{\partial\overline{u}}{\partial y}\right|\frac{\partial\overline{u}}{\partial y} \nonumber\\
-\Rightarrow u_\tau &= l_m\frac{\partial\overline{u}}{\partial y}
+\Rightarrow u_\tau &= l_m\frac{\partial\overline{u}}{\partial y}.
 \end{align}
+%
+Esto parece un argumento circular, ya que, a pesar que tenemos una expresión para $\nu_t$, necesitamos un modelo para determinar $l_m$. 
+En flujo sobre una placa plana, es sabido que $l_m=\kappa y$ funciona bien, lo que nos deja con
+%
+\begin{equation}
+u_\tau = \kappa y \frac{\partial\overline{u}}{\partial y}
+\end{equation}
+%
+y si adimensionalizamos esta ecuación, quedamos con:
+%
+\begin{align}
+u_\tau &= \kappa y^+\frac{\nu}{u_\tau} \frac{\partial\overline{u^+}u_\tau}{\partial y^+ \frac{\nu}{u_\tau}}\nonumber\\
+\Rightarrow 1&= \kappa y^+ \frac{\partial\overline{u^+}}{\partial y^+}\nonumber\\
+\frac{1}{\kappa}\frac{\partial y^+}{y^+} &= \partial u^+.
+\end{align}
+%
+Integrando, quedamos con
+%
+\begin{equation}\label{eq:ley_pared}
+u^+ = \frac{1}{\kappa}\ln(y^+) + B,
+\end{equation}
+%
+que se conoce como la ley de pared.
+En general, $\kappa=0.41$ y $B=5$ son los valores más aceptados para las constantes en la Ec. \eqref{eq:ley_pared}.
+La ley de pared tiene un carácter universal, ya que se cumple tanto en flujo cobre una placa plana, como dentro de una tubería o en placas curvas.
+
+La gráfica en la Figura \ref{fig:ley_pared} demuestra lo cercana que está la ley de pared de experimentos, y nos confirma que el modelo $l_m = \kappa y$ funciona muy bien.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{clase11/ley_pared.png}
+\caption{Comparación de la ley de pared con experimentos. Gráfica obtenida de Clauser, Francis H. ``The turbulent boundary layer.'' Advances in applied mechanics 4 (1956): 1-51.}
+\label{fig:ley_pared}
+\end{figure}
