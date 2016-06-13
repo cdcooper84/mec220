@@ -1,0 +1,99 @@
+\begin{framed}
+
+Objetivos:
+\begin{itemize}
+    \item Repasar el rol de la ecuación de estado en mecánica de fluidos.
+    \item Repasar conceptos de termodinámica relevantes en flujos compresibles.
+    \item Estudiar la propagación de ondas de presión en flujos compresibles.
+\end{itemize}
+
+Contenidos:
+\begin{itemize}
+    \item Ecuaciones de conservación en mecánica de fluidos para flujos incompresibles y compresibles. 
+    \item La ecuación de estado para gases ideales. 
+    \item Constantes termodinámicas.
+    \item Energía interna, entalpía y entropía.
+    \item Procesos isentrópicos.
+    \item Ondas de presión
+    \item El cono de Mach. 
+\end{itemize}
+
+Bibliografía:
+\begin{itemize}
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 9.6-9.7.
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.5-7.6.
+\end{itemize}
+\end{framed}
+
+\section*{Ecuaciones de conservación en mecánica de fluidos}
+
+Hasta ahora, hemos limitado nuestros análisis a flujos incompresibles.
+A pesar de que ningún fluido es realmente incompresible (pues implicaría una velocidad del sonido infinita), para líquidos y gases a baja velocidad, esto es una buena aproximación.
+En esta parte del curso vamos a tratar flujos compresibles, donde la variación de densidad juega un rol importante.
+Una ventaja de los flujos incompresibles, es que hay ecuaciones que se esconden un poco de nosotros.
+De hecho, estamos acostumbrados a tratar con la ecuación de continuidad y Navier-Stokes solamente:
+%
+\begin{align}\label{eq:incompresible}
+\nabla\cdot\mathbf{V} &= 0\nonumber\\
+\frac{D\mathbf{V}}{D t} &=-\frac{\nabla p}{\rho} +\nabla^2\mathbf{V}.
+\end{align}
+%
+Sin embargo, también está la ecuación de conservación de la energía
+%
+\begin{equation}\label{eq:energia_incomp}
+\rho c_p\frac{DT}{Dt} = -\nabla\cdot (\kappa\nabla T)
+\end{equation}
+%
+donde $T$ es la temperatura, $c_p$ el calor específico a presión constante, y $\kappa$ el coeficiente de conductividad del medio.
+La razón por la que comúnmente no operamos con la Ec. \eqref{eq:energia_incomp} es que para el caso incompresible no hay cambio de densidades debido a la temperatura, lo que desacopla la conservación de energía de la de momentum, y, a menos que queramos calcular el campo de temperaturas, no necesitamos la Ec. \eqref{eq:energia_incomp}.
+Además, implícitamente hemos usado la ecuación de estado
+%
+\begin{equation}\label{eq:estado_incomp}
+\rho = \text{constante}
+\end{equation}
+%
+En general, necesitamos las cuatro ecuaciones para tener un sistema cerrado y modelar mecánica de fluidos, sin embargo, hasta ahora nos hemos focalizado en el caso fácil, donde necesitamos solamente dos de esas ecuaciones.
+
+Volvamos un poco más atrás en las derivaciones para ver por qué necesitamos las cuatro ecuaciones.
+En general, la ecuaciones de conservación de masa, momentum y energía son:
+%
+\begin{align}\label{eq:conservacion}
+\frac{\partial\rho}{\partial t} + \nabla\cdot(\rho\mathbf{V})&=0\nonumber\\
+\rho\frac{D\mathbf{V}}{Dt} &= -\nabla p + \nabla\cdot\tau_{ij}\nonumber\\
+\rho\frac{D}{Dt}\left(u+\frac{p}{\rho}\right) &= \frac{Dp}{Dt}+\nabla\cdot(\kappa\nabla T) + \tau_{ij}\frac{\partial u_i}{\partial x_j}
+\end{align}
+%
+donde $\tau_{ij}$ es el tensor con los esfuerzos de corte y $u$ la energía interna específica.
+Si se fijan en la Ec. \eqref{eq:conservacion} tenemos 9 variables a calcular: $\rho$, $\mathbf{V}=(u,v,w)$, $p$, $\tau_{ij}$, $u$, $\kappa$ y $T$, sin embargo, solamente hay 5 ecuaciones (una de momentum por cada dirección, más energía y continuidad).
+Para cerrar el sistema, necesitamos 4 ecuaciones más.
+Una de estas ecuaciones las podemos sacar de relaciones constitutivas, o sea, ecuaciones propias del material. 
+Por ejemplo, al asumir un fluido Newtoniano encontramos una relación entre la velocidad y $\tau_{ij}$ (de hecho, la usamos para llegar a la ecuación de Navier-Stokes).
+El resto de las ecuaciones serán ecuaciones de estado, y las sacaremos de termodinámica.
+
+Vamos al caso que nos interesa a nosotros.
+En este curso, veremos flujos donde la compresibilidad es dominante frente a efectos viscosos, y asumiremos $\tau_{ij}=0$.
+De esta forma, la Ec. \eqref{eq:conservacion} queda:
+%
+\begin{align}\label{eq:conservacion_novisc}
+\frac{\partial\rho}{\partial t} + \nabla\cdot(\rho\mathbf{V})&=0\nonumber\\
+\rho\frac{D\mathbf{V}}{Dt} &= -\nabla p \nonumber\\
+\rho\frac{D}{Dt}\left(u+\frac{p}{\rho}\right) &= \frac{Dp}{Dt}+\nabla\cdot(\kappa\nabla T) 
+\end{align}
+%
+donde la conservación de cantidad de movimiento nos llevó a la ecuación de Euler.
+Para cerrar el systema, necesitamos dos ecuaciones de estado.
+Afortunadamente de termodinámica sabemos que con dos parámetros termodinámicos se define un estado, por lo tanto la energía interna es función de dos variables intependientes, por ejemplo $u=u(v_e,T)$, donde $v_e=1/\rho$ es el volúmen específico.
+Por esto, podemos escribir
+%
+\begin{equation}
+du = \left(\frac{\partial u}{\partial T}\right)_vdT + \left(\frac{\partial u}{\partial v_e}\right)_Tdv_e
+\end{equation}
+%
+Aquí aparece una definición que debiesen reconocer:
+%
+\begin{equation}
+c_v = \left(\frac{\partial u}{\partial T}\right)_v
+\end{equation}
+%
+que se conoce como el calor específico a volumen constante.
+Quizás se acuerden en palabras: el calor específico es la cantidad de energía necesaria para subir un grado la temperatura.
