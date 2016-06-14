@@ -25,7 +25,7 @@ Bibliografía:
 \end{itemize}
 \end{framed}
 
-\section*{Ecuaciones de conservación en mecánica de fluidos}
+\section*{Ecuaciones de conservación y de estado en mecánica de fluidos}
 
 Hasta ahora, hemos limitado nuestros análisis a flujos incompresibles.
 A pesar de que ningún fluido es realmente incompresible (pues implicaría una velocidad del sonido infinita), para líquidos y gases a baja velocidad, esto es una buena aproximación.
@@ -70,6 +70,7 @@ Una de estas ecuaciones las podemos sacar de relaciones constitutivas, o sea, ec
 Por ejemplo, al asumir un fluido Newtoniano encontramos una relación entre la velocidad y $\tau_{ij}$ (de hecho, la usamos para llegar a la ecuación de Navier-Stokes).
 El resto de las ecuaciones serán ecuaciones de estado, y las sacaremos de termodinámica.
 
+\subsection*{Flujo no viscoso y ecuación de gas ideal}
 Vamos al caso que nos interesa a nosotros.
 En este curso, veremos flujos donde la compresibilidad es dominante frente a efectos viscosos, y asumiremos $\tau_{ij}=0$.
 De esta forma, la Ec. \eqref{eq:conservacion} queda:
@@ -81,11 +82,12 @@ De esta forma, la Ec. \eqref{eq:conservacion} queda:
 \end{align}
 %
 donde la conservación de cantidad de movimiento nos llevó a la ecuación de Euler.
-Para cerrar el systema, necesitamos dos ecuaciones de estado.
+Para cerrar el systema, necesitamos dos ecuaciones de estado, considerando que tenemos valores empíricos para $\kappa$.
+
 Afortunadamente de termodinámica sabemos que con dos parámetros termodinámicos se define un estado, por lo tanto la energía interna es función de dos variables intependientes, por ejemplo $u=u(v_e,T)$, donde $v_e=1/\rho$ es el volúmen específico.
 Por esto, podemos escribir
 %
-\begin{equation}
+\begin{equation}\label{eq:denergia_interna}
 du = \left(\frac{\partial u}{\partial T}\right)_vdT + \left(\frac{\partial u}{\partial v_e}\right)_Tdv_e
 \end{equation}
 %
@@ -97,3 +99,249 @@ c_v = \left(\frac{\partial u}{\partial T}\right)_v
 %
 que se conoce como el calor específico a volumen constante.
 Quizás se acuerden en palabras: el calor específico es la cantidad de energía necesaria para subir un grado la temperatura.
+
+Para la segunda ecuación de estado haremos una suposición: digamos que el fluido es un gas ideal, por lo tanto:
+%
+\begin{equation}\label{eq:gas_ideal}
+\frac{p}{\rho} = RT
+\end{equation}
+%
+donde $R=R_u/PM$ es la constante del gas, igual al ratio entre la constante  universal de gases sobre el peso molecular.
+$R_u$ no es más que el ratio entre la constante de Boltzmann y el número de Avogadro.
+No haremos la derivación al respecto, pero la ecuación de gases ideales (Ec. \eqref{eq:gas_ideal} puede ser obtenida a partir de conceptos de mecánica estadística. 
+Si consideramos las moléculas del gas como masas puntuales que no chocan entre ellas, al integrar sobre todas las posibles conformaciones de dichas moléculas, llegamos a la Ec. \eqref{eq:gas_ideal}.
+Esto nos dice mucho de la validez del modelo: si consideramos que las moléculas no chocan entre ellas, significa que el gas tiene que estar muy diluído, con las moléculas muy separadas, y que la viscosidad no es importante.
+Llega ser increíble que un modelo tan ``burdo'' funcione, pero la experiencia nos dice que en aire a $1$atm, la ecuación de gases ideales funciona muy bien para temperaturas sobre $-130^\circ$C (menos de 1\% de error).
+
+Veamos un poco más de cerca el efecto de la suposición de gas ideal en la energía interna $u$.
+La energía interna es la sumatoria de energía cinética (lineal y de rotación) y potencial (electrostática, van der Waals, etc.) de cada molécula de la sustancia, y para el caso ideal (sin colisiones) monoatómico, llegamos a que
+%
+\begin{equation}
+u = \frac{3}{2}RT.
+\end{equation}
+%
+Por lo tanto, en gases ideales la energía interna es solamente función de la temperatura.
+Viendo la Ec. \eqref{eq:denergia_interna}, $\partial u/\partial v_e=0$, podemos reescribirla como:
+%
+\begin{equation}\label{eq:energia_interna}
+du = c_vdT\Rightarrow u=c_vT,
+\end{equation}
+%
+que es una relación que debiesen reconocer de sus clases de termodinámica.
+De esta forma, quedamos con 7 variables en la Ec. \eqref{eq:conservacion_novisc} (sin considerar $\kappa$, que podemos obtener de tabla), y 7 ecuaciones (3 de momentum, continuidad, energía y 2 de estado), por lo que tenemos un sistema cerrado.
+
+\subsection*{Otras variables termodinámicas}
+\paragraph*{Entalpía}
+Se hace conveniente definir otras variables que comúmente usamos en termodinámica.
+Por ejemplo, la entalpía se define como:
+%
+\begin{equation}\label{eq:entalpia}
+h = u+ pv_e,
+\end{equation}
+%
+y, en general, depende de dos variables, por ejemplo $h=h(T,p)$.
+Al derivar esta expresión, llegamos a lo siguiente:
+%
+\begin{equation}
+dh = \left(\frac{\partial h}{\partial T}\right)_pdT + \left(\frac{\partial h}{\partial p}\right)_Tdp.
+\end{equation}
+%
+Ahora, para el caso de gas ideal y usando la Ec. \eqref{eq:gas_ideal} podemos reescribir la Ec. \eqref{eq:entalpia} como
+%
+\begin{equation}
+h = c_pT + RT
+\end{equation}
+%
+lo que nos indica que, tal como $u$, $h$ depende de la temperatura solamente.
+Esto nos lleva a decir que $\partial h/\partial p=0$ y
+%
+\begin{align}\label{eq:dentalpia}
+dh &= \left(\frac{\partial h}{\partial T}\right)_pdT = c_pdT\nonumber\\
+\Rightarrow h &= c_pT
+\end{align}
+%
+donde $c_p$ es el calo específico a presión constante.
+
+Comparemos las Ecs. \eqref{eq:denergia_interna} y \eqref{eq:dentalpia}.
+Sabemos que para gases ideales
+%
+\begin{align}
+h = u + RT &\Rightarrow dh = du + RdT\nonumber\\
+&\Rightarrow dh = c_pdT = c_vdT + RdT\nonumber\\
+&\Rightarrow c_p-c_v=R.
+\end{align}
+%
+No deja de ser sorprendente que la resta entre dos variables que dependen de la temperatura de una constante, pero se da que su diferencia es constante.
+
+También podemos definir el ratio de calores específicos:
+%
+\begin{equation}
+k \frac{c_p}{c_v}
+\end{equation}
+%
+que para el caso de gases es $\sim1.4$.
+
+\paragraph*{Entropía}
+Otra variable termodinámica que vale la pena revisar es la entropía.
+En el contexto de la termodinámica clásica, la entropía se define como
+%
+\begin{equation}\label{eq:entropia}
+dS = \left(\frac{dQ}{T}\right)_\text{rev},
+\end{equation}
+%
+donde el subíndice ``rev'' indica reversible. 
+
+Como nota al margen, la entropía tiene un significado muchísimo más profundo cuando la derivamos desde principios de mecánica estadística, pues guarda relación con la probabilidad de tener un determinado estado energético.
+Si un estado energético (dado por cierta distribución espacial y energética de las moléculas) es más probable, su entropía será mayor.
+Esto hace evidente (y fundamental) la segunda ley de la termodinámica, que dice que la entropía siempre va aumentando.
+Un sistema naturalmente tenderá a estados energéticos más probables, y por tanto, de mayor entropía, reafirmando la segunda ley.
+Esto lo dejo ahí para quien esté interesado, sin embargo, en el contexto del curso la definición dada por la Ec. \eqref{eq:entropia} es más que suficiente.
+
+A partir de la segunda ley de la termodinámica, podemos deducir la desigualdad de Clausius
+%
+\begin{equation}\label{eq:clausius}
+\oint \frac{dQ}{T}\leq0.
+\end{equation}
+% 
+En términos físicos, esta desigualdad nos dice que naturalmente el flujo de calor va a ir de más caliente a más frío en un proceso termodinámico.
+El caso donde se da la igualdad en la Ec. \eqref{eq:clausius} es un proceso reversible:
+%
+\begin{equation}
+ds = \frac{dQ}{T}
+\end{equation}
+%
+y la desigualdad es válida para un proceso irreversible
+%
+\begin{equation}
+ds>\frac{dQ}{T}.
+\end{equation}
+%
+Ahora, si el flujo es adiabático $dQ=0$, y las ecuaciones quedan
+%
+\begin{align}
+ds = 0 \ \text{en caso reversible}\nonumber\\
+ds > 0 \ \text{en caso irreversible}\nonumber\\
+\end{align}
+%
+lo cual se ajusta a la segunda ley de la termodinámica.
+Esta última ecuación además nos indica que un proceso reversible y adiabático es también isentrópico.
+
+La definición de entropía además de la primera ley de la termodinámica nos permiten escribir lo siguiente:
+%
+\begin{equation}
+du = dq + dw \Rightarrow Tds = du+pdv_e
+\end{equation}
+%
+lo que, para gases ideales queda como
+%
+\begin{align}
+ds &= \frac{du}{T}+\frac{p}{T}dv_e = c_v\frac{dT}{T}+R\frac{dv_e}{v_e}\nonumber\\
+s_2-s_1 &= c_v\ln\left(\frac{T_2}{T_1}\right) + R\ln\left(\frac{v_{e,2}}{v_{e,1}}\right) 
+\end{align}
+%
+En el caso isentrópico, $s_2-s_1=0$, y para este caso, podemos escribir
+%
+\begin{align}
+&c_v\ln\left(\frac{T_2}{T_1}\right) + R\ln\left(\frac{v_{e,2}}{v_{e,1}}\right)=0 \nonumber\\
+&\left(\frac{T_2}{T_1}\right)\left(\frac{v_{e,2}}{v_{e,1}}\right)^{R/c_v}=1\nonumber\\
+&\Rightarrow T_2v_{e,2}^{k-1}=T_1v_{e,1}^{k-1}=Tv_{e}^{k-1}=\text{constante}
+\end{align}
+%
+y usando la ecuación de gas ideal llegamos a
+%
+\begin{align}\label{eq:isentropico}
+\frac{T^k}{p^{1-k}}=\text{constante}\nonumber\\
+\frac{p}{\rho^k}=\text{constante}
+\end{align}
+
+\section*{Propagación de ondas de presión}
+
+Una onda de presión (por ejemplo, de sonido), es la propagación por el medio de una perturbación en la presión.
+Por ejemplo, si tenemos un receptáculo cerrado con aire, y lo golpeamos, localmente cerca de la pared la presión cambia, y este cambio en la presión viaja dentro del receptáculo.
+Las ondas de presión se propagan a través del medio con una velocidad característica que llamaremos $c$, la velocidad del sonido.
+Esta velocidad es un parámetro que derivaremos de variables termodinámicas, y, como es de esperar, depende de dos variables independientes.
+
+Digamos que el aire está quieto y de alguna forma perturbamos la presión un diferencial $dp$ en un lado, y la mantenemos.
+Esto generará un frente de onda que viaja con velocidad $c$ en el eje $x$, donde en las zonas donde todavía no ha pasado el frente la velocidad seguirá siendo cero (aire quieto), la densidad será $\rho$ y la presión $p$.
+Detrás del frente de onda, el cambio en presión a $p+dp$ genera movimiento del fluido con velocidad $dV_x$, y variación de densidad a $\rho+d\rho$.
+
+Analicemos el sistema como un observador que se mueve con la onda de presión.
+Si hacemos un volumen de control que se mueve con la onda, nuestro observador verá como el flujo se entra al volumen de control con velocidad $c$, y sale de este con velocidad $c-dV_x$.
+En el contexto de volúmen de control, la ecuación de continuidad es:
+%
+\begin{equation}
+0 = \int_{VC}\rho d\vol + \oint_{SC}\rho \mathbf{V}\cdot\hat{n}dA
+\end{equation}
+%
+donde la acumulación será cero (pues estamos en estado estacionario), y los flujos de entrada y salida tienen un perfil de velocidad constante.
+Esto nos deja con:
+%
+\begin{align}\label{eq:continuidad_onda}
+&-\rho c A + (\rho+d\rho)(c-dV_x)A = 0\nonumber\\
+&\Rightarrow dV_x = \frac{c}{\rho}d\rho
+\end{align}
+
+Fijémonos ahora en la ecuación de momentum. 
+Con análisis de volumen de control, esta ecuación es
+%
+\begin{equation}
+\sum \mathbf{F} = \int_{VC}\mathbf{V}\rho d\vol + \oint_{SC}\mathbf{V}\rho \mathbf{V}\cdot\hat{n}dA
+\end{equation}
+%
+donde la única fuerza es debido al cambio de presión ($F=dpA$), si no consideramos la gravedad.
+Poniendo los valores de velocidad de entrada y salida del volumen de control quedamos con
+%
+\begin{align}\label{eq:momentum_onda}
+-dpA = -\rho c^2A + (c-dV_x)^2(\rho+d\rho)A\nonumber\\
+-dpA = -\rho c^2A + (c-dV_x)\rho cA = (-c+c-dV_x)\rho cA\nonumber\\
+\Rightarrow dV_x = \frac{dp}{\rho c}
+\end{align}
+%
+e igualando a la Ec. \eqref{eq:continuidad_onda} quedamos con
+%
+\begin{align}\label{eq:vel_sonido}
+\frac{c}{\rho}d\rho = \frac{dp}{\rho c}\nonumber\\
+\Rightarrow c^2 = \frac{dp}{d\rho}
+\end{align}
+%
+lo que define la velocidad del sonido en cualquier medio a partir de termodinámica.
+
+Fíjense en la implicancia física de la Ec. \eqref{eq:vel_sonido} en el caso incompresible.
+Para flujos incompresibles, $d\rho=0$, por lo que la velocidad del sonido sería infinita!
+En otras palabras, cualquier perfurbación en un fluido incompresible sería ``sentido'' en todo el resto del dominio instantáneamente.
+
+La variación de presión es infinitesimal, por lo tanto, puede considerarse como un proceso reversible, y además es rápido, por lo que no entrega tiempo para la liberación de calor, haciéndolo adiabático.
+Por esto, pordemos decir que la onda de sonido es isentrópica (entropía constante):
+%
+\begin{align}\label{eq:vel_sonido}
+\Rightarrow c^2 = \left.\frac{dp}{d\rho}\right|_{s=\text{constante}}
+\end{align}
+%
+De hecho, puede ser más fácil darse cuenta del carácter isentrópico de una onda de presión pensando en términos de mećanica estadística.
+La entropía es la probabilidad de tener un cierto estado energético (moléculas en cierto lugar con cuerta energía cinética y potencial), y una pequeña onda de presión no tendrá un efecto notorio en las moléculas, por lo que el estado energético no varía.
+
+Ya vimos en la Ec. \eqref{eq:isentropico} que $p/\rho^k=$constante.
+Diferenciemos esa expresión, y apliquemos el caso de gas ideal:
+%
+\begin{align}
+&\frac{p}{\rho^k}=C\Rightarrow p = C\rho^k\nonumber\\
+&\left.\ln(p) = \ln(C)+k\ln(\rho)\right/d\nonumber\\
+&d(\ln(p)) =d(\ln(C)) + kd(\ln(\rho))\nonumber\\
+&\frac{dp}{p} = k\frac{d\rho}{\rho}\nonumber\\
+&\Rightarrow \frac{dp}{d\rho} = k\frac{p}{\rho} = kRT.
+\end{align}
+%
+Por lo tanto, podemos escribir la velocidad del sonido en un flujo ideal como 
+%
+\begin{equation}
+c=\sqrt{kRT}
+\end{equation}
+\subsection*{El cono de Mach}
+
+En el contexto de flujo compresible, se hace más fácil adimensionalizar la velocidad con $c$, dando paso al número de Mach:
+%
+\begin{equation}
+M = \frac{V}{c}.
+\end{equation}
+
+
