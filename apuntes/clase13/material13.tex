@@ -52,9 +52,9 @@ Además, implícitamente hemos usado la ecuación de estado
 \rho = \text{constante}
 \end{equation}
 %
-En general, necesitamos las cuatro ecuaciones para tener un sistema cerrado y modelar mecánica de fluidos, sin embargo, hasta ahora nos hemos focalizado en el caso fácil, donde necesitamos solamente dos de esas ecuaciones.
+En general, necesitamos las cuatro o más ecuaciones para tener un sistema cerrado y modelar mecánica de fluidos, sin embargo, hasta ahora nos hemos focalizado en el caso fácil, donde necesitamos solamente dos de esas ecuaciones.
 
-Volvamos un poco más atrás en las derivaciones para ver por qué necesitamos las cuatro ecuaciones.
+Volvamos un poco más atrás en las derivaciones para ver por qué necesitamos tantas ecuaciones.
 En general, la ecuaciones de conservación de masa, momentum y energía son:
 %
 \begin{align}\label{eq:conservacion}
@@ -64,7 +64,7 @@ En general, la ecuaciones de conservación de masa, momentum y energía son:
 \end{align}
 %
 donde $\tau_{ij}$ es el tensor con los esfuerzos de corte y $u$ la energía interna específica.
-Si se fijan en la Ec. \eqref{eq:conservacion} tenemos 9 variables a calcular: $\rho$, $\mathbf{V}=(u,v,w)$, $p$, $\tau_{ij}$, $u$, $\kappa$ y $T$, sin embargo, solamente hay 5 ecuaciones (una de momentum por cada dirección, más energía y continuidad).
+Si se fijan en la Ec. \eqref{eq:conservacion} tenemos 9 variables a calcular: $\rho$, $\mathbf{V}=(V_x,V_y,V_z)$, $p$, $\tau_{ij}$, $u$, $\kappa$ y $T$, sin embargo, solamente hay 5 ecuaciones (una de momentum por cada dirección, más energía y continuidad).
 Para cerrar el sistema, necesitamos 4 ecuaciones más.
 Una de estas ecuaciones las podemos sacar de relaciones constitutivas, o sea, ecuaciones propias del material. 
 Por ejemplo, al asumir un fluido Newtoniano encontramos una relación entre la velocidad y $\tau_{ij}$ (de hecho, la usamos para llegar a la ecuación de Navier-Stokes).
@@ -82,7 +82,7 @@ De esta forma, la Ec. \eqref{eq:conservacion} queda:
 \end{align}
 %
 donde la conservación de cantidad de movimiento nos llevó a la ecuación de Euler.
-Para cerrar el systema, necesitamos dos ecuaciones de estado, considerando que tenemos valores empíricos para $\kappa$.
+Para cerrar el sistema, necesitamos dos ecuaciones de estado, considerando que tenemos valores empíricos para $\kappa$.
 
 Afortunadamente de termodinámica sabemos que con dos parámetros termodinámicos se define un estado, por lo tanto la energía interna es función de dos variables intependientes, por ejemplo $u=u(v_e,T)$, donde $v_e=1/\rho$ es el volúmen específico.
 Por esto, podemos escribir
@@ -108,7 +108,7 @@ Para la segunda ecuación de estado haremos una suposición: digamos que el flui
 %
 donde $R=R_u/PM$ es la constante del gas, igual al ratio entre la constante  universal de gases sobre el peso molecular.
 $R_u$ no es más que el ratio entre la constante de Boltzmann y el número de Avogadro.
-No haremos la derivación al respecto, pero la ecuación de gases ideales (Ec. \eqref{eq:gas_ideal} puede ser obtenida a partir de conceptos de mecánica estadística. 
+No haremos la derivación al respecto, pero la ecuación de gases ideales (Ec. \eqref{eq:gas_ideal}) puede ser obtenida a partir de conceptos de mecánica estadística. 
 Si consideramos las moléculas del gas como masas puntuales que no chocan entre ellas, al integrar sobre todas las posibles conformaciones de dichas moléculas, llegamos a la Ec. \eqref{eq:gas_ideal}.
 Esto nos dice mucho de la validez del modelo: si consideramos que las moléculas no chocan entre ellas, significa que el gas tiene que estar muy diluído, con las moléculas muy separadas, y que la viscosidad no es importante.
 Llega ser increíble que un modelo tan ``burdo'' funcione, pero la experiencia nos dice que en aire a $1$atm, la ecuación de gases ideales funciona muy bien para temperaturas sobre $-130^\circ$C (menos de 1\% de error).
@@ -176,7 +176,7 @@ No deja de ser sorprendente que la resta entre dos variables que dependen de la 
 También podemos definir el ratio de calores específicos:
 %
 \begin{equation}
-k \frac{c_p}{c_v}
+k = \frac{c_p}{c_v}
 \end{equation}
 %
 que para el caso de gases es $\sim1.4$.
@@ -318,7 +318,7 @@ Por esto, pordemos decir que la onda de sonido es isentrópica (entropía consta
 \end{align}
 %
 De hecho, puede ser más fácil darse cuenta del carácter isentrópico de una onda de presión pensando en términos de mećanica estadística.
-La entropía es la probabilidad de tener un cierto estado energético (moléculas en cierto lugar con cuerta energía cinética y potencial), y una pequeña onda de presión no tendrá un efecto notorio en las moléculas, por lo que el estado energético no varía.
+La entropía es la probabilidad de tener un cierto estado energético (moléculas en cierto lugar con cierta energía cinética y potencial), y una pequeña onda de presión no tendrá un efecto notorio en las moléculas, por lo que el estado energético no varía.
 
 Ya vimos en la Ec. \eqref{eq:isentropico} que $p/\rho^k=$constante.
 Diferenciemos esa expresión, y apliquemos el caso de gas ideal:
