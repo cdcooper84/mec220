@@ -182,48 +182,49 @@ k = \frac{c_p}{c_v}
 que para el caso de gases es $\sim1.4$.
 
 \paragraph*{Entropía}
-Otra variable termodinámica que vale la pena revisar es la entropía.
-En el contexto de la termodinámica clásica, la entropía se define como
+A partir de la segunda ley de la termodinámica, se puede deducir la desigualdad de Clausius
 %
-\begin{equation}\label{eq:entropia}
-dS = \left(\frac{dQ}{T}\right)_\text{rev},
+\begin{equation}\label{eq:clausius}
+\oint \frac{dQ}{T}\leq0,
+\end{equation}
+% 
+donde la igualdad en la indica un proceso reversible:
+%
+\begin{equation}\label{eq:clausius_rev}
+\oint \frac{dQ}{T}=0
 \end{equation}
 %
-donde el subíndice ``rev'' indica reversible. 
+y la desigualdad es válida para un proceso irreversible
+%
+\begin{equation}
+\oint\frac{dQ}{T}<0.
+\end{equation}
 
+A partir de esto, se hace útil definir una nueva variable termodinámica, la entropía, como
+%
+\begin{equation}\label{eq:entropia}
+dS = \left(\frac{dQ}{T}\right)_\text{reversible},
+\end{equation}
+%
 Como nota al margen, la entropía tiene un significado muchísimo más profundo cuando la derivamos desde principios de mecánica estadística, pues guarda relación con la probabilidad de tener un determinado estado energético.
 Si un estado energético (dado por cierta distribución espacial y energética de las moléculas) es más probable, su entropía será mayor.
 Esto hace evidente (y fundamental) la segunda ley de la termodinámica, que dice que la entropía siempre va aumentando.
 Un sistema naturalmente tenderá a estados energéticos más probables, y por tanto, de mayor entropía, reafirmando la segunda ley.
 Esto lo dejo ahí para quien esté interesado, sin embargo, en el contexto del curso la definición dada por la Ec. \eqref{eq:entropia} es más que suficiente.
 
-A partir de la segunda ley de la termodinámica, podemos deducir la desigualdad de Clausius
-%
-\begin{equation}\label{eq:clausius}
-\oint \frac{dQ}{T}\leq0.
-\end{equation}
-% 
-En términos físicos, esta desigualdad nos dice que naturalmente el flujo de calor va a ir de más caliente a más frío en un proceso termodinámico.
-El caso donde se da la igualdad en la Ec. \eqref{eq:clausius} es un proceso reversible:
+En el caso reversible, la Ec. \eqref{eq:clausius_rev} nos dice que la integral de línea de $dQ/T$ sobre una curva cerrada es cero, lo que matemáticamente nos indica que la integral no depende de la trayectoria, si no que solamente de sus puntos de inicio y fin.
+Por esto, en cualquier proceso reversible (no necesariamente cerrado), se da que
 %
 \begin{equation}
-ds = \frac{dQ}{T}
+\int_1^2\frac{dQ}{T} = \left(\frac{dQ}{T}\right)_2 -\left(\frac{dQ}{T}\right)_1 = S_2-S_1.
 \end{equation}
-%
-y la desigualdad es válida para un proceso irreversible
-%
-\begin{equation}
-ds>\frac{dQ}{T}.
-\end{equation}
-%
+
 Ahora, si el flujo es adiabático $dQ=0$, y las ecuaciones quedan
 %
-\begin{align}
-ds = 0 \ \text{en caso reversible}\nonumber\\
-ds > 0 \ \text{en caso irreversible}\nonumber\\
-\end{align}
+\begin{equation}
+ds = 0 
+\end{equation}
 %
-lo cual se ajusta a la segunda ley de la termodinámica.
 Esta última ecuación además nos indica que un proceso reversible y adiabático es también isentrópico.
 
 La definición de entropía además de la primera ley de la termodinámica nos permiten escribir lo siguiente:
@@ -232,14 +233,15 @@ La definición de entropía además de la primera ley de la termodinámica nos p
 du = dq + dw \Rightarrow Tds = du+pdv_e
 \end{equation}
 %
-lo que, para gases ideales queda como
+donde $s$ es la entropía específica (por unidad de masa).
+Para gases ideales queda como
 %
 \begin{align}
 ds &= \frac{du}{T}+\frac{p}{T}dv_e = c_v\frac{dT}{T}+R\frac{dv_e}{v_e}\nonumber\\
 s_2-s_1 &= c_v\ln\left(\frac{T_2}{T_1}\right) + R\ln\left(\frac{v_{e,2}}{v_{e,1}}\right) 
 \end{align}
 %
-En el caso isentrópico, $s_2-s_1=0$, y para este caso, podemos escribir
+En el caso isentrópico, $s_2-s_1=0$, y podemos escribir
 %
 \begin{align}
 &c_v\ln\left(\frac{T_2}{T_1}\right) + R\ln\left(\frac{v_{e,2}}{v_{e,1}}\right)=0 \nonumber\\
@@ -258,12 +260,19 @@ y usando la ecuación de gas ideal llegamos a
 
 Una onda de presión (por ejemplo, de sonido), es la propagación por el medio de una perturbación en la presión.
 Por ejemplo, si tenemos un receptáculo cerrado con aire, y lo golpeamos, localmente cerca de la pared la presión cambia, y este cambio en la presión viaja dentro del receptáculo.
-Las ondas de presión se propagan a través del medio con una velocidad característica que llamaremos $c$, la velocidad del sonido.
-Esta velocidad es un parámetro que derivaremos de variables termodinámicas, y, como es de esperar, depende de dos variables independientes.
+Las ondas de presión se propagan a través del medio con una velocidad característica que llamaremos $c$, la velocidad del sonido, y a continuación la derivaremos a partir de variables termodinámicas.
 
+Usemos la Figura \ref{fig:onda_presion} para guiar la discusión.
 Digamos que el aire está quieto y de alguna forma perturbamos la presión un diferencial $dp$ en un lado, y la mantenemos.
 Esto generará un frente de onda que viaja con velocidad $c$ en el eje $x$, donde en las zonas donde todavía no ha pasado el frente la velocidad seguirá siendo cero (aire quieto), la densidad será $\rho$ y la presión $p$.
 Detrás del frente de onda, el cambio en presión a $p+dp$ genera movimiento del fluido con velocidad $dV_x$, y variación de densidad a $\rho+d\rho$.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{clase13/onda_presion.pdf}
+\caption{Análisis de volumen de control sobre una onda de presión. La figura a la izquierda usa un volumen de control en movimiento, y la de la derecha considera un observador que se mueve con el volumen de control.}
+\label{fig:onda_presion}
+\end{figure}
 
 Analicemos el sistema como un observador que se mueve con la onda de presión.
 Si hacemos un volumen de control que se mueve con la onda, nuestro observador verá como el flujo se entra al volumen de control con velocidad $c$, y sale de este con velocidad $c-dV_x$.
@@ -274,7 +283,7 @@ En el contexto de volúmen de control, la ecuación de continuidad es:
 \end{equation}
 %
 donde la acumulación será cero (pues estamos en estado estacionario), y los flujos de entrada y salida tienen un perfil de velocidad constante.
-Esto nos deja con:
+Despreciando los términos con más de un diferencial (en otras palabras, linealizando), esto nos deja con:
 %
 \begin{align}\label{eq:continuidad_onda}
 &-\rho c A + (\rho+d\rho)(c-dV_x)A = 0\nonumber\\
@@ -289,12 +298,12 @@ Con análisis de volumen de control, esta ecuación es
 \end{equation}
 %
 donde la única fuerza es debido al cambio de presión ($F=dpA$), si no consideramos la gravedad.
-Poniendo los valores de velocidad de entrada y salida del volumen de control quedamos con
+Poniendo los valores de velocidad de entrada y salida del volumen de control, y usando la ecuación de continuidad, quedamos con
 %
 \begin{align}\label{eq:momentum_onda}
--dpA = -\rho c^2A + (c-dV_x)^2(\rho+d\rho)A\nonumber\\
--dpA = -\rho c^2A + (c-dV_x)\rho cA = (-c+c-dV_x)\rho cA\nonumber\\
-\Rightarrow dV_x = \frac{dp}{\rho c}
+-dpA &= -\rho c^2A + (c-dV_x)^2(\rho+d\rho)A\nonumber\\
+-dpA &= -\rho c^2A + (c-dV_x)\rho cA = (-c+c-dV_x)\rho cA\nonumber\\
+\Rightarrow dV_x &= \frac{dp}{\rho c}
 \end{align}
 %
 e igualando a la Ec. \eqref{eq:continuidad_onda} quedamos con
@@ -308,7 +317,7 @@ lo que define la velocidad del sonido en cualquier medio a partir de termodinám
 
 Fíjense en la implicancia física de la Ec. \eqref{eq:vel_sonido} en el caso incompresible.
 Para flujos incompresibles, $d\rho=0$, por lo que la velocidad del sonido sería infinita!
-En otras palabras, cualquier perfurbación en un fluido incompresible sería ``sentido'' en todo el resto del dominio instantáneamente.
+En otras palabras, cualquier perturbación en un fluido incompresible sería ``sentido'' en todo el resto del dominio instantáneamente.
 
 La variación de presión es infinitesimal, por lo tanto, puede considerarse como un proceso reversible, y además es rápido, por lo que no entrega tiempo para la liberación de calor, haciéndolo adiabático.
 Por esto, pordemos decir que la onda de sonido es isentrópica (entropía constante):
@@ -318,7 +327,7 @@ Por esto, pordemos decir que la onda de sonido es isentrópica (entropía consta
 \end{align}
 %
 De hecho, puede ser más fácil darse cuenta del carácter isentrópico de una onda de presión pensando en términos de mećanica estadística.
-La entropía es la probabilidad de tener un cierto estado energético (moléculas en cierto lugar con cierta energía cinética y potencial), y una pequeña onda de presión no tendrá un efecto notorio en las moléculas, por lo que el estado energético no varía.
+La entropía es la probabilidad de tener un cierto estado energético (moléculas en cierto lugar con cierta energía cinética y potencial), y una pequeña onda de presión no tendrá un efecto notorio en las moléculas (seguirán igual de ``desordenadas'' y con una energía parecida), por lo que el estado energético no varía.
 
 Ya vimos en la Ec. \eqref{eq:isentropico} que $p/\rho^k=$constante.
 Diferenciemos esa expresión, y apliquemos el caso de gas ideal:
