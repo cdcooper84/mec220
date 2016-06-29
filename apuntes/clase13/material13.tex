@@ -345,12 +345,72 @@ Por lo tanto, podemos escribir la velocidad del sonido en un flujo ideal como
 \begin{equation}
 c=\sqrt{kRT}
 \end{equation}
+
 \subsection*{El cono de Mach}
 
+A continuación, veremos qué ocurre si la fuente de la onda de presión es móvil, y se mueve con velocidad subsónica, sónica y supersónica.
+Veamos cada caso, cuando la fuente emite tres ondas, $\Delta t_1$, $\Delta t_2$ y $\Delta t_3$ segundos antes del tiempo actual, y se mueve de derecha a izquierda.  
+
+\begin{itemize}
+\item $\mathbf{V=0}$: Este es el caso más simple, donde el fuente está quieta, y siempre al centro del frente esférico de las ondas de presión. 
+La Figura \ref{fig:V0} es un ejemplo de esto
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase13/V0.pdf}
+\caption{Ondas de presión de una fuente quieta.}
+\label{fig:V0}
+\end{figure}
+%
+\item $\mathbf{V<c}$: la fuente viaja a velocidad subsónica, por lo que el frente de la onda de presión siempre va adelante de la fuente.
+La Figura \ref{fig:Vsub} es un ejemplo de esto
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase13/Vsub.pdf}
+\caption{Ondas de presión de una fuente que se mueve con velocidad subsónica.}
+\label{fig:Vsub}
+\end{figure}
+%
+\item $\mathbf{V=c}$: la fuente viaja a la velocidad del sonido, por lo que se encuentra sobre el frente de onda.
+Debido a esto, la amplitud de la onda crece donde se encuentra la fuente, aumentando localmente la presión.
+Es este aumento de presión el responsable de que sea tan difícil pasar la barrera del sonido (de ahí el nombre ``barrera'').
+La Figura \ref{fig:Vsonico} es un ejemplo de esto
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{clase13/Vsonico.pdf}
+\caption{Ondas de presión de una fuente que se mueve con la velocidad del sonido.} 
+\label{fig:Vsonico}
+\end{figure}
+%
+\item $\mathbf{V>c}$: la fuente viaja a velocidad supersónica, por lo que se encuentra adelante del frente de onda.
+Como vemos a partir de la Figura \ref{fig:Vsuper}, se genera una onda oblicua (cónica en tres dimensiones) donde fuera del cono la onda todavía no llega.
+Este cono se conoce como el \emph{cono de Mach}.
+La Figura \ref{fig:Vsuper} nos muestra que se generan triángulos rectángulos, y se hace patente que el semiángulo del cono es:
+%
+\begin{equation}
+\sin (\alpha) = \frac{c\Delta t}{V\Delta t} = \frac{c}{V}.
+\end{equation}
+%
 En el contexto de flujo compresible, se hace más fácil adimensionalizar la velocidad con $c$, dando paso al número de Mach:
 %
 \begin{equation}
-M = \frac{V}{c}.
+M = \frac{V}{c},
 \end{equation}
+%
+y podemos reescribir el seno del semiángulo como
+%
+\begin{equation}
+\sin(\alpha)= \frac{1}{M}
+\end{equation}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{clase13/Vsuper.pdf}
+\caption{Ondas de presión de una fuente que se mueve con velocidad supersónica.} 
+\label{fig:Vsuper}
+\end{figure}
+\end{itemize}
 
 
