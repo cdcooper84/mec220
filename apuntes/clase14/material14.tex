@@ -22,6 +22,7 @@ Bibliografía:
 \end{framed}
 
 \section*{Flujo isentrópico de un gas ideal}
+\subsection*{Relaciones termodinámicas con el estancamiento}
 
 En la clase pasada repasamos conceptos de termodinámica, y llegamos a diferentes expresiones relacionando presión, temperatura y densidad para procesos isentrópicos de gases ideales. 
 Ahora, analizaremos un flujo isentrópico de gas ideal, para poder encontrar ecuaciones que relacionen un estado termodinámico con las condiciones del flujo al estancamiento.
@@ -70,16 +71,132 @@ De esta forma, podemos escribir la componente $x$ de la fuerza sobre el manto co
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.4\textwidth]{clase14/cantidad_mov.pdf}
+\includegraphics[width=0.3\textwidth]{clase14/cantidad_mov.pdf}
 \caption{Análisis de cantidad de movimiento sobre volumen de control.}
 \label{fig:volumen_control}
 \end{figure}
 
 Conociendo la suma de fueras, y asumiendo que la variables son constantes en la sección transversal, podemos reescribir la Ec. \eqref{eq:momentum_isentropico} como
 %
-\begin{align}
+\begin{align}\label{eq:momentum_isen_final}
 -dpA &= -V\rho VA + (V+dV)\underbrace{(\rho+d\rho)(V+dV)(A+dA)}_{=\rho VA\text{ por continuidad (Ec.\eqref{eq:continuidad_isentropico})}}\nonumber\\
 \Rightarrow -dp &= \rho V(-V+V+dV)\nonumber\\
 -dp &= \rho VdV\nonumber\\
 \frac{dp}{\rho} &+ d\left(\frac{V^2}{2}\right) = 0
 \end{align}
+
+Hasta ahora, nada hemos dicho de gases ideales ni de flujo isentrópico; utilicemos estos conceptos.
+De la clase pasada, sabemos que para un flujo isetrópico ideal
+%
+\begin{equation}\label{eq:isentropico}
+\frac{p}{\rho^k} = C_0,
+\end{equation}
+%
+por lo que podemos reescribir la Ec. \eqref{eq:momentum_isen_final} como
+%
+\begin{equation}
+-C_0^{1/k}\frac{dp}{p^{1/k}} = d\left(\frac{V^2}{2}\right).
+\end{equation}
+%
+Integremos esta última expresión desde $x$ hasta el punto de estancamiento
+%
+\begin{align}\label{eq:p_isen}
+-\int_V^0d\left(\frac{V^2}{2}\right) &= C_0^{1/k}\int_p^{p_0}p^{-1/k}dp\nonumber\\
+\frac{V^2}{2} = C_0^{1/k} \left.\frac{1}{1-\frac{1}{k}}p^{1-1/k}\right/_p^{p_0}&= C_0^{1/k}\left.\frac{k}{k-1}p^{\frac{k-1}{k}}\right/_p^{p_0}\nonumber\\
+=C_0^{1/k}\frac{k}{k-1}\left(p_0^{\frac{k-1}{k}}-p^{\frac{k-1}{k}}\right) &= C_0^{1/k}p^{\frac{k-1}{k}}\left[\left(\frac{p_o}{p}\right)^{\frac{k-1}{k}}-1\right]\\
+\text{ pero de la Ec. \eqref{eq:isentropico}:   } C_0^{1/k} &= \frac{p^{1/k}}{\rho}\nonumber\\
+\Rightarrow\frac{V^2}{2}&=\frac{k}{k-1}\frac{p}{\rho}\left[\left(\frac{p_o}{p}\right)^{\frac{k-1}{k}}-1\right]\nonumber\\
+\text{despejando...   } \frac{p_0}{p} &= \left[\frac{V^2}{2}\frac{k-1}{k}\frac{\rho}{p}+1\right]^\frac{k}{k-1}\nonumber\\
+\text{y usando la ley de gases ideales   } \frac{p_0}{p} &= \left[\frac{V^2}{2}\underbrace{\frac{k-1}{k}\frac{1}{RT}}_{kRT=c^2}+1\right]^\frac{k}{k-1}\nonumber\\
+\Rightarrow \frac{p_0}{p} &= \left[M^2\frac{k-1}{2}+1\right]^\frac{k}{k-1}
+\end{align}
+
+A partir de la Ec. \eqref{eq:isentropico}, podemos escribir
+%
+\begin{equation}
+\frac{p}{\rho^k} = \frac{p_0}{\rho_0^k} \Rightarrow \frac{p_0}{p} = \left(\frac{\rho_0}{\rho}\right)^k,
+\end{equation}
+%
+y usando la Ec. \eqref{eq:p_isen}, llegamos a
+%
+\begin{equation}
+\frac{\rho_0}{\rho} = \left(\frac{p_0}{p}\right)^{1/k} = \left[M^2\frac{k-1}{2}+1\right]^\frac{1}{k-1}.
+\end{equation}
+%
+Por otra parte, desde la ley de gases ideales podemos decir que
+%
+\begin{align}
+\frac{P}{\rho}&=RT \quad \frac{p_0}{\rho_0} = RT_0\Rightarrow \frac{T_0}{T} = \frac{p_0}{p}\frac{\rho}{\rho_0}\nonumber\\
+\Rightarrow \frac{T_0}{T} &= \left[M^2\frac{k-1}{2}+1\right]^{\frac{k}{k-1}-\frac{1}{k-1}} = M^2\frac{k-1}{2}+1.
+\end{align}
+
+Lo interesante de todas estar relaciones es que solamente dependen del número de Mach. 
+Por lo tanto, dado un gas que está quieto en un estanque a $p_0$, $\rho_0$ y $T_0$, si se mueve de forma isentrópica, las condiciones termodinámicas están definidas únicamente por su velocidad.
+
+\subsection*{Flujo en un ducto de área variable}
+
+Digamos que tenemos un flujo compresible dentro de un ducto de área variable, como el de la Figura \ref{fig:tobera}. 
+Por continuidad sabemos que el flujo másico es constante a lo largo del ducto, y diferenciando:
+%
+\begin{align}\label{eq:d_mpunto}
+&\left.\dot{m}=\rho V A\right/ d,\nonumber\\
+&\left.0 = d\rho VA + \rho dV A + \rho V dA\right/\cdot\frac{1}{\rho VA}, \nonumber\\
+&0 = \frac{d\rho}{\rho} + \frac{dV}{V} + \frac{dA}{A}  
+\end{align}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{clase14/tobera.pdf}
+\caption{Flujo en ducto de área variable. La región $1$ es convergente, la región $2$ aproximadamente recta y la sección $3$ divergente.}
+\label{fig:tobera}
+\end{figure}
+
+Miremos nuevamente la Ec. \eqref{eq:momentum_isen_final}, y reescribámosla como
+%
+\begin{align}\label{eq:momentum_isen_aux}
+&\left.\frac{dp}{\rho} + VdV = 0\right/\cdot\frac{1}{V^2}\nonumber\\
+&\Rightarrow\frac{dp}{\rho V^2} = -\frac{dV}{V}
+\end{align}
+%
+y usemos este último resultado en la Ec. \eqref{eq:d_mpunto}:
+%
+\begin{align}
+\frac{dA}{A} &= \frac{dp}{\rho V^2} - \frac{d\rho}{\rho} = \frac{dp}{\rho V^2} \Big[1-\underbrace{\frac{d\rho}{dp}}_{=1/c^2} V^2\Big]\nonumber\\
+&=\frac{dp}{\rho V^2} \left[ 1-\frac{V^2}{c^2}\right] = \frac{dp}{\rho V^2}\left[1-M^2\right].
+\end{align}
+%
+Nuevamente, usemos la Ec. \eqref{eq:momentum_isen_aux} para escribir
+%
+\begin{align}\label{eq:tobera}
+\frac{dA}{A} &= -\frac{dV}{V}\left[1-M^2\right]\nonumber\\
+\Rightarrow \frac{dV}{V}&=-\frac{dA}{A}\frac{1}{1-M^2}
+\end{align}
+
+Esta última ecuación nos dice cosas muy interesantes, y que a primera vista, son poco intuitivas.
+Lo primero es el significado físico de los diferenciales: $dV$ no es más que la variación de velocidad a lo largo de ducto, y $dA$ la variación de área; veamos su relación en diferentes casos.
+%
+\paragraph*{Caso subsónico ($M<1$).} Reemplazando $M$ en la Ec. \eqref{eq:tobera}, nos queda una expresión negativa al lado izquierdo, por ende, una relación inversa entre $dA$ y $dV$.
+Esto implica que si uno crece el otro se achica, por ejemplo, al disminuír el área, crece la velocidad.
+Este es el comportamiento que esperamos, considerando nuestros conocimientos previos de mecánica de fluidos.
+En el contexto del ducto de la Figura \ref{fig:tobera}, el flujo se acelera en la zona $1$ y se frena en la zona $3$.
+%
+\paragraph*{Caso supersónico ($M>1$):} Acá la cosa cambia un poco. Al ser $M>1$, el denominador al lado izquierdo pasa a ser negativo, y cancela el número negativo al frente de la expresión, por lo que $dA$ tiene una relación directa con $dV$.
+En términos físicos, esto significa que si se achica el área, se frena el flujo: ¡Totalmente lo contrario respecto al caso subsónico (y lo que dice nuestra intuición)!
+Entonces, de ser supersónico, el flujo de frenaría en la zona $1$ de la Figura \ref{fig:tobera}, y se acelera cuando está en la zona $3$.
+%
+\paragraph*{Caso sónico ($M=1$):} Ahora si que estamos en problemas, ya que la Ec. \eqref{eq:tobera} se indefine.
+Físicamente esto no tiene sentido, y el sistema se debiese ajustar a esta situación.
+La única forma que no se indefina es que $dA=0$: solamente tendremos la velocidad del sonido dentro de un ducto cuando no hay variación de área, como en la región $2$ de la Figura \ref{fig:tobera}.
+
+\mbox{?`}Qué ocurre físicamente que el caso supersónico es tan poco intuitivo?
+Para encontrar una respuesta, hay que mirar la Ec. \eqref{eq:d_mpunto}, que reacomodamos de la siguiente forma:
+%
+\begin{equation}
+\frac{dV}{V} = -\frac{d\rho}{\rho} - \frac{dA}{A},
+\end{equation}
+%
+indicándonos que la variación de velocidad es un balance entre la variación de área y la variación de densidad.
+Resulta que para el caso supersónico los efectos de densidad se hacen más importantes que los de área.
+Por ejemplo, en una zona convergente, la disminución de área produce un aumento de densidad tal que $d\rho/\rho$ domina sobre $dA/A$, frenando el flujo.
+Lo contrario en la zona divergente, donde el aumento de área produce una baja de densidad tal que se acelera el flujo.
+
