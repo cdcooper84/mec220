@@ -119,13 +119,13 @@ A partir de la Ec. \eqref{eq:isentropico}, podemos escribir
 %
 y usando la Ec. \eqref{eq:p_isen}, llegamos a
 %
-\begin{equation}
+\begin{equation}\label{eq:rho_isen}
 \frac{\rho_0}{\rho} = \left(\frac{p_0}{p}\right)^{1/k} = \left[M^2\frac{k-1}{2}+1\right]^\frac{1}{k-1}.
 \end{equation}
 %
 Por otra parte, desde la ley de gases ideales podemos decir que
 %
-\begin{align}
+\begin{align}\label{eq:T_isen}
 \frac{P}{\rho}&=RT \quad \frac{p_0}{\rho_0} = RT_0\Rightarrow \frac{T_0}{T} = \frac{p_0}{p}\frac{\rho}{\rho_0}\nonumber\\
 \Rightarrow \frac{T_0}{T} &= \left[M^2\frac{k-1}{2}+1\right]^{\frac{k}{k-1}-\frac{1}{k-1}} = M^2\frac{k-1}{2}+1.
 \end{align}
@@ -200,3 +200,68 @@ Resulta que para el caso supersónico los efectos de densidad se hacen más impo
 Por ejemplo, en una zona convergente, la disminución de área produce un aumento de densidad tal que $d\rho/\rho$ domina sobre $dA/A$, frenando el flujo.
 Lo contrario en la zona divergente, donde el aumento de área produce una baja de densidad tal que se acelera el flujo.
 
+\section*{Flujo ahogado}
+
+Digamos que tenemos la tobera convergente de la Figura \ref{fig:tobera_convergente}.
+La tobera tiene una salida recta, que llamamos garganta, de forma que es posible que la descarga sea a $M=1$ según las condiciones en $dA$ que discutimos antes. 
+Por otra parte, el estanque de entrada tiene una presión $p_0$, mientras que el de salida tiene $p_s$, y en este ejercicio simulado vamos a suponer que bajamos $p_s$ para lograr el flujo deseado.
+Consideramos la $p_0$ como la presión de estancamiento en vez de $p_s$ porque para lograr $p_s$ en el estanque de salida debemos poner un dispositivo (compresor, soplador, etc.) que saque el gas y baje la presión, por lo que el gas no se detiene realmente en el estanque de salida. 
+En el estanque de entrada, podemos considerar que lejos de la boquilla la velocidad es efectivamente cero.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.4\textwidth]{clase14/tobera_convergente.pdf}
+\caption{Tobera convergente. La presión $p_1$ es la presión del estanque a la salida para lograr $M=1$ en la boquilla.}
+\label{fig:tobera_convergente}
+\end{figure}
+
+Bajamos entonces la presión $p_s$ hasta que $p_s=p_1$, logrando así que $M=1$ al final de la boquilla, y obtenemos el perfil de presión dentro de la boquilla que aparece en la Figura \ref{fig:tobera_convergente}.
+Las condiciones de $M=1$ se denominan condiciones críticas, y se denotan como $p^*$, $\rho^*$, $A^*$, $V^*$ y $T^*$.
+Cuando el flujo alcanza el estado crítico en la garganta, lo llamamos ``flujo ahogado''.
+De hecho, el área crítica $A^*$ se usa como referencia para presentar el área en la sección transversal de la boquilla.
+Para llegar a esta expresión, usamos el principio de continuidad:
+%
+\begin{align}
+\rho VA &= \rho^* V^* A^*\nonumber\\
+\Rightarrow \frac{A}{A^*} &= \frac{\rho^* V^*}{\rho V} = \frac{\rho^* c^*}{\rho Mc} = \frac{\rho^*}{\rho} \frac{1}{M}\frac{\sqrt{kRT^*}}{\sqrt{kRT}}\nonumber\\
+&=\frac{\rho^*/\rho_0}{\rho/\rho_0} \frac{1}{M}\frac{\sqrt{T^*/T_0}}{\sqrt{T/T_0}}.
+\end{align}
+%
+Usando las Ecs. \eqref{eq:rho_isen} y \eqref{eq:T_isen}, y sabiendo que $M=1$ en las condiciones críticas, llegamos a
+%
+\begin{equation}
+\frac{A}{A^*} = \frac{1}{M} \frac{\left[\frac{k+1}{2}\right]^{-\frac{1}{k-1}}}{\left[\frac{k-1}{2}M^2+1\right]^{-\frac{1}{k-1}}} \sqrt{\frac{\frac{k-1}{2}M^2+1}{\frac{k+1}{2}}} = \frac{1}{M} \left[\frac{1+\frac{k-1}{2}M^2}{\frac{k+1}{2}}\right]^{\frac{k+1}{2(k-1)}}.
+\end{equation}
+%
+Además, podemos calcular la presión de salida ($p_1$) necesaria para obtener $M=1$ en la garganta reemplazando $M=1$ en la Ec. \eqref{eq:p_isen}, lo que nos da
+%
+\begin{equation}\label{eq:p_critico}
+\frac{p_1}{p_0} = \frac{p^*}{p_0} = \left(\frac{2}{k+1}\right)^{\frac{k}{k-1}}.
+\end{equation}
+
+Por otra parte, el flujo másico para el flujo ahogado es
+%
+\begin{align}\label{eq:mpunto_ahogado_aux}
+\dot{m}_\text{ahogado} &= \rho^* V^*A^* = \frac{p^*}{RT^*}c^*A^*\nonumber\\
+&= \frac{p^*}{RT^*}\sqrt{kRT^*}A^* = \frac{p^*}{\sqrt{T^*}}\sqrt{\frac{k}{R}}A^*.
+\end{align}
+%
+Viendo la Ec. \eqref{eq:p_critico}, y que la temperatura crítica es
+%
+\begin{equation}
+\frac{T^*}{T_0} = \frac{2}{k+1},
+\end{equation}
+%
+podemos reescribir la Ec. \eqref{eq:mpunto_ahogado_aux} como
+%
+\begin{align}\label{eq:mpunto_ahogado}
+\dot{m}_\text{ahogado} &= \left[\frac{2}{k+1}\right]^{\frac{k}{k+1}}p_0\sqrt{\frac{k+1}{2}}\frac{1}{\sqrt{T_0}}\sqrt{\frac{k}{R}}A^*\nonumber\\
+\dot{m}_\text{ahogado} &= \sqrt{\frac{k}{RT_0}}\left(\frac{2}{k+1}\right)^{\frac{k+1}{2(k-1)}}p_0A^*
+\end{align}
+
+Digamos que en el ejemplo de la FIgura \ref{fig:tobera_convergente} bajamos la presión de salida aún más, a $p_2$.
+Intuitivamente uno pensaría que el flujo másico debiese seguir aumentando, sin embargo, esto no es lo que ocurre.
+Al bajar la presión, se genera una onda de presión que, para un flujo subsónico, sube aguas arriba, ajustándose el flujo a las nuevas condiciones.
+Pero en este caso el flujo es supersónico, por lo que la onda de presión más lenta que la velocidad, y es arrastrada.
+Por esto, el flujo dentro de la tobera es ``sordo'' a lo que ocurre aguas abajo cuando $M=1$ en la garganta, limitando el flujo másico máximo a $\dot{m}_\text{ahogado}$.
+Cuando la presión de salida es menor a $p^*$, el flujo sale de la tobera sin saber que la presión es aún más baja, lo que genera una \emph{onda de expansión}, equilibrando la presión del flujo a la del recipiente de salida.
