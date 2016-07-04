@@ -41,8 +41,8 @@ El volumen de control se encuentra en un punto genérico $x$, donde la velocidad
 Después del volumen de control, estas condiciones cambian a $V+dV$, $\rho+d\rho$, $p+dp$, $T+dT$ y $A+dA$.
 Aguas abajo, el flujo de desacelera a velocidad $V=0$, y encontramos las condiciones de estancamiento $\rho_0$, $p_0$ y $T_0$.
 
-Partamos por analizar continuidad sobre el solumen de control.
-Ya que es un tubo de corriente, no hay flujo a través del ``manto'' del columen de control, si no que solamente por las secciones transversales.
+Partamos por analizar continuidad sobre el volumen de control.
+Ya que es un tubo de corriente, no hay flujo a través del ``manto'' del volumen de control, si no que solamente por las secciones transversales.
 Digamos que la velocidad y densidad son constantes en cada sección transversal (lo cual no es una mala aproximación si consideramos un $A$ pequeño).
 En estado estacionario (sin acumulación), la conservación de masa nos lleva a
 %
@@ -60,7 +60,7 @@ De Mecánica de Fluidos General, sabemos que si no hay acumulación, el teorema 
 Partamos con la suma de fuerzas en el eje $x$.
 Usando la Figura \ref{fig:cantidad_mov} como referencia, en las caras transversales tenemos una fuerza $pA$ por el lado izquierdo y $(p+dp)(A+dA)$ por el derecho.
 Por otra parte, el manto tiene una forma arbitraria, y una distribución de presión sobre ésta tiene una componente en el eje $x$.
-Considerando que $dx$ es pequeño, asumamos que la fuerza generada por la presión sobre este manto es igual al promedio entre la presión antes y después del volumen de control, es decir $\overline{p} = p+dp/2$.
+Considerando que $dx$ es pequeño, asumamos que la presión media sobre este manto es igual al promedio lineal de la presión antes y después del volumen de control, es decir $\overline{p} = p+dp/2$.
 Entonces, la fuerza sobre el manto es $(p+dp/2)S$, donde $S$ es el área del manto, y $S=Ld$ donde $L$ es el perímetro y $d$ el ancho ($dx=d\cos\alpha$) .
 Nosotros estamos interesados en la componente $x$ de la fuerza, que es $(p+dp/2)Ld\sin\alpha$, pero $d\sin\alpha$ es la proyección de $d$ en el eje $y$, y multiplicado por el perímetro $L$, no es más de la diferencia entre las áreas de entrada y salida del volumen de control ($dA$).
 De esta forma, podemos escribir la componente $x$ de la fuerza sobre el manto como $(p+dp/2)dA$, y despreciando los términos con diferenciales de orden mayor a 1, la suma de fuerza queda
@@ -73,7 +73,7 @@ De esta forma, podemos escribir la componente $x$ de la fuerza sobre el manto co
 \centering
 \includegraphics[width=0.3\textwidth]{clase14/cantidad_mov.pdf}
 \caption{Análisis de cantidad de movimiento sobre volumen de control.}
-\label{fig:volumen_control}
+\label{fig:cantidad_mov}
 \end{figure}
 
 Conociendo la suma de fueras, y asumiendo que la variables son constantes en la sección transversal, podemos reescribir la Ec. \eqref{eq:momentum_isentropico} como
@@ -103,7 +103,7 @@ Integremos esta última expresión desde $x$ hasta el punto de estancamiento
 \begin{align}\label{eq:p_isen}
 -\int_V^0d\left(\frac{V^2}{2}\right) &= C_0^{1/k}\int_p^{p_0}p^{-1/k}dp\nonumber\\
 \frac{V^2}{2} = C_0^{1/k} \left.\frac{1}{1-\frac{1}{k}}p^{1-1/k}\right/_p^{p_0}&= C_0^{1/k}\left.\frac{k}{k-1}p^{\frac{k-1}{k}}\right/_p^{p_0}\nonumber\\
-=C_0^{1/k}\frac{k}{k-1}\left(p_0^{\frac{k-1}{k}}-p^{\frac{k-1}{k}}\right) &= C_0^{1/k}p^{\frac{k-1}{k}}\left[\left(\frac{p_o}{p}\right)^{\frac{k-1}{k}}-1\right]\\
+=C_0^{1/k}\frac{k}{k-1}\left(p_0^{\frac{k-1}{k}}-p^{\frac{k-1}{k}}\right) &= C_0^{1/k}p^{\frac{k-1}{k}}\left[\left(\frac{p_o}{p}\right)^{\frac{k-1}{k}}-1\right]\nonumber\\
 \text{ pero de la Ec. \eqref{eq:isentropico}:   } C_0^{1/k} &= \frac{p^{1/k}}{\rho}\nonumber\\
 \Rightarrow\frac{V^2}{2}&=\frac{k}{k-1}\frac{p}{\rho}\left[\left(\frac{p_o}{p}\right)^{\frac{k-1}{k}}-1\right]\nonumber\\
 \text{despejando...   } \frac{p_0}{p} &= \left[\frac{V^2}{2}\frac{k-1}{k}\frac{\rho}{p}+1\right]^\frac{k}{k-1}\nonumber\\
@@ -132,6 +132,7 @@ Por otra parte, desde la ley de gases ideales podemos decir que
 
 Lo interesante de todas estar relaciones es que solamente dependen del número de Mach. 
 Por lo tanto, dado un gas que está quieto en un estanque a $p_0$, $\rho_0$ y $T_0$, si se mueve de forma isentrópica, las condiciones termodinámicas están definidas únicamente por su velocidad.
+Existen tablas de flujo isentrópico que no son más que la solución de las Ecs. \eqref{eq:p_isen}, \eqref{eq:rho_isen} y \eqref{eq:T_isen} para diferentes números de Mach.
 
 \subsection*{Flujo en un ducto de área variable}
 
@@ -175,12 +176,12 @@ Nuevamente, usemos la Ec. \eqref{eq:momentum_isen_aux} para escribir
 Esta última ecuación nos dice cosas muy interesantes, y que a primera vista, son poco intuitivas.
 Lo primero es el significado físico de los diferenciales: $dV$ no es más que la variación de velocidad a lo largo de ducto, y $dA$ la variación de área; veamos su relación en diferentes casos.
 %
-\paragraph*{Caso subsónico ($M<1$).} Reemplazando $M$ en la Ec. \eqref{eq:tobera}, nos queda una expresión negativa al lado izquierdo, por ende, una relación inversa entre $dA$ y $dV$.
+\paragraph*{Caso subsónico ($M<1$).} Reemplazando $M$ en la Ec. \eqref{eq:tobera}, nos queda una expresión negativa al lado derecho, por ende, una relación inversa entre $dA$ y $dV$.
 Esto implica que si uno crece el otro se achica, por ejemplo, al disminuír el área, crece la velocidad.
 Este es el comportamiento que esperamos, considerando nuestros conocimientos previos de mecánica de fluidos.
 En el contexto del ducto de la Figura \ref{fig:tobera}, el flujo se acelera en la zona $1$ y se frena en la zona $3$.
 %
-\paragraph*{Caso supersónico ($M>1$):} Acá la cosa cambia un poco. Al ser $M>1$, el denominador al lado izquierdo pasa a ser negativo, y cancela el número negativo al frente de la expresión, por lo que $dA$ tiene una relación directa con $dV$.
+\paragraph*{Caso supersónico ($M>1$):} Acá la cosa cambia un poco. Al ser $M>1$, el denominador al lado derecho pasa a ser negativo, y cancela el signo menos al frente de la expresión, por lo que $dA$ tiene una relación directa con $dV$.
 En términos físicos, esto significa que si se achica el área, se frena el flujo: ¡Totalmente lo contrario respecto al caso subsónico (y lo que dice nuestra intuición)!
 Entonces, de ser supersónico, el flujo de frenaría en la zona $1$ de la Figura \ref{fig:tobera}, y se acelera cuando está en la zona $3$.
 %
@@ -215,10 +216,11 @@ En el estanque de entrada, podemos considerar que lejos de la boquilla la veloci
 \label{fig:tobera_convergente}
 \end{figure}
 
-Bajamos entonces la presión $p_s$ hasta que $p_s=p_1$, logrando así que $M=1$ al final de la boquilla, y obtenemos el perfil de presión dentro de la boquilla que aparece en la Figura \ref{fig:tobera_convergente}.
-Las condiciones de $M=1$ se denominan condiciones críticas, y se denotan como $p^*$, $\rho^*$, $A^*$, $V^*$ y $T^*$.
-Cuando el flujo alcanza el estado crítico en la garganta, lo llamamos ``flujo ahogado''.
-De hecho, el área crítica $A^*$ se usa como referencia para presentar el área en la sección transversal de la boquilla.
+Bajamos entonces la presión $p_s$ hasta que $p_s=p_1$, logrando así $M=1$ en la descarga, y obtenemos la distribución de presión de la Figura \ref{fig:tobera_convergente} dentro de la boquilla.
+Las condiciones cuando $M=1$ se denominan condiciones críticas, y se denotan como $p^*$, $\rho^*$, $A^*$, $V^*$ y $T^*$.
+Si logramos la condición crítica en la garganta, decimos que el flujo está ``ahogado''.
+
+El área crítica $A^*$ se usa como referencia para presentar el área en la sección transversal de la boquilla.
 Para llegar a esta expresión, usamos el principio de continuidad:
 %
 \begin{align}
@@ -259,9 +261,35 @@ podemos reescribir la Ec. \eqref{eq:mpunto_ahogado_aux} como
 \dot{m}_\text{ahogado} &= \sqrt{\frac{k}{RT_0}}\left(\frac{2}{k+1}\right)^{\frac{k+1}{2(k-1)}}p_0A^*
 \end{align}
 
-Digamos que en el ejemplo de la FIgura \ref{fig:tobera_convergente} bajamos la presión de salida aún más, a $p_2$.
-Intuitivamente uno pensaría que el flujo másico debiese seguir aumentando, sin embargo, esto no es lo que ocurre.
-Al bajar la presión, se genera una onda de presión que, para un flujo subsónico, sube aguas arriba, ajustándose el flujo a las nuevas condiciones.
-Pero en este caso el flujo es supersónico, por lo que la onda de presión más lenta que la velocidad, y es arrastrada.
+Digamos que en el ejemplo de la Figura \ref{fig:tobera_convergente} bajamos la presión de salida aún más, a $p_2$.
+Intuitivamente uno pensaría que el flujo másico debiese seguir aumentando con la diferencia de presión, sin embargo, esto no es lo que ocurre.
+Al bajar la presión, se genera una onda de presión que, para un flujo subsónico, viaja aguas arriba con velocidad $c$, lo que ajusta el flujo a las nuevas condiciones.
+Pero en este caso el flujo es supersónico, por lo que la onda de presión más lenta que la velocidad, y es arrastrada aguas abajo.
 Por esto, el flujo dentro de la tobera es ``sordo'' a lo que ocurre aguas abajo cuando $M=1$ en la garganta, limitando el flujo másico máximo a $\dot{m}_\text{ahogado}$.
-Cuando la presión de salida es menor a $p^*$, el flujo sale de la tobera sin saber que la presión es aún más baja, lo que genera una \emph{onda de expansión}, equilibrando la presión del flujo a la del recipiente de salida.
+Cuando la presión de salida es menor a $p^*$, el flujo sale de la tobera sin saber que la presión de descarga es aún más baja, lo que genera una \emph{onda de expansión}, equilibrando la presión del flujo a la del recipiente de salida.
+
+\section*{Tobera convergente-divergente}
+
+Ya vimos que para acelerar un flujo supersónico es necesario que el ducto sea divergente.
+Por lo tanto, para lograr $M>1$, la tobera debe tener una forma similar a la Figura \ref{fig:tobera}, donde es subsónico en la zona $1$, alcanza $M=1$ en la garganta (zona $2$), y es supersónico en la zona $3$.
+
+Usemos la Figura \ref{fig:tobera_cv} para hacer un experimento simulado, como en la sección anterior con la tobera convergente.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{clase14/tobera_cv.pdf}
+\caption{Tobera convergente divergente con la distribución de presión.}
+\label{fig:tobera_cv}
+\end{figure}
+%
+Tenemos un estanque con presión $p_0$ que contiene un gas que sale por la tobera hacia un estanque con presión $p_s$, la cual podemos bajar.
+Inicialmente, bajamos la presión de salida a $p_1$, pero esta presión no es suficientemente baja como para lograr flujo supersónico en la garganta.
+Bajamos aún más la presión a $p_s=p_2$ y logramos las condiciones críticas en la garganta ($M=1$, $p^*$), sin embargo esta presión no es suficientemente baja como para sostener el flujo supersónico y se comporta como subsónico después de la garganta.
+Si bajamos la presión aún más ($p_s=p_3$), el flujo supersónico será capaz de sostenerse a lo largo de toda la tobera, y $M>1$ a la salida.
+Esta sería la condición de diseño de la tobera.
+Así como en el caso convergente de la Figura \ref{fig:tobera_convergente}, al ser supersónico el flujo de salida, si bajamos la presión aún más (a $p_4$), esta información no será capaz de viajar aguas arriba (flujo dentro de la tobera es ``sordo'' a lo que ocurre aguas abajo) y se produce una onda de expansión.
+
+Una pregunta que puede aparecer es \mbox{?`}qué pasa si la presión de salida está entre $P_2$ y $p_3$?
+El flujo será supersónico, pero este régimen no podrá ser sostenido a lo largo de toda la tobera.
+En este caso, en alguna parte de la zona divergente de la tobera habrá una onda de choque, que hará pasar al flujo de supersónico a subsónico, y la descarga será a $M<1$.
+Vamos a hablar con más detalles de esto la próxima clase.
