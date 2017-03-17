@@ -14,7 +14,7 @@ Contenidos:
     \begin{itemize}
         \item Masa: Continuidad.
         \item Momentum: Navier-Stokes.
-        \item Energía.
+        \item Condiciones de contorno.
     \end{itemize}
 \end{itemize}
 
@@ -245,7 +245,7 @@ y por comodidad, hablaremos de la vorticidad $\boldsymbol{\omega}$
 \boldsymbol{\omega} = 2\boldsymbol{\Omega} = \nabla\times\mathbf{V}.
 \end{equation}
 
-En esta primera parte del curso revisaremos el concepto de vorticidad más en profundidad.
+En la segunda parte del curso revisaremos el concepto de vorticidad más en profundidad.
 Es importante no confundir la rotación de un elemento de fluido con un flujo que rota: es perfectamente posible que un elemento de fluido tenga una trayectoria curva sin rotar o deformarse angularmente (un ejemplo de esto de el punto vórtice, que conocerán pronto).
 
 \section*{Leyes de conservación}
@@ -391,3 +391,80 @@ Esto se conoce como la ecuación de Euler, y se escribe como
 
 Las ecuaciones de Euler y Navier-Stokes se ven muy parecidas, sin embargo, para llegar a la Ec. \eqref{eq:euler} no necesitamos asumir un flujo incompresible, lo que si tuvimos que hacer para llegar a la Ec. \eqref{eq:NS}.
 Por lo tanto, la Ec. \eqref{eq:euler} es válida para flujos compresibles.
+
+\section*{Condiciones de contorno}
+
+Ya vemos que para modelar la dinámica de fluidos utilizamos ecuaciones diferenciales parciales, sin embargo, para que estas sean resolvibles, necesitamos condiciones de contorno.
+En el caso de mecánica de fluidos, usamos conceptos físicos para derivar estas condiciones de contorno para tres casos comunes: flujo sobre una pared sólida, en una interfaz de fluido, y al infinito.  
+
+\paragraph*{Flujo sobre una pared.}
+Algo que es muy claro cuando existe un fluido interactuando con un sólido, es que el flujo no puede atravesar la pared, por lo tanto, la componente del flujo normal a la pared debe ser nula.
+Este fenómeno da lugar a la condición de contorno de impermeabilidad, y se expresa como
+%
+\begin{equation}\label{eq:impermeabilidad}
+\mathbf{V}_\mathbf{n} = 0 \text{ en la pared},
+\end{equation}
+%
+para el caso en que la pared está quieta.
+La condición de contorno de impermeabilidad es válida para flujo con o sin viscosidad, compresibles o incompresibles.
+
+Ahora, para flujos viscosos, experimentalmente se observa que la velocidad del flujo a medida que se acerca a la pared, toma la velocidad de la pared. 
+Esta condición de contorno se conoce como de ``no deslizamiento'', y se expresa matemáticamente como
+%
+\begin{equation}\label{eq:no_deslizamiento}
+\mathbf{V} = \mathbf{V}_\text{pared}.
+\end{equation}
+%
+La condición de contorno de no-deslizamiento contiene a la de impermeabilidad, pero no es válida si no hay viscosidad.
+La Ec. \eqref{eq:no_deslizamiento} es una condición de borde de Dirichlet.
+
+\paragraph*{Interfaz de fluido.}
+En el caso en que hay dos fluidos de diferente densidad, podemos modelar el problema por ``parte'', y resolver las ecuaciones de Navier-Stokes en uno y otro fluido, acoplando ambas ecuaciones con una condición de interfaz.
+La primera, y más obvia, condición es que debe haber continuidad de la velocidad normal a través de la interfaz.
+Imagínense qué ocurriría si las velocidades normales no fueran la misma a un lado y otro de la interfaz: se podrían generar hoyos o espacios vacíos en la solución, lo que no tiene sentido físico:
+%
+\begin{equation}\label{eq:interfaz_normal}
+\mathbf{V}_{\mathbf{n},1}=\mathbf{V}_{\mathbf{n},2}.
+\end{equation}
+
+En el caso viscoso, sabemos que no puede haber una discontinuidad en la velocidad. En este caso, tanto la velocidad normal como la tangencial deben ser continuas, dejando
+%
+\begin{equation}
+\mathbf{V}_{1}=\mathbf{V}_{2}.
+\end{equation}
+%
+lo que contiene a la Ec. \eqref{eq:interfaz_normal}.
+
+Por otra parte, el esfuerzo cortante también debe ser continuo a través de la interfaz.
+Si no fuese así, no podría haber balance de cantidad de movimiento a través de la superficie, y físicamente no tiene sentido. 
+Matemáticamente, esto es
+%
+\begin{equation}\label{eq:interfaz}
+\tau_1 = \tau_2 \text{ en la interfaz}.
+\end{equation}
+%
+Ahora, si quisieramos considerar tensión superficial, la Ec. \eqref{eq:interfaz} está incompleta, pues hay que balancearla con dicha fuerza.
+
+Usando la ley de viscosidad de Newton podemos reescribir la Ec. \eqref{eq:interfaz} para el caso unidimensional como
+%
+\begin{equation}\label{eq:interfaz2}
+\left.\mu_1\frac{\partial u}{\partial y}\right|_1 = \left.\mu_2\frac{\partial u}{\partial y}\right|_2,
+\end{equation}
+%
+transformando a la continuidad del esfuerzo cortante en una condición de borde de Neumann.
+
+Llevando la Ec. \eqref{eq:interfaz2} al extremo en que $\mu_1>>\mu_2$ (por ejemplo, en la interfaz entre un líquido y un gas), $\mu_2/\mu_1\to0$.
+Para seguir cumpliendo con la igualdad, $\left.\partial u/\partial y\right|_1>>\left.\partial u/\partial y\right|_2$, o $\left.\partial u/\partial y\right|_1\to0$.
+Esto implica que la derivada de la velocidad, a medida que se acerca a la interfaz, cae a cero, y la velocidad es máxima en ese punto.
+En palabras más físicas, la derivada se hace cero porque el fluido con viscosidad casi nula no es capaz de soportar los esfuerzos cortantes del flujo más viscoso.
+Esto es muy común de usar en flujos con superficie libre.
+
+\paragraph*{Flujo al infinito.}
+Por último, en muchos casos puede ser útil poner una condición de borde al infinito (por ejemplo, para modelar un cuerpo sumergido en un flujo).
+Este es un caso que veremos más en detalle cuando revisemos flujo potencial, pero se escribe simplemente
+%
+\begin{equation}
+\mathbf{V}_{\to\infty} = \mathbf{V}_0,
+\end{equation}
+%
+en donde forzamos una condición de borde de Dirichlet al infinito.
