@@ -64,7 +64,7 @@ Este término es el responsable de la disipación de la energía cinética en fo
 Podemos descomponer la disipación en dos términos:
 %
 \begin{align} \label{eq:disipacion_iso}
-\epsilon_T &= \epsilon + \nu\overline{\frac{\partial u_j'}{\partial x_i}\frac{\partial u_j'}{\partial x_i}} \text{, donde,} \nonumber \\
+\epsilon_T &= \epsilon + \nu\overline{\frac{\partial u_i'}{\partial x_j}\frac{\partial u_j'}{\partial x_i}} \text{, donde,} \nonumber \\
 \epsilon &= \nu\overline{\left(\frac{\partial u_j}{\partial x_i}\right)^2},
 \end{align}
 %
@@ -85,8 +85,8 @@ De esta forma, podemos definir una función de correlación $R'_{ij}$ tal que $R
 %
 \begin{align}
 \frac{\partial R_{ij}}{\partial x_k} &= -\frac{\partial R'_{ij}}{\partial r_k} \nonumber \\
-\frac{\partial R_{ij}}{\partial y_k} &= \frac{\partial R'_{ij}}{\partial r_k} 
-\frac{\partial^2 R_{ij}}{\partial x_k^2} = \frac{\partial^2 R_{ij}}{\partial y_k^2} = -\frac{\partial^2 R_{ij}}{\partial x_k\partial y_k} = \frac{\partial^2 R'_{ij}}{\partial r_k^2} 
+\frac{\partial R_{ij}}{\partial y_k} &= \frac{\partial R'_{ij}}{\partial r_k} \nonumber\\
+\frac{\partial^2 R_{ij}}{\partial x_k^2} &= \frac{\partial^2 R_{ij}}{\partial y_k^2} = -\frac{\partial^2 R_{ij}}{\partial x_k\partial y_k} = \frac{\partial^2 R'_{ij}}{\partial r_k^2} 
 \end{align}
 %
 Si derivamos $R_{ij}$ con respecto a $\mathbf{x}$ e $\mathbf{y}$, llegamos a
