@@ -4,7 +4,7 @@ Objetivos:
 \begin{itemize}
     \item Modelar el efecto de la viscosidad en flujos cercanos a una pared.
     \item Mostrar las distintas definiciones de capa límite.
-    \item Derivar la ecuación de Blasius.
+    \item Encontrar expresiones para las distintas definiciones de capa límite a partir de un perfil dado. 
 \end{itemize}
 
 Contenidos:
@@ -13,8 +13,7 @@ Contenidos:
     \item La capa límite y su espesor.
     \item El espesor de desplazamiento.
     \item El espesor de momentum.
-    \item Navier-Stokes en capa límite.
-    \item La ecuación de Blasius.
+    \item El análisis de von Kármán.
 \end{itemize}
 
 Bibliografía:
@@ -138,154 +137,89 @@ El espesor de momentum puede ser visto como la distancia que debemos mover la pl
 Fíjense en la Ec. \eqref{eq:D_momentum}; ésta no es más que el flujo de momentum a través de un área de ancho $b$ y alto $\theta$ de un flujo uniforme, igualado a la fuerza sobre la placa.
 Considerando que la fuerza sobre la placa debe ser igual al flujo de momentum de la capa límite, $\theta$ es un altura tal que los flujos de momentum del caso viscoso y no viscoso, sean iguales.
 
-\section*{Ecuaciones en la capa límite}
-En esta sección veremos como se reducen las ecuacines de conservación para el caso de flujo en una capa límite.
-Para nuestro análisis, este flujo es incompresible, bidimiensional y estacionario, para lo cual continuidad y Navier-Stokes quedan como
-%
-\begin{align}\label{eq:NS_capa}
-\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
-u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\left( \frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}\right) \nonumber\\
-u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial y} + \nu\left( \frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2}\right).
-\end{align}
+\section*{Espesor de capa límite laminar sin gradiente de presión}
 
-Empecemos con aproximaciones propias de flujo en una capa límite.
-En primer lugar, a pesar que es un flujo bidimensional, hay una clara dirección preferente ($x$ por sobre $y$).
-Por esto, podemos esperar que $u>>v$.
-Además, las variaciones en el eje perpendicular a la placa deben ser muchísimo más drásticas que en el eje paralelo a la placa:
-%
-\begin{equation}
-\frac{\partial u}{\partial x} << \frac{\partial u}{\partial y}, \quad \frac{\partial v}{\partial x} << \frac{\partial v}{\partial y}, \quad \frac{\partial^2 u}{\partial x^2} << \frac{\partial^2 u}{\partial y^2}
-\end{equation}
+\subsection*{El análisis de von Kármán}
+\paragraph*{La relación integral de momentum.}
 
-Por parte de la presión, nos ayuda mucho lo que ya sabemos de flujo no viscoso. 
-Afuera de la capa límite tenemos prácticamente un flujo uniforme, igual al flujo potencial, donde la ecuación de Bernoulli es válida:
-%
-\begin{equation}
-\frac{\partial p}{\partial x} = -\frac{\partial}{\partial x}\left(\rho \frac{U_\infty^2}{2}\right) = - \rho\frac{\partial U_\infty}{\partial x} = -\rho U_\infty\frac{dU_\infty}{dx} 
-\end{equation}
-
-Con estas aproximaciones, la Ec. \eqref{eq:NS_capa} queda
-%
-\begin{align}\label{eq:NS_capa_x}
-\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
-u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &\approx U_\infty \frac{dU_\infty}{dx} + \nu \frac{\partial^2u}{\partial y^2},
-\end{align}
-%
-y condiciones de borde
+Quizás la forma más fácil de encontrar una expresión para el espesor de capa límite $\delta$ es a través de un análisis de cantidad de movimiento de la placa.
+De hecho, la clase pasada hicimos este análisis para el caso particular en que la velocidad fuera de la capa límite $U_\infty$ sea independiente de $x$, y llegamos a
 %
 \begin{align}
-u &= v = 0 \text{ en } y=0\nonumber\\
-u &= U_\infty \text{ en } y=\delta.
+D(x) &= \rho bU_\infty^2\theta\text{, con el espesor de momentum,}\nonumber\\
+\theta &= \int_0^\delta\frac{u(y)}{U_\infty}\left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
 \end{align}
 
-La Ec. \eqref{eq:NS_capa_x} solamente menciona el eje $x$.
-En el eje $y$, al aplicar las mismas aproximaciones llegamos a una aseveración muy potente:
-%
-\begin{equation}\label{eq:NS_capa_y}
-\frac{\partial p}{\partial y} = 0,
-\end{equation}
-%
-lo que nos dice que la presión es constante dentro de la capa límite, a medida que nos alejamos de la placa.
-Esto es algo que sin darse cuenta, ya han visto experimentalmente.
-Cuando midieron la presión en la superficie del cilindro en el laboratorio, se dieron cuenta que el flujo potencial es una muy buena aproximación.
-El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
-La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
-El flujo fuera de la capa límite se representa muy bien por un flujo potencial, como ya hemos comentado, y es este flujo el que define la presión en la superficie del cilindro.
+De no ser $U_\infty$  independiente de $x$, por Bernoulli podemos darnos cuenta que habría un gradiente de presión, y considerando que $dp/dy=0$ dentro de la capa límite, tendríamos que sumar la contribución de este $\Delta p$ a la suma de fuerzas.
+De este caso ya hablaremos más adelante.
 
-\section*{Solución de capa límite en flujo laminar --- Ecuación de Blasius}
-La Ec. \eqref{eq:NS_capa_x} se puede resolver analíticamente para un flujo laminar y velocidad $U_\infty$ constante, la cual fue propuesta por Blasius (quien era estudiante de Prandtl) en 1908.
-Blasius hizo el siguiente cambio de coordenadas
-%
-\begin{equation}\label{eq:f_blasius}
-\frac{u}{U_\infty} = f'(\eta)
-\end{equation}
-%
-donde 
-%
-\begin{equation}\label{eq:eta_blasius}
-\eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}.
-\end{equation}
-%
-No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la place ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
-Por otra parte, sobre la placa ($y=0$ y $\eta=0$) la velocidad $u=0$ por la condición de no deslizamiento, por lo que $f'(0)=0$.
-
-Reemplacemos esta transformación en la Ec. \eqref{eq:NS_capa_x}.
-Lo más fácil es encontrar $u$ y su derivada, estos son
-%
-\begin{align}\label{eq:u_blasius}
-u &= U_\infty f'(\eta) \nonumber\\
-\frac{\partial u}{\partial x} &= U_\infty f''(\eta)\frac{\partial \eta}{\partial x}\nonumber\\
-\frac{\partial u}{\partial y} &= U_\infty f''(\eta)\frac{\partial \eta}{\partial y}\nonumber\\
-\frac{\partial^2 u}{\partial y^2} &= U_\infty \left[f'''(\eta)\left(\frac{\partial \eta}{\partial y}\right)^2 + f''(\eta)\cancelto{0}{\frac{\partial^2\eta}{\partial y^2}}\right] = U_\infty f'''(\eta)\left(\frac{\partial \eta}{\partial y}\right)^2
-\end{align}
-%
-donde
-%
-\begin{align}\label{eq:deta_dx}
-\frac{\partial \eta}{\partial x} &= \frac{1}{2}y\left(\frac{U_\infty}{\nu x}\right)^{-1/2} \frac{-U_\infty}{\nu x^2} = -\frac{1}{2x} \eta\nonumber\\
-\frac{\partial \eta}{\partial y} &= \left(\frac{U_\infty}{\nu x}\right)^{1/2}.
-\end{align}
-
-Para encontrar $v$, usaremos conceptos que aprendimos en flujo potencial.
-Se acordarán que en un flujo incompresible, por continuidad, existe una función corriente $\psi$ tal que
+La fuerza sobre la placa $D(x)$ es el resultado de esfuerzos cortantes ($\tau_w$) a lo largo de la placa.
+Matemáticamente, esto es
 %
 \begin{equation}
-u=\frac{\partial\psi}{\partial y}, \quad v=-\frac{\partial\psi}{\partial x}.
+D(x) = b\int_0^x \tau_w(x)\mathrm{d}x,
 \end{equation}
 %
-Por lo tanto, a partir de la Ec. \eqref{eq:u_blasius} podemos encontrar una expresión para $\psi$
+lo que implica que
 %
-\begin{equation}\label{eq:psi_1}
-\psi = \int u dy = U_\infty \left(\frac{\nu x}{U_\infty}\right)^{1/2}f(\eta) + g(x).
-\end{equation}
+\begin{align}\label{eq:tau_w}
+\frac{dD}{dx}=b\tau_w \text{ y, }\nonumber\\
+\tau_w=\rho U_\infty^2 \frac{d\theta}{dx}.
+\end{align}
+%
+Esta última relación se conoce como la relación integral de momentum para flujo en la capa límite sobre una placa plana.
 
-Calculemos $v$:
+\paragraph*{Espesor de capa límite de von Kármán.}
+Para obtener una expresión de $\delta(x)$, von Kármán asumió un perfil de velocidad con forma parabólica:
+%
+\begin{equation}\label{eq:perfil_vk}
+u(x,y) = U_\infty\left(\frac{2y}{\delta}-\frac{y^2}{\delta^2}\right) \quad 0\leq y\leq \delta(x).
+\end{equation}
+%
+Reemplazando la Ec. \eqref{eq:perfil_vk} en el espesor de momentum $\theta$, llegamos a
+%
+\begin{equation}\label{eq:espesor_mom_vk}
+\theta = \int_0^\delta \left(\frac{2y}{\delta} - \frac{y^2}{\delta^2}\right)\left(1-\frac{2y}{\delta} + \frac{y^2}{\delta^2}\right)\mathrm{d}y=\frac{2}{15}\delta.
+\end{equation}
+%
+Podemos también calcular $\tau_w$ usando:
+%
+\begin{equation}\label{eq:tau_w2}
+\tau_w = \mu\frac{du}{dy} = 2\frac{\mu U_\infty}{\delta}.
+\end{equation}
+%
+Reemplazando la relación integral de momentum (Ec. \eqref{eq:tau_w}) en la Ec. \eqref{eq:tau_w2}, y usando la Ec. \eqref{eq:espesor_mom_vk} llegamos a una expresión para $\delta$:
 %
 \begin{align}
-v &= -\frac{\partial\psi}{\partial x} = -U_\infty\left[\frac{1}{2}\left(\frac{\nu x}{U_\infty}\right)^{-1/2}\frac{\nu}{U_\infty}f(\eta) + \left(\frac{\nu x}{U_\infty}\right)f'(\eta)\frac{\partial \eta}{\partial x}\right] - g'(x) \nonumber\\
-& = -U_\infty\left[\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} f(\eta) - \left(\frac{\nu x}{U_\infty}\right)^{1/2}f'(\eta)\frac{\eta}{2x}\right] - g'(x) \nonumber\\  
-& = -U_\infty\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} \left[f(\eta) - f'(\eta)\eta\right] - g'(x)
+2\frac{\mu U_\infty}{\delta} &= \rho U_\infty^2 \frac{d\theta}{dx} = \rho U_\infty^2 \frac{2}{15}\frac{d\delta}{dx}\nonumber\\
+\Rightarrow \delta d\delta &= 15\frac{\nu}{U_\infty}dx
+\end{align}
+% 
+e integrando esta última expresión, tomando en cuenta que $\delta=0$ para $x=0$, obtenemos:
+%
+\begin{align}\label{eq:delta_vk}
+\frac{1}{2}\delta^2 &= 15 \frac{\nu x}{U_\infty} \nonumber\\
+\Rightarrow \frac{\delta}{x} &= 5.5\left(\frac{\nu}{U_\infty x}\right)^{1/2} = \frac{5.5}{\sqrt{Re_x}}.
 \end{align}
 %
-Para encontrar la función $g'(x)$, podemos aplicar las condiciones de borde.
-Ya vimos que sobre la placa $\eta=0$, $f'(0)=0$ y $v=0$, entonces
+Como adelantamos al principio de la clase, obtuvimos una expresión en función de $Re_x$.
+
+Por otra parte, podemos también calcular el coeficiente de arrastre local $c_f$ como:
 %
-\begin{align}\label{eq:g_constant}
- g'(x) &= -U_\infty\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} f(0) \nonumber\\
-g(x) &= U_\infty\left(\frac{U_\infty x}{\nu}\right)^{1/2}f(0),
+\begin{equation}\label{eq:cf_vk}
+c_f = \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = 4\frac{1}{\rho U_\infty^2}\frac{\mu U_\infty}{\delta} = \frac{0.73}{\sqrt{Re_x}}
+\end{equation}
+%
+y el espesor de desplazamiento:
+%
+\begin{align}\label{eq:desplazamiento_vk}
+\delta^* &= \int_0^\delta\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y = \int_0^\delta \left(1-\frac{2y}{\delta}+\frac{y^2}{\delta^2}\right)\nonumber\\
+&= \left. y-\frac{y^2}{\delta}+\frac{y^3}{3\delta}\right/_0^\delta = \frac{\delta}{3}\nonumber\\
+\Rightarrow \frac{\delta^*}{x} &= \frac{1.83}{\sqrt{Re_x}}
 \end{align}
-%
-y reemplazando la Ec. \eqref{eq:g_constant} en la Ec. \eqref{eq:psi_1}, llegamos a que la función corriente es
-%
-\begin{equation}
-\psi = U_\infty \left(\frac{\nu x}{U_\infty}\right)^{1/2}f(\eta) + U_\infty\left(\frac{U_\infty x}{\nu}\right)^{1/2}f(0).
-\end{equation}
-%
-Aquí podemos encontrar una nueva condición para $f$. 
-Sabemos que la placa está alineada con el flujo, y no lo bloquea, por lo tanto la placa debe ser una línea de flujo.
-Sobre una línea de flujo, la función corriente es una constante, y podemos elegir $\psi=0$.
-Bajo este razonamiento, evaluando la Ec. \eqref{eq:psi_1} sobre la placa ($\eta=0$), llegamos a que 
-%
-\begin{equation}
-\psi(\eta=0) = U_\infty \left(\frac{\nu x}{U_\infty}\right)^{1/2}f(0) + U_\infty\left(\frac{U_\infty x}{\nu}\right)^{1/2}f(0).
-\end{equation}
 
-La única forma que $\psi(\eta=0)$ sea constante para todo $x$ es que $f(0)=0$, con lo que $\psi(\eta=0)=0$.
-Viendo la Ec. \eqref{eq:g_constant}, nos damos cuenta que la constante $g(x)=0$, y la velocidad $v$ queda:
-%
-\begin{equation}\label{eq:v_blasius}
-v = -U_\infty\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} \left[f(\eta) - f'(\eta)\eta\right] 
-\end{equation}
+Los valores de espesor de capa límite obtenidos con el análisis de von Kármán dependen de la aproximación que la velocidad dentro de la capa límite tiene forma parabólica. 
+En la realidad, esto no es así, sin embargo los valores de $\delta$, $\delta^*$, $c_f$, $\tau_w$ y $\theta$ dados por este análisis hacen buenas predicciones y, en general, están a menos de un 10\% del valor real.
 
-Reemplazando las Ecs. \eqref{eq:u_blasius}, \eqref{eq:deta_dx} y \eqref{eq:v_blasius} en la Ec. \eqref{eq:NS_capa_x} para $dU_\infty/dx = 0$, nos da:
-%
-\begin{equation}
--U_\infty f'U_\infty f''\frac{\eta}{2x} - \frac{U_\infty}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2}(f-f'\eta)U_\infty f''\left(\frac{U_\infty}{\nu x}\right)^{1/2} = \nu U_\infty f'''\left(\frac{U_\infty}{\nu x}\right).
-\end{equation}
-%
-Noten que en esta última ecuación no escribimos el argumento de la función $f$ por comodidad.
-Cancelando los términos correspondientes, llegamos a la ecuación de Blasius
-%
-\begin{equation}
-f'''+\frac{ff''}{2}=0
-\end{equation}
+
+
