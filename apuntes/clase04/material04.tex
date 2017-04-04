@@ -142,14 +142,7 @@ Considerando que la fuerza sobre la placa debe ser igual al flujo de momentum de
 \subsection*{El análisis de von Kármán}
 \paragraph*{La relación integral de momentum.}
 
-Quizás la forma más fácil de encontrar una expresión para el espesor de capa límite $\delta$ es a través de un análisis de cantidad de movimiento de la placa.
-De hecho, la clase pasada hicimos este análisis para el caso particular en que la velocidad fuera de la capa límite $U_\infty$ sea independiente de $x$, y llegamos a
-%
-\begin{align}
-D(x) &= \rho bU_\infty^2\theta\text{, con el espesor de momentum,}\nonumber\\
-\theta &= \int_0^\delta\frac{u(y)}{U_\infty}\left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
-\end{align}
-
+Quizás la forma más fácil de encontrar una expresión para el espesor de capa límite $\delta$ es a través de un análisis de cantidad de movimiento de la placa, como la que hicimos para llegar a la Ec. \eqref{eq:D_momentum}.
 De no ser $U_\infty$  independiente de $x$, por Bernoulli podemos darnos cuenta que habría un gradiente de presión, y considerando que $dp/dy=0$ dentro de la capa límite, tendríamos que sumar la contribución de este $\Delta p$ a la suma de fuerzas.
 De este caso ya hablaremos más adelante.
 
@@ -201,8 +194,6 @@ e integrando esta última expresión, tomando en cuenta que $\delta=0$ para $x=0
 \frac{1}{2}\delta^2 &= 15 \frac{\nu x}{U_\infty} \nonumber\\
 \Rightarrow \frac{\delta}{x} &= 5.5\left(\frac{\nu}{U_\infty x}\right)^{1/2} = \frac{5.5}{\sqrt{Re_x}}.
 \end{align}
-%
-Como adelantamos al principio de la clase, obtuvimos una expresión en función de $Re_x$.
 
 Por otra parte, podemos también calcular el coeficiente de arrastre local $c_f$ como:
 %
