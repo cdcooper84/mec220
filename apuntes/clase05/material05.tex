@@ -26,7 +26,7 @@ Bibliografía:
 \section*{El número de Reynolds}
 
 En el caso del flujo sobre una placa plana que hemos estado discutiendo, la placa se puede considerar infinitamente larga.
-Esto nos p[one en una disyuntiva \mbox{?`}cuál es el número de Reynolds que caracteriza al problema entonces?
+Esto nos pone en una disyuntiva \mbox{?`}cuál es el número de Reynolds que caracteriza al problema entonces?
 Resulta que la mejor manera que analizar estos problemas es considerando un número de Reynolds variable en el espacio.
 Por lo tanto, para una misma placa plana, tendremos una distribución de números de Reynolds, donde:
 %
@@ -36,7 +36,7 @@ Re_x = \frac{U_\infty x}{\nu}.
 
 Una implicancia interesante es que si analizamos en una longitud suficientemente larga, siempre vamos a llegar a número de Reynolds suficientemente altos como para empezar a ver turbulencia.
 De hecho, como lo muestra la Figura \ref{fig:capa_limite_Re}, esto se ve en la práctica. 
-La capa límite sobre una placa plana es siempre laminar inicialmente, y eventualmente se torna turbulenta, agua abajo.
+La capa límite sobre una placa plana es siempre laminar inicialmente, y eventualmente se torna turbulenta, aguas abajo.
 El número de Reynolds crítico en capa límite es alrededor de $5\cdot10^{5}$.
 %
 \begin{figure}[!h]
@@ -100,7 +100,7 @@ En el eje $y$, al aplicar las mismas aproximaciones llegamos a una aseveración 
 \end{equation}
 %
 lo que nos dice que la presión es constante dentro de la capa límite, a medida que nos alejamos de la placa.
-Esto es algo que sin darse cuenta, ya han visto experimentalmente.
+Esto es algo que sin darse cuenta, ya han visto experimentalmente (o lo verán pronto).
 Cuando midieron la presión en la superficie del cilindro en el laboratorio, se dieron cuenta que el flujo potencial es una muy buena aproximación.
 El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
 La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
@@ -120,7 +120,7 @@ donde
 \eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}.
 \end{equation}
 %
-No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la place ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
+No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la placa ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
 Por otra parte, sobre la placa ($y=0$ y $\eta=0$) la velocidad $u=0$ por la condición de no deslizamiento, por lo que $f'(0)=0$.
 
 Reemplacemos esta transformación en la Ec. \eqref{eq:NS_capa_x}.
@@ -206,7 +206,7 @@ f'''+\frac{ff''}{2}=0
 
 \section*{Espesor de capa límite de Blasius}
 
- La clase pasada derivamos la ecuación de Blasius, que describe el perfil de velocidad dentro de la capa límite sobre una placa plana sin gradiente de presión:
+Recién llegamos a la ecuación de Blasius, que describe el perfil de velocidad dentro de la capa límite sobre una placa plana sin gradiente de presión:
  %
  \begin{align}\label{eq:blasius2}
 f'''&+\frac{1}{2}ff''=0\nonumber\\
@@ -225,7 +225,7 @@ En este punto $y=\delta$, y reemplazando en la Ec. \eqref{eq:blasius2} llegamos 
 \frac{\delta}{x} = \frac{5}{\sqrt{Re_x}}
 \end{equation}
 
-Comparando las Ecs. \eqref{eq:delta_vk} y \eqref{eq:delta_blasius}, nos podemos dar cuenta que la solución dada por von Kármán, que asume un perfil parabólico, no está tan lejos de la solución real.
+Comparando el espesor de capa límite de von Kármán (que asume un perfil parabólico) y la Ec. \eqref{eq:delta_blasius}, nos podemos dar cuenta que la solución dada por von Kármán, que asume un perfil parabólico, no está tan lejos de la solución real.
 En el caso de von Kármán, llegamos a un factor $5.5$ y en Blasius de $5$, solamente un 10\% de diferencia.
 Además, vemos en la Figura \ref{fig:capa_limite_blasius} que el perfil parabólico de von Kármán (línea punteada) es una buena aproximación del perfil de Blasius (línea sólida) dentro de la capa límite.
 %
