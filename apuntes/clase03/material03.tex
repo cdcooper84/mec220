@@ -64,7 +64,7 @@ Este término es el responsable de la disipación de la energía cinética en fo
 Podemos descomponer la disipación en dos términos:
 %
 \begin{align} \label{eq:disipacion_iso}
-\epsilon_T &= \epsilon + \nu\overline{\frac{\partial u_j'}{\partial x_i}\frac{\partial u_j'}{\partial x_i}} \text{, donde,} \nonumber \\
+\epsilon_T &= \epsilon + \nu\overline{\frac{\partial u_i'}{\partial x_j}\frac{\partial u_j'}{\partial x_i}} \text{, donde,} \nonumber \\
 \epsilon &= \nu\overline{\left(\frac{\partial u_j}{\partial x_i}\right)^2},
 \end{align}
 %
@@ -85,8 +85,8 @@ De esta forma, podemos definir una función de correlación $R'_{ij}$ tal que $R
 %
 \begin{align}
 \frac{\partial R_{ij}}{\partial x_k} &= -\frac{\partial R'_{ij}}{\partial r_k} \nonumber \\
-\frac{\partial R_{ij}}{\partial y_k} &= \frac{\partial R'_{ij}}{\partial r_k} 
-\frac{\partial^2 R_{ij}}{\partial x_k^2} = \frac{\partial^2 R_{ij}}{\partial y_k^2} = -\frac{\partial^2 R_{ij}}{\partial x_k\partial y_k} = \frac{\partial^2 R'_{ij}}{\partial r_k^2} 
+\frac{\partial R_{ij}}{\partial y_k} &= \frac{\partial R'_{ij}}{\partial r_k} \nonumber\\
+\frac{\partial^2 R_{ij}}{\partial x_k^2} &= \frac{\partial^2 R_{ij}}{\partial y_k^2} = -\frac{\partial^2 R_{ij}}{\partial x_k\partial y_k} = \frac{\partial^2 R'_{ij}}{\partial r_k^2} 
 \end{align}
 %
 Si derivamos $R_{ij}$ con respecto a $\mathbf{x}$ e $\mathbf{y}$, llegamos a
@@ -158,7 +158,7 @@ Pero al multiplicarlo por $k^2$ el peak se corre hacia la derecha, y ahora se en
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.6\textwidth]{clase07/energia_fourier.pdf}
+\includegraphics[width=0.6\textwidth]{clase03/energia_fourier.pdf}
 \caption{Gráfico de energía con respecto a escalas de movimiento}
 \label{fig:energia_fourier}
 \end{figure}
@@ -221,7 +221,7 @@ Esta transferencia de energía desde las grandes a las pequeñas escalas se cono
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{clase07/energia_inercial.pdf}
+\includegraphics[width=0.8\textwidth]{clase03/energia_inercial.pdf}
 \caption{La cascada de energía en escala logarítmica.}
 \label{fig:energia_inercial}
 \end{figure}
@@ -230,7 +230,7 @@ La interpretación más física de la cascada de energía esta representada por 
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.6\textwidth]{clase07/escala_vortice.png}
+\includegraphics[width=0.6\textwidth]{clase03/escala_vortice.png}
 \caption{Interpretación de la escala de energía.}
 \label{fig:escala_vortice}
 \end{figure}

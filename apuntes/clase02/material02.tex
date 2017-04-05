@@ -43,7 +43,7 @@ Reemplazando las variables adimensionales en la ecuación de Navier-Stokes llega
 \begin{align}\label{eq:NS_adim}
 \frac{\rho U_\infty^2}{D}&\left(\frac{\partial u^*}{\partial t^*} + u^*\frac{\partial u^*}{\partial x^*} + v^*\frac{\partial u^*}{\partial y^*} + w^*\frac{\partial u^*}{\partial z^*}\right) \nonumber\\
 &\left.= -\frac{\rho U_\infty^2}{D}\frac{\partial p^*}{\partial x^*} + \frac{\mu U_\infty}{D^2} \left( \frac{\partial^2u^*}{\partial x^{*2}} + \frac{\partial^2u^*}{\partial y^{*2}} + \frac{\partial^2u^*}{\partial z^{*2}} \right) \right/\cdot\frac{D}{\rho U_\infty^2}\nonumber\\
-\frac{\partial u^*}{\partial t^*} + u^*\frac{\partial u^*}{\partial x^*} + &v^*\frac{\partial u^*}{\partial y^*} + w^*\frac{\partial u^*}{\partial z^*} = \frac{\partial p^*}{\partial x^*} + \underbrace{\frac{\mu}{\rho U_\infty D}}_{1/Re} \left( \frac{\partial^2u^*}{\partial x^{*2}} + \frac{\partial^2u^*}{\partial y^{*2}} + \frac{\partial^2u^*}{\partial z^{*2}} \right).
+\frac{\partial u^*}{\partial t^*} + u^*\frac{\partial u^*}{\partial x^*} + &v^*\frac{\partial u^*}{\partial y^*} + w^*\frac{\partial u^*}{\partial z^*} = -\frac{\partial p^*}{\partial x^*} + \underbrace{\frac{\mu}{\rho U_\infty D}}_{1/Re} \left( \frac{\partial^2u^*}{\partial x^{*2}} + \frac{\partial^2u^*}{\partial y^{*2}} + \frac{\partial^2u^*}{\partial z^{*2}} \right).
 \end{align}
 %
 La Ec. \eqref{eq:NS_adim} es adimensional, y nos podemos dar cuenta que el balance entre los términos convectivos y difusivos está dado por el número de Reynolds: a bajo $Re$, el término difusivo crece, y domina sobre el término convectivo, y si es alto, ocurre lo contrario.
@@ -82,7 +82,7 @@ Reynolds describió el flujo dentro de una tubería a diferentes valores de un n
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{clase06/Re_observacion.pdf}
+\includegraphics[width=0.5\textwidth]{clase02/Re_observacion.pdf}
 \caption{Resultados de Reynolds. Arriba: flujo laminar. Al medio: flujo turbulento. Abajo: flujo turbulento observado con una chispa eléctrica.}
 \label{fig:Re_observacion}
 \end{figure}
@@ -96,7 +96,7 @@ Capa límite es un tema que no hemos pasado en este curso aún, pero solamente e
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{clase06/capa_limite.pdf}
+\includegraphics[width=0.5\textwidth]{clase02/capa_limite.pdf}
 \caption{Velocidad sobre una placa plana.}
 \label{fig:capa_limite}
 \end{figure}
@@ -106,7 +106,7 @@ A continuación haremos una pequeña descripción de cada una de estas etapas.
 %
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{clase06/transicion_turbulencia.png}
+\includegraphics[width=0.5\textwidth]{clase02/transicion_turbulencia.png}
 \caption{Transición a turbulencia sobre una placa plana. \emph{Fuente: F. White, Viscous Fluid Flow (2006)}}
 \label{fig:transicion_turbulencia}
 \end{figure}
@@ -134,7 +134,7 @@ De esta forma, si medimos la velocidad en un punto determinado, tendríamos algo
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{clase06/flujo_promedio.pdf}
+\includegraphics[width=0.5\textwidth]{clase02/flujo_promedio.pdf}
 \caption{Medición de velocidad en un punto de un flujo turbulento.}
 \label{fig:flujo_promedio}
 \end{figure}
@@ -264,7 +264,7 @@ Es el tensor de esfuerzos de Reynolds el que produce todas las complicaciones en
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{clase06/flujo_momentum.pdf}
+\includegraphics[width=0.5\textwidth]{clase02/flujo_momentum.pdf}
 \caption{Flujo de momentum en un flujo turbulento}
 \label{fig:flujo_momentum}
 \end{figure}

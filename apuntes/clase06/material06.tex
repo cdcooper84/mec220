@@ -175,27 +175,27 @@ Las líneas de flujo varían dependiendo de $m$:
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{clase10/m_1.png}
+\includegraphics[width=0.5\textwidth]{clase06/m_1.png}
 \caption{Líneas de flujo para $m=1$}
 \label{fig:m_1}
 \end{figure}
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{clase10/m_01.png}
+\includegraphics[width=0.5\textwidth]{clase06/m_01.png}
 \caption{Líneas de flujo para $m=0.17$}
 \label{fig:m_01}
 \end{figure}
 %
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{clase10/m_2.png}
+\includegraphics[width=0.5\textwidth]{clase06/m_2.png}
 \caption{Líneas de flujo para $m=2$}
 \label{fig:m_2}
 \end{figure}
 
 \section*{Espesor de capa límite de Falkner-Skan}
-Usando el mismo método de resolución que en el caso de Blasius de la clase pasada, podemos resolver la Ec. \eqref{eq:F-S} numéricamente, y así obtener el valor del espesor de la capa límite.\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/falkner-skan.ipynb}}
+Usando el mismo método de resolución que en el caso de Blasius de la clase pasada, podemos resolver la Ec. \eqref{eq:F-S} numéricamente, y así obtener el valor del espesor de la capa límite.\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase06/falkner-skan.ipynb}}
 Como es de imaginarse, este espesor depende de $m$.
 Veamos dos casos: flujo contra una pared y sobre una cuña.
 
@@ -258,7 +258,7 @@ f(0) &= -2\sqrt{Re_x}\frac{v_w}{U_\infty}=-2v_w^*
 \end{align}
 
 \paragraph*{Espesor de capa límite con soplido $v_w=0.1$.}
-Resolviendo la ecuación de Blasius numéricamente\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/succion.ipynb}} con la condición de contorno modificada para $f(0)$, y la condición de contorno $f''(0)=0.2615$ para que se cumpla que $f'(\infty)=1$, nos damos cuenta que $u=0.99U_\infty$ en $\eta=5.32$. 
+Resolviendo la ecuación de Blasius numéricamente\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase06/succion.ipynb}} con la condición de contorno modificada para $f(0)$, y la condición de contorno $f''(0)=0.2615$ para que se cumpla que $f'(\infty)=1$, nos damos cuenta que $u=0.99U_\infty$ en $\eta=5.32$. 
 Como era de esperar, el soplido ensancha la capa límite (comparado con Blasius, donde $\eta=4.92$). De esta forma, podemos llegar a 
 %
 \begin{equation}
@@ -267,7 +267,7 @@ Como era de esperar, el soplido ensancha la capa límite (comparado con Blasius,
 
 \paragraph*{Espesor de capa límite con succión $v_w=-0.1$.}
 En este caso, necesitamos setear $f''(0) = 0.4061$ para cumplir con la condición de contorno al infinito.
-Numéricamente,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/succion.ipynb}} nos damos cuenta que $u=0.99U_\infty$ para $\eta=4.58$. Como es de esperar, la succión adelgaza la capa límite, y llegamos a que
+Numéricamente,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase06/succion.ipynb}} nos damos cuenta que $u=0.99U_\infty$ para $\eta=4.58$. Como es de esperar, la succión adelgaza la capa límite, y llegamos a que
 %
 \begin{equation}
 \frac{\delta}{x}=\frac{4.58}{\left(\frac{U_\infty x}{\nu}\right)^{1/2}} = \frac{4.58}{\sqrt{Re_x}} 

@@ -2,141 +2,55 @@
 
 Objetivos:
 \begin{itemize}
-    \item Modelar el efecto de la viscosidad en flujos cercanos a una pared.
-    \item Mostrar las distintas definiciones de capa límite.
-    \item Derivar la ecuación de Blasius.
+    \item Entender el rol del número de Reynolds en la capa límite.
+    \item Analizar la fuerza sobre una placa plana.
+    \item Derivar la ecuación de Blasius
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item Flujo viscoso sobre una placa plana.
-    \item La capa límite y su espesor.
-    \item El espesor de desplazamiento.
-    \item El espesor de momentum.
-    \item Navier-Stokes en capa límite.
+    \item El número de Reynolds en capa límite.
+    \item La relación integral de momentum en una placa plana.
+    \item Aproximaciones de la ecuación de Navier-Stokes en una placa plana.
     \item La ecuación de Blasius.
+    \item El espesor de capa límite de Blasius.
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.1-7.4
-    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 9.1-9.3
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.2-7.4
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 9.4-9.5
 \end{itemize}
 \end{framed}
 
-\section*{Flujo viscoso sobre una superficie}
+\section*{El número de Reynolds}
 
-Hace algunas clases estuvimos estudiando flujo potencial, el cual era no viscoso.
-Una implicancia de su ``no viscosidad'' era que la condición de borde en una pared era de impermeabilidad ($\mathbf{V}\cdot\mathbf{n}=0$), sin embargo, el flujo podía deslizarse.
-Obviamente, sabemos que no existe tal cosa como un flujo ``no viscoso''. 
-De hecho, experimentalmente podemos ver que la velocidad del fluido en la interfaz con el sólido es igual a la velocidad del sólido, en otras palabras, el fluido no desliza.
+En el caso del flujo sobre una placa plana que hemos estado discutiendo, la placa se puede considerar infinitamente larga.
+Esto nos pone en una disyuntiva \mbox{?`}cuál es el número de Reynolds que caracteriza al problema entonces?
+Resulta que la mejor manera que analizar estos problemas es considerando un número de Reynolds variable en el espacio.
+Por lo tanto, para una misma placa plana, tendremos una distribución de números de Reynolds, donde:
+%
+\begin{equation}\label{eq:Re_capa}
+Re_x = \frac{U_\infty x}{\nu}.
+\end{equation}
+
+Una implicancia interesante es que si analizamos en una longitud suficientemente larga, siempre vamos a llegar a número de Reynolds suficientemente altos como para empezar a ver turbulencia.
+De hecho, como lo muestra la Figura \ref{fig:capa_limite_Re}, esto se ve en la práctica. 
+La capa límite sobre una placa plana es siempre laminar inicialmente, y eventualmente se torna turbulenta, aguas abajo.
+El número de Reynolds crítico en capa límite es alrededor de $5\cdot10^{5}$.
 %
 \begin{figure}[!h]
 \centering
-\includegraphics[width=0.8\textwidth]{clase08/capa_limite.pdf}
-\caption{Flujo sobre una placa plana.}
-\label{fig:capa_limite}
-\end{figure}
-%
-Tomemos, por ejemplo, el flujo uniforme que se topa con una placa plana en la Figura \ref{fig:capa_limite}.
-Lo que esperamos que ocurra es que el flujo en la placa tenga velocidad cero, y de ahí vaya creciendo paulatinamente hasta llegar a la velocidad de entrada $U_\infty$.
-En el principio de la placa (a $x$ pequeño), esperaríamos que el efecto de la placa no llega muy lejos, y la velocidad rápidamente retoma $U_\infty$, sin embargo, aguas abajo, el efecto de la placa llega mucho más adentro en el flujo, y este efecto crece a medida que nos movemos a lo largo de ella.
-Esta zona de influencia de la placa se conoce como \emph{capa límite}, y su espesor se representa como $\delta$.
-En la FIgura \ref{fig:capa_limite}, la capa límite está representada por la línea punteada.
-El flujo fuera de la capa límite es un flujo uniforme que perfectamente puede ser modelado como un flujo uniforme potencial, a pesar que sepamos que el fluido tiene viscosidad, pero afuera de la capa límite el efecto de la viscosidad es despreciable.
-
-\section*{Definiciones de capa límite}
-Una pregunta válida es \mbox{?`}dónde consideramos que el flujo finalmente a retomado su velocidad $U_\infty$? 
-En otras palabras, \mbox{?`}cuál es el criterio para dibujar la línea punteada en la Figura \ref{fig:capa_limite}, y definir el espesor $\delta(x)$?
-Aquí simplemente tenemos que ponernos de acuerdo, y la convención dice que consideraremos que el fin de la capa límite se encuentra donde la velocidad paralela a la placa ha alcanzado $0.99U_\infty$.
-Sin embargo, existen otras formas de definir el espesor de la capa límite, que se conocen como el espesor de desplazamiento y el espesor de momentum.
-
-\subsection*{Espesor de desplazamiento}
-El espesor de desplazamiento ($\delta^*$) corresponde a la distancia que debiese desplazarse la pared para que pasara el mismo caudal asumiendo un flujo no viscoso. 
-Esto se explica mejor por la Figura \ref{fig:espesor_desplazamiento}, donde si el flujo no fuese viscoso, la pared se tendría que correr $\delta^*$ más arriba para que pase el mismo caudal.
-El caudal (por unidad de ancho) que pasa dentro de la capa límite es
-%
-\begin{equation}
-Q = \int_0^\delta u(y)\mathrm{d}y.
-\end{equation}
-
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.8\textwidth]{clase08/espesor_desplazamiento.pdf}
-\caption{Espesor de desplazamiento.}
-\label{fig:espesor_desplazamiento}
+\includegraphics[width=0.8\textwidth]{clase05/capa_limite_Re.pdf}
+\caption{Capa límite en función de $Re_x$.}
+\label{fig:capa_limite_Re}
 \end{figure}
 
-Por otra parte, sabemos que para un flujo no viscoso, el caudal por unidad de ancho sería simplemente $Q_\text{NV} = U_\infty \cdot l$, donde $l$ es el alto de la sección transversal.
-Para que $Q=Q_\text{NV}$, $l=Q/U_\infty$, y sabemos que $\delta^*=\delta-l$, por lo tanto
-%
-\begin{equation}
-\delta^* = \delta - l = \delta - \int_0^\delta \frac{u(y)}{U_\infty}\mathrm{d}y.
-\end{equation}
-%
-Podemos reescribir $\delta = \int_0^\delta 1\mathrm{d}y$, y reemplazando en la última ecuación llegamos a la siguiente expresión para $\delta^*$
-%
-\begin{equation}\label{eq:espesor_desplazamiento}
-\delta^* = \int_0^\delta \left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
-\end{equation}
+Cuando la capa límite se torna turbulenta, aparece una pequeña zona laminar, pegada a la placa, que se conoce como subcapa viscosa.
+Aparte de ser laminar, esta zona tiene importantes implicancias en el patrón del flujo dentro de la capa límite, ya que, si su espesor es mayor que la rugosidad de la placa, esta rugosidad no afecta al flujo y se puede considerar como una placa lisa. 
+Como pueden imaginarse, esto tiene un importante efecto en el arrastre sobre la placa.
 
-\subsection*{Espesor de momentum}
-\paragraph*{Flujo de momentum sobre una placa.}
-La placa de la Figura \ref{fig:capa_limite} es suficientemente delgada como para no bloquear el flujo, sin embargo, la condición de deslizamiento hace que la velocidad sea cero sobre la placa, afectando el perfil de velocidad.
-Hagamos un análisis integral de la cantidad de movimiento como lo que hacíamos en el curso anterior.
-%
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.8\textwidth]{clase08/analisis_integral.pdf}
-\caption{Volúmen de control para análisis integral.}
-\label{fig:analisis_integral}
-\end{figure}
-%
-Elijamos el volumen de control que muestra la Figura \ref{fig:analisis_integral}, donde la parte de abajo está justo sobre la placa, el lado derecho va desde la placa hasta el fin de la capa límite $\delta(x)$, la línea superior coincide con una línea de flujo, y el lado izquierdo tiene altura $h$.
-Recordando el análisis integral de la cantidad de movimiento, la ecuación para la fuerza en el eje $x$ es
-%
-\begin{equation}
-\sum F_x = \frac{\partial}{\partial t} \int_{\vol} u\rho \mathrm{d}\vol + \oint_{\partial\vol} u\rho\mathbf{V}\cdot\mathbf{n}\mathrm{d}S.
-\end{equation}
-%
-Consideremos un flujo externo con velocidad constante, y sin gradientes de presión. En este caso, la única fuerza es debido a la condición de no delizamiento. Además, el primer término de acumulación es cero, no pasa flujo ni por abajo (pared) ni por arriba (línea de flujo), y considerando que el flujo a la entrada es constante $U_\infty$, llegamos a
-%
-\begin{equation}\label{eq:capa_limite_momentum1}
-F_x = -\rho U_\infty^2 bh + \rho b \oint_0^\delta u^2\mathrm{d}y.
-\end{equation}
-%
-También, el principio de continuidad nos dice que todo lo que entra por la izquierda, sale por la derecha
-%
-\begin{align}\label{eq:capa_limite_cont}
-\rho U_\infty bh &= \rho b \int_0^\delta u(y)\mathrm{d}y \nonumber\\
-\Rightarrow U_\infty h &= \int_0^\delta u(y)\mathrm{d}y.
-\end{align}
-%
-Reemplazando la Ec. \eqref{eq:capa_limite_cont} en la Ec. \eqref{eq:capa_limite_momentum1}, podemos reescribir la Ec. \eqref{eq:capa_limite_momentum1} como
-%
-\begin{equation}\label{eq:capa_limite_momentum}
-D = -F_x = \rho b \oint_0^\delta u(U_\infty - u)\mathrm{d}y.
-\end{equation}
-%
-donde $D$ es la fuerza sobre la placa.
-
-\paragraph*{Espesor de momentum}
-Como podemos imaginarnos, la fuerza sobre la placa depende del largo de esta (o el largo $L$ de la Figura \ref{fig:analisis_integral}), por lo tanto $D=D(x)$.
-De aquí podemos definir el espesor de momentum ($\theta$) como:
-%
-\begin{equation}\label{eq:espesor_momentum}
-\theta = \int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y
-\end{equation}
-%
-por lo tanto,
-%
-\begin{equation}\label{eq:D_momentum}
-D(x) = \rho b U_\infty^2\theta.
-\end{equation}
-
-El espesor de momentum puede ser visto como la distancia que debemos mover la placa hacia arriba tal que un flujo no viscoso tuviese el mismo momentum.
-Fíjense en la Ec. \eqref{eq:D_momentum}; ésta no es más que el flujo de momentum a través de un área de ancho $b$ y alto $\theta$ de un flujo uniforme, igualado a la fuerza sobre la placa.
-Considerando que la fuerza sobre la placa debe ser igual al flujo de momentum de la capa límite, $\theta$ es un altura tal que los flujos de momentum del caso viscoso y no viscoso, sean iguales.
+A continuación veremos algunas soluciones de capa límite, que dependen del número de Reynolds definido en la Ec. \eqref{eq:Re_capa}, tanto para flujo laminar, como para turbulento.
 
 \section*{Ecuaciones en la capa límite}
 En esta sección veremos como se reducen las ecuacines de conservación para el caso de flujo en una capa límite.
@@ -186,7 +100,7 @@ En el eje $y$, al aplicar las mismas aproximaciones llegamos a una aseveración 
 \end{equation}
 %
 lo que nos dice que la presión es constante dentro de la capa límite, a medida que nos alejamos de la placa.
-Esto es algo que sin darse cuenta, ya han visto experimentalmente.
+Esto es algo que sin darse cuenta, ya han visto experimentalmente (o lo verán pronto).
 Cuando midieron la presión en la superficie del cilindro en el laboratorio, se dieron cuenta que el flujo potencial es una muy buena aproximación.
 El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
 La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
@@ -206,7 +120,7 @@ donde
 \eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}.
 \end{equation}
 %
-No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la place ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
+No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la placa ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
 Por otra parte, sobre la placa ($y=0$ y $\eta=0$) la velocidad $u=0$ por la condición de no deslizamiento, por lo que $f'(0)=0$.
 
 Reemplacemos esta transformación en la Ec. \eqref{eq:NS_capa_x}.
@@ -288,4 +202,97 @@ Cancelando los términos correspondientes, llegamos a la ecuación de Blasius
 %
 \begin{equation}
 f'''+\frac{ff''}{2}=0
+\end{equation}
+
+\section*{Espesor de capa límite de Blasius}
+
+Recién llegamos a la ecuación de Blasius, que describe el perfil de velocidad dentro de la capa límite sobre una placa plana sin gradiente de presión:
+ %
+ \begin{align}\label{eq:blasius2}
+f'''&+\frac{1}{2}ff''=0\nonumber\\
+f'(\eta) &= \frac{u}{U_\infty} \nonumber\\
+\eta &= y\left(\frac{U_\infty}{\nu x}\right)^{1/2}\nonumber\\
+f(0) &= 0\nonumber\\
+f'(0) &= 0\nonumber\\
+f'(\infty) &= 1
+ \end{align}
+
+ La ecuacion de Blasius es una ecuación diferencial ordinaria que no tiene solución analítica, sin embargo, podemos resolverla numéricamente.
+ Si se fijan en el código del repositorio Github,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase05/blasius.ipynb}} verán  que resolvemos esta ecuación con un método de Euler, y que el borde de la capa límite (donde $u=0.99U_\infty$), se da para $\eta=5$.
+En este punto $y=\delta$, y reemplazando en la Ec. \eqref{eq:blasius2} llegamos a
+%
+\begin{equation}\label{eq:delta_blasius}
+\frac{\delta}{x} = \frac{5}{\sqrt{Re_x}}
+\end{equation}
+
+Comparando el espesor de capa límite de von Kármán (que asume un perfil parabólico) y la Ec. \eqref{eq:delta_blasius}, nos podemos dar cuenta que la solución dada por von Kármán, que asume un perfil parabólico, no está tan lejos de la solución real.
+En el caso de von Kármán, llegamos a un factor $5.5$ y en Blasius de $5$, solamente un 10\% de diferencia.
+Además, vemos en la Figura \ref{fig:capa_limite_blasius} que el perfil parabólico de von Kármán (línea punteada) es una buena aproximación del perfil de Blasius (línea sólida) dentro de la capa límite.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/capa_limite_blasius.pdf}
+\caption{Perfil de velocidad dentro de la capa límite para $x=0.1$, $x=1$ y $x=2$. Línea sólida representa el perfil de Blasius, los puntos sólidos el fin de la capa límite, y la línea punteada el perfil parabólico de von Kármán.}
+\label{fig:capa_limite_blasius}
+\end{figure}
+
+\paragraph*{Espesor de desplazamiento}
+
+El espesor de desplazamiento de define como 
+%
+\begin{equation}
+\delta^* = \int_0^\infty\left(1-\frac{u(y)}{U_\infty}\right)dy
+\end{equation}
+%
+lo cual podemos reescribir en términos de $f(\eta)$, con $dy = d\eta\left(\frac{\nu x}{U_\infty}\right)^{1/2}$
+%
+\begin{align}
+\delta^* &= \left(\frac{\nu x}{U_\infty}\right)^{1/2}\int_0^\infty(1-f'(\eta))d\eta\\
+& = \left.\left(\frac{\nu x}{U_\infty}\right)^{1/2} (\eta-f(\eta))\right|_\infty
+\end{align}
+
+Usando el mismo código que antes, nos damos cuenta que al infinito el valor de $\eta-f'(\eta)$ tiende a 1.721, y podemos escribir
+%
+\begin{equation}
+\frac{\delta^*}{x} = \frac{1.721}{\sqrt{Re_x}}
+\end{equation}
+
+\paragraph*{Esfuerzo cortante.}
+Sabemos que la definición de $\tau_w$ es
+%
+\begin{equation}
+\tau_w = \left.\mu\frac{du}{dy}\right|_0
+\end{equation}
+%
+lo cual se puede escribir en términos de $f$ y $\eta$ como
+%
+\begin{align}
+\tau_w &= \left. U_\infty\mu \frac{df'}{dy}\right|_0 = U_\infty\mu \left(\frac{U_\infty}{\nu x}\right)^{1/2}f''(0) \nonumber\\
+&= U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2}f''(0) = 0.332055 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} 
+\end{align}
+%
+Por otra parte, el coeficiente de arrastre es
+%
+\begin{equation}
+c_f = \frac{\tau_w}{\frac{1}{2}U_\infty^2\rho} = \frac{2\cdot0.332055}{\sqrt{Re_x}} = \frac{0.664}{\sqrt{Re_x}}
+\end{equation}
+
+\paragraph*{Espesor de momentum.}
+En la definición del espesor de momentum dijimos que
+%
+\begin{equation}
+\tau_w = \rho U_\infty^2 \frac{d\theta}{dx}
+\end{equation}
+%
+y usando la expresión que encontramos recién para $\tau_w$, quedamos con
+%
+\begin{align}
+\theta &= \int_0^x 0.332 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} \frac{1}{\rho U_\infty^2} dx \nonumber\\
+&= \int_0^x 0.332 \left(\frac{\mu}{xU_\infty\rho}\right)^{1/2} dx = 2\cdot0.332 x^{1/2}\left(\frac{\mu}{U_\infty\rho}\right)^{1/2}
+\end{align}
+%
+y dividiendo por $x$, queda
+%
+\begin{equation}
+\frac{\theta}{x} = \frac{0.664}{\sqrt{Re_x}}
 \end{equation}
