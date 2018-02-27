@@ -2,328 +2,290 @@
 
 Objetivos:
 \begin{itemize}
-    \item Describir las fases que llevan a un flujo de ser laminar a turbulento.
-    \item Entender la naturaleza estadística de los flujos turbulentos.
+    \item Introducir la función corriente.
+    \item Estudiar el flujo irrotacional. 
+    \item Presentar la función potencial.
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item El efecto del número de Reynolds en la ecuación de Navier-Stokes adimensionalizada.
-    \item Descripción de las fases que llevan a la turbulencia.
-    \item La ecuación promediada de Reynolds.
-    \item El tensor de Reynolds.
+    \item Flujo incompresible y la función corriente.
+    \begin{itemize}
+        \item Definición e implicancias físicas
+        \item Formulación alternativa de Navier Stokes con la función corriente
+    \end{itemize}
+    \item La circulación y su relación con la vorticidad.
+    \item Flujo irrotacional y la función potencial.
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item White, F. M. (2006) Viscous fluid flow. McGraw-Hill. Tercera edición. Capítulo 5.4, 6.1, 6.2
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 4.7-4.9
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 5.2, 5.3, 6.7.
 \end{itemize}
 \end{framed}
 
-\section*{La ecuación de Navier-Stokes adimensionalizada y estabilidad}
+\section*{La función corriente}
 
-\subsection*{La ecuación de Navier-Stokes adimensional}
-Consideremos la componente $x$ de la ecuación de Navier-Stokes:
+La clase pasada revisamos la ley de conservación de masa, que deriva en la ecuación de continuidad:
 %
-\begin{equation}
-\rho\left(\frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z}\right) = -\frac{\partial p}{\partial x} + \mu \left( \frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial v^2} + \frac{\partial^2u}{\partial z^2} \right),
+\begin{equation} \label{eq:continuidad_2}
+\frac{\partial \rho}{\partial t} + \frac{\partial(\rho u)}{\partial x} + \frac{\partial(\rho v)}{\partial y} + \frac{\partial(\rho w)}{\partial z} = 0.
 \end{equation}
 %
-y representémosla utilizando las siguientes variables adimensionales:
+En el caso particular de dos dimensiones e incompresible, la Ec. \eqref{eq:continuidad_2} se reduce a
+%
+\begin{equation} \label{eq:continuidad2D}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0.
+\end{equation}
+
+La ecuación \eqref{eq:continuidad2D} sería satisfecha automáticamente si existiese una función $\psi$ tal que
+%
+\begin{equation} \label{eq:psi_def}
+u = \frac{\partial \psi}{\partial y} \quad v = -\frac{\partial \psi}{\partial x}.
+\end{equation}
+%
+De hecho, si reemplazamos la Ec. \eqref{eq:psi_def} en la Ec. \eqref{eq:continuidad2D}, claramente el lado izquierdo de la Ec. \eqref{eq:continuidad2D} se hace cero.
+
+\subsection*{Interpretación geométrica de $\psi$}
+El truco de usar una función $\psi$ va más allá de lo puramente matemático, ya que tiene una interpretación geométrica: la líneas de $\psi$ constante son líneas de flujo.
+Esto significa que si seguimos una partícula que va con el fluido, su trayectoria estaría definida por una línea de $\psi =\text{constante}$.
+Por esta razón, conocemos a $\psi$ como la \emph{función corriente}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.3\textwidth]{clase02/flujo.pdf}
+\caption{Línea de flujo bidimensional.}
+\label{fig:flujo}
+\end{figure}
+
+Demostremos esta propiedad de $\psi$.
+Como lo muestra la Figura \ref{fig:flujo}, la velocidad es siempre tangencial a una línea de flujo. 
+En otras palabras, la trayectoria debe tener la misma pendiente que la velocidad, o
+%
+\begin{align}\label{eq:linea_flujo}
+\frac{dy}{dx} = \frac{v}{u} \nonumber \\
+\Rightarrow udy - vdx = 0.
+\end{align}
+%
+La segunda expresión de la Ec. \eqref{eq:linea_flujo} determina una línea de flujo, y reemplazando la definición de $\psi$ de la Ec. \eqref{eq:psi_def} llegamos a
+%
+\begin{equation}
+\frac{\partial\psi}{\partial x} dx + \frac{\partial \psi}{\partial y}dy = 0 = d\psi,
+\end{equation}
+%
+lo cual es la definición de derivada total.
+Si $d\psi=0$, $\psi$ debe ser constante a lo largo de una línea de flujo.
+
+Esta propiedad de $\psi$ es muy útil para visualizar flujos.
+De hecho, en visualizaciones de modelación computacional de fluidos, comúnmente es la funcion corriente la que se grafica.
+
+\subsection*{Interpretación física de $\psi$}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.5\textwidth]{clase02/caudal.pdf}
+\caption{Caudal entre los puntos $A$ y $B$.}
+\label{fig:caudal}
+\end{figure}
+
+La función corriente también es útil para calcular el caudal que pasa por una superficie.
+Usemos la Figura \ref{fig:caudal} para guiar esta explicación.
+Digamos que $S$ es una superficie que pasa por los puntos $A$ y $B$ (acuérdense que estamos trabajando en dos dimensiones, por lo que una superficie corresponde a una línea), y queremos saber el caudal que pasa por $S$ entre $A$ y $B$.
+Por definición, el caudal a través de un diferencia de $S$ ($dS$) es 
+%
+\begin{equation}\label{eq:caudal}
+dQ = \mathbf{V}\cdot\mathbf{n}dS,
+\end{equation}
+%
+donde $\mathbf{n}$ es un vector unitario normal a la superficie, y $\mathbf{V}=u\ihat+v\jhat = \frac{\partial \psi}{\partial y} \ihat -\frac{\partial \psi}{\partial x}\jhat$.
+
+\mbox{?`}Cómo podemos encontrar una expresión para $\mathbf{n}$? Debemos recurrir a nuestros conocimientos de algebra lineal.
+Si la función que define $S$ es $y=y(x)$, $dx\ihat+dy\jhat$ es un vector tangencial a $S$.
+Así, podemos calcular el vector tangencial unitario, que es $\mathbf{t}=(dx\ihat+dy\jhat)/\sqrt{dx^2+dy^2}$, donde $\sqrt{dx^2+dy^2}=dS$ es el tamaño del elemento diferencial de la curva $S$.
+Sabemos que el producto punto entre $\mathbf{t}$ y $\mathbf{n}$ debe ser cero, por lo tanto, el vector normal a $S$ tiene la forma
+%
+\begin{equation}\label{eq:vec_normal}
+\mathbf{n} = \frac{dy}{dS}\ihat - \frac{dx}{dS}\jhat.
+\end{equation}
+%
+Si insertamos la Ec. \eqref{eq:vec_normal} en la Ec. \eqref{eq:caudal}, quedamos con:
 %
 \begin{align}
-x^*&=\frac{x}{D}, y^*=\frac{y}{D}, z^*=\frac{z}{D}\nonumber\\
-u^* &= \frac{u}{U_\infty}, v^* = \frac{v}{U_\infty}, w^*=\frac{w}{U_\infty}\nonumber\\ 
-p^* &= \frac{p}{\rho U_\infty^2}, t^*=t\frac{U_\infty}{D}, 
+dQ &= \left(\frac{\partial \psi}{\partial y} \ihat -\frac{\partial \psi}{\partial x}\jhat\right)\cdot\left( \frac{dy}{dS}\ihat - \frac{dx}{dS}\jhat\right)dS\nonumber\\
+   &= \frac{\partial \psi}{\partial y}dy +\frac{\partial \psi}{\partial x}dx = d\psi
 \end{align}
 %
-donde $D$ y $U_\infty$ son una distancia y velocidad característica del problema.
-Reemplazando las variables adimensionales en la ecuación de Navier-Stokes llegamos a
-%
-\begin{align}\label{eq:NS_adim}
-\frac{\rho U_\infty^2}{D}&\left(\frac{\partial u^*}{\partial t^*} + u^*\frac{\partial u^*}{\partial x^*} + v^*\frac{\partial u^*}{\partial y^*} + w^*\frac{\partial u^*}{\partial z^*}\right) \nonumber\\
-&\left.= -\frac{\rho U_\infty^2}{D}\frac{\partial p^*}{\partial x^*} + \frac{\mu U_\infty}{D^2} \left( \frac{\partial^2u^*}{\partial x^{*2}} + \frac{\partial^2u^*}{\partial y^{*2}} + \frac{\partial^2u^*}{\partial z^{*2}} \right) \right/\cdot\frac{D}{\rho U_\infty^2}\nonumber\\
-\frac{\partial u^*}{\partial t^*} + u^*\frac{\partial u^*}{\partial x^*} + &v^*\frac{\partial u^*}{\partial y^*} + w^*\frac{\partial u^*}{\partial z^*} = -\frac{\partial p^*}{\partial x^*} + \underbrace{\frac{\mu}{\rho U_\infty D}}_{1/Re} \left( \frac{\partial^2u^*}{\partial x^{*2}} + \frac{\partial^2u^*}{\partial y^{*2}} + \frac{\partial^2u^*}{\partial z^{*2}} \right).
-\end{align}
-%
-La Ec. \eqref{eq:NS_adim} es adimensional, y nos podemos dar cuenta que el balance entre los términos convectivos y difusivos está dado por el número de Reynolds: a bajo $Re$, el término difusivo crece, y domina sobre el término convectivo, y si es alto, ocurre lo contrario.
-
-\subsection*{Estabilidad}
-Digamos que queremos resolver el flujo de Poiseuille (flujo entre placas), usando la Ec. \eqref{eq:NS_adim}.
-Ya que es un flujo unidimensional, normalmente cancelaríamos los términos multiplicados por $v$ y $w$ en la aceleración convectiva.
-Imaginen que agregamos una perturbación en una de las otras direcciones, por ejemplo, $v$ \mbox{?`}Qué pasaría ahora?
-Si $Re$ es pequeño, el término difusivo domina, y cualquier perturbación se vería aplacada por la difusión.
-Sin embargo, si $Re$ es grande, la difusión no sería capaz de contrarrestar la perturbación, por lo que no podríamos cancelar los términos multiplicados por $v$, y necesitaríamos considerar la componente $y$ de la ecuación de Navier-Stokes.
-Finalmente, esto generaría que se pierde la unidimensionalidad del flujo de Poiseuille, el flujo se desarrolla de otra manera, y deja de ser laminar.
-
-Este ejercicio mental hace patente el concepto de estabilidad del flujo: a alto número de Reynolds, el flujo cambia drásticamente ante una pequeña perturbación
-\mbox{?`}Cuánto es alto? Alto es sobre algún $Re$ crítico, lo que depende del tipo de flujo que estamos analizando.
-Por ejemplo, para el flujo en tuberías, $Re_\text{cr}\approx2300$, o para el flujo en la capa límite de una esfera (flujo alrededor de una esfera, cerca de ésta), $Re_\text{cr}=10^5$.
-De esta forma, pierde su característica laminar, y comienza la transición hacia la turbulencia.
-En esta clase, vamos a hacer una descripción visual de las diferentes etapas por las que pasa el flujo en transición, hasta que llega a ser turbulento.
-
-Viendo esto, podemos darnos cuenta que un flujo puede ser laminar a $Re$ muy altos si somos extremadamente cuidadoso de no introducir perturbaciones en él.
-Ahora, en casos reales, siempre habrá perturbaciones en el flujo (vibraciones, rugosidad, etc.), por lo que podemos confiar que si el $Re>Re_\text{cr}$ lo más probable es que el flujo sea turbulento.
-
-Existe procedimientos matemáticos para evaluar si un flujo es estable o no, que básicamente consisten en introducir algún tipo de perturbación en el flujo y calcular su comportamiento en el tiempo. 
-Si la perturbación se aplaca, el flujo es estable, y si crece sin cota, es inestable.
-Este tipo de análisis escapa un poco de este curso.
-Eso si, vale la pena comentar que no es necesaria la presencia de la viscosidad para que un flujo sea estable, y es solo que en el caso del flujo de Poiseuille es así. 
-El análisis de estabilidad es válido en flujos no viscosos.
-
-\section*{Transición a turbulencia}
-
-La transición a la turbulencia es un problema no resuelto.
-De hecho, una reciente publicación en Nature Physics,\footnote{\url{http://www.nature.com/nphys/journal/v12/n1/full/nphys3630.html}} de enero del 2016 (muy reciente! Solamente una plana, vale la pena leerlo), postula que al parecer, puede ser que estén viendo una luz al final del túnel de poder explicar los mecanismos que llevan desde un flujo laminar a uno turbulento, pero todavía hay mucho trabajo por hacer.
-Por lo pronto, nos contentaremos con hacer una descripción visual de algunas estructuras que han podido ser identificadas.
-
-Este es un problema que se remonta a las observaciones de Osborne Reynolds en 1870 del flujo en una tubería.
-Reynolds describió el flujo dentro de una tubería a diferentes valores de un número adimensional (que eventualmente llamarían el número de Reynolds), llegando a los dibujos que aparecen en la Figura \ref{fig:Re_observacion}.
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{clase02/Re_observacion.pdf}
-\caption{Resultados de Reynolds. Arriba: flujo laminar. Al medio: flujo turbulento. Abajo: flujo turbulento observado con una chispa eléctrica.}
-\label{fig:Re_observacion}
-\end{figure}
-
-Reynolds concluyó que el flujo cambia de laminar a turbulento a $Re$ entre 2000 y 13000, dependiendo del cuidado que se tiene en la disrupción del flujo (ya sea por tener entradas muy abruptas, como vibraciones).
-Esto es algo que podíamos imaginar a partir del análisis que hicimos de la ecuación de Navier-Stokes adimensionalizada.
-
-Para estudiar las estructuras que aparecen en la transición a la turbulencia vamos a utilizar el flujo sobre una placa como nuestro problema modelo.
-Cabe destacar que el flujo sobre una placa plana genera lo que se conoce como una capa límite. 
-Capa límite es un tema que no hemos pasado en este curso aún, pero solamente es necesario saber que el fluido tendrá velocidad 0 sobre la placa, y irá paulatinamente creciendo a medida que nos alejamos de ella hasta llegar a la velocidad con que viene el flujo al infinito $U_\infty$, como lo muerstra la Figura \ref{fig:capa_limite}.
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{clase02/capa_limite.pdf}
-\caption{Velocidad sobre una placa plana.}
-\label{fig:capa_limite}
-\end{figure}
-
-Visto desde arriba, la capa límite hace una transición a turbulencia de la forma que muestra la Figura \ref{fig:transicion_turbulencia}.
-A continuación haremos una pequeña descripción de cada una de estas etapas.
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{clase02/transicion_turbulencia.png}
-\caption{Transición a turbulencia sobre una placa plana. \emph{Fuente: F. White, Viscous Fluid Flow (2006)}}
-\label{fig:transicion_turbulencia}
-\end{figure}
-
-\paragraph*{Ondas de Tollmien-Schlichting}
-Es la primera indicación de inestabilidad del flujo laminar. 
-Estas ondas tienen una naturaleza bidimiensional, ya que son relativamente constantes a lo largo del eje que cruza a lo ancho de la placa.
-Inicialmente son prácticamente imperceptibles, pero van creciendo aguas abajo hasta que las nolinealidades de la ecuación de Navier-Stokes comienzan a hacerse notar, generando movimientos en otras direcciones.
-Las ondas T-S llegan a ser de $\sim 1-2\%$ de $U_\infty$.
-
-\paragraph*{Vorticidad a lo ancho de la placa}
-Debido a que la no-linealidad toma fuerza, se pierde la bidimiensionalidad del flujo bajo las ondas T-S, y comenzamos a ver variaciones en la vorticidad a lo ancho de la placa.
-Inicialmente las variaciones son pequeñas, sin embargo rápidamente toman fuerza y las diferencias en vorticidad a lo largo una misma línea que va hacia adentro puede ser 4 a 5 veces.
-Eventualmente, las líneas de vorticidad se tornan irregulares, con vorticidad que se alinea con las líneas de flujo.
-
-\paragraph*{Puntos de turbulencia}
-Es la última etapa antes de la turbulencia total.
-Las líneas de vorticidad, que se encuentran estiradas, comienzan a romperse en unidades más pequeñas de forma prácticamente aleatoria. 
-La turbulencia aparece en forma de puntos o núcleos en tiempos y ubicaciones aleatorias, y se dispersa aguas abajo en un ángulo entre $8^\circ$ y $10^\circ$.
-
-\section*{La ecuación promediada de Reynolds}
-
-Un flujo turbulento es inherentemente desordenado, sin embargo, se puede estudiar viéndolo como un flujo promedio con fluctuaciones aleatorias sobrepuestas.
-De esta forma, si medimos la velocidad en un punto determinado, tendríamos algo así como lo que muestra la Figura \ref{fig:flujo_promedio}, que es muy desordenado, pero sigue un promedio.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{clase02/flujo_promedio.pdf}
-\caption{Medición de velocidad en un punto de un flujo turbulento.}
-\label{fig:flujo_promedio}
-\end{figure}
-
-Viendo la Figura \ref{fig:flujo_promedio} se hace patente que una buena forma de describir el flujo es superponer fluctuaciones a un promedio.
-Estas fluctuaciones mejoran la capacidad de mezcla, difusión y disipación de un flujo, ya que existe una mayor convección.
-Por ejemplo, una forma de acelerar la disolución de azucar en un café es revolviéndolo: la turbulencia que uno genera al revolver mueve el azucar dentro de la taza haciendo la ``mezcla'' más eficiente.
-
-Si promediamos la velocidad en un intervalo de tiempo $T$, la velocidad promedio es
-%
-\begin{equation}
-\overline{u} = \frac{1}{T}\int_{t_0}^{t_0+T}udt
+Por lo tanto, el caudal total que pasa por $S$ entre $A$ y $B$ es
+\begin{equation}\label{eq:caudal_psi}
+Q=\int_A^BdQ = \int_A^Bd\psi = \psi_B-\psi_A.
 \end{equation}
 %
-donde elegimos el intervalo $T$ tal que sea mayor que cualquier periodo de fluctuación de $u$.
-Así, definimos las fluctuaciones de $u$ como $u'$, tal que 
-%
-\begin{equation} \label{eq:fluctuacion}
-u'=u-\overline{u},
-\end{equation}
-%
-y
-\begin{equation}
-\overline{u'} = 0.
-\end{equation}
+En otras palabras, el caudal entre $A$ y $B$ es solamente la diferencia entre la función corriente evaluada en esos dos puntos, sin importar la forma de la superficie $S$ entre ellos.
 
-El promedio de las fluctuaciones es cero porque toma valores positivos y negativos, sin embargo, esto no es muy representativo de la magnitud de las fluctuaciones. 
-Para tener una mejor idea de esto, usamos el promedio de su valor al cuadrado
-%
-\begin{equation}
-\overline{u'^2} = \frac{1}{T}\int_{t_0}^{t_0+T} u'^2dt,
-\end{equation}
-%
-y la raíz de este valor que corresponde a la media cuadrática $u'_{RMS} = \sqrt{\overline{u'^2}}$.
-Si el valor de $u'_{RMS}$ es independiente del inicio del intervalo $t_0$, se dice que las fluctuaciones son estadísticamente estacionarias.
+\paragraph*{Ejemplo}
+(Sacado de \emph{Fluid Mechanics}, Munson et al.)
+Un flujo incompresible bidimensional tiene velocidad $\mathbf{V}=u\ihat+v\jhat$, con $u=2x$
+{\bf (a)}Calcule $v$ sabiendo que es cero sobre el eje $x$.
+{\bf (b)}Encuentre la velocidad promedio del fluido cruzando una superficie recta que une el centro del eje coordenado con el punto $(1,1)$.
 
-Formulemos las leyes de conservación usando valores promediados y fluctuaciones.
-Primero, escribamos las variables de esta manera:
+Al ser incompresible, sabemos que:
 %
 \begin{align}
-u &= \overline{u} + u',\quad v = \overline{v} + v',\nonumber\\
-w &= \overline{w} + w',\quad p = \overline{p} + p',\
+&\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0 \nonumber \\
+\Rightarrow &\frac{\partial v}{\partial y} = -\frac{\partial u}{\partial x} = -2 \nonumber \\
+\Rightarrow &v = -2y + C_1(x),
 \end{align}
 %
-con las siguientes propiedades, válidas para cualquier función turbulenta $f$ y $g$
-%
-\begin{align}\label{eq:promedio_prop}
-\overline{f'} &= 0, \quad \overline{\overline{f}}=\overline{f},\quad \overline{f\overline{g}}=\overline{f}\overline{g,} \nonumber\\
-\overline{f'\overline{g}} &= 0,\quad \overline{f+g} = \overline{f} +\overline{g},\quad \overline{\frac{\partial f}{\partial s}} = \frac{\partial\overline{f}}{\partial s} \nonumber\\
-\overline{\int f ds} &= \int\overline{f}ds,\quad \overline{fg} = \overline{f}\overline{g}+\overline{f'g'}.
-\end{align}
+donde $C_1(x)$ es una función de $x$.
+Nos dicen que la $v=0$ sobre el eje $x$ (donde $y=0$), por lo que $C_1(x)=0$.
 
-Las propiedades en la ecuación \eqref{eq:promedio_prop} son fácilmente demostrables considerando que el promedio es una integral, y por ende, un operador lineal.
-Nos daremos el tiempo de demostrar la última propiedad que es un poco menos clara, y además repasaremos demostraciones de otras propiedades en el camino.
-%
-\begin{align}
-\overline{fg} &= \frac{1}{T}\int_{t_0}^{t_0+T}(\overline{f}+f')(\overline{g}+g')dt\nonumber\\
-             &= \frac{1}{T}\left(\int_{t_0}^{t_0+T} \overline{f}\overline{g}dt + \int_{t_0}^{t_0+T} \overline{f}g'dt +\int_{t_0}^{t_0+T} f'\overline{g}dt + \int_{t_0}^{t_0+T}f'g'dt\right), \nonumber\\
-\text{ pero, }&\int_{t_0}^{t_0+T} f'\overline{g}dt = \overline{g}\int_{t_0}^{t_0+T} f'dt = 0 \text{ (demostrando la cuarta propiedad) }\nonumber\\
-\Rightarrow\overline{fg} &= \overline{\overline{f}\overline{g}} + \overline{f'g'} = \overline{f}\overline{g} + \overline{f'g'}
-\end{align}
-
-\paragraph*{Conservación de masa.}
-En el caso incompresible, la ecuación de continuidad es $\nabla\cdot\mathbf{V}=0$.
-Si sacamos el promedio a eso, llegamos a
-%
-\begin{align}\label{eq:continuidad_prom}
-\overline{\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} + \frac{\partial w}{\partial z}} = 0\nonumber\\
-\frac{\partial \overline{u}}{\partial x} + \frac{\partial \overline{v}}{\partial y} + \frac{\partial \overline{w}}{\partial z} = 0.
-\end{align}
-%
-Si a la ecuación de continuidad no promediada, le restamos la Ec. \eqref{eq:continuidad_prom}, llegamos a
-%
-\begin{equation}\label{eq:continuidad_fluc}
-\frac{\partial u'}{\partial x} + \frac{\partial v'}{\partial y} + \frac{\partial w'}{\partial z} = 0
-\end{equation}
-%
-Esto nos indica que tanto el promedio de la velocidad como sus fluctuaciones satisfacen la ecuación de continuidad por si solos para el caso incompresible.
-
-\paragraph*{Conservación de cantidad de movimiento.}
-Siguiendo con la suposición de flujo incompresible, saquemos el promedio de la ecuación de Navier-Stokes.
-Para esta demostración, usaremos la ecuación de Navier-Stokes en dirección $x$, pero esto es extensible a las otras direcciones.
-%
-\begin{align}\label{eq:RANS_prev}
-\overline{\frac{\partial u}{\partial t} + u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} + w\frac{\partial u}{\partial z}} = \overline{-\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\left(\frac{\partial^2u}{\partial x^2}+ \frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}\right)}\nonumber\\
-\frac{\partial \overline{u}}{\partial t} + \overline{u\frac{\partial u}{\partial x}} + \overline{v\frac{\partial u}{\partial y}} + \overline{w\frac{\partial u}{\partial z}} = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x} + \nu\left(\frac{\partial^2\overline{u}}{\partial x^2}+ \frac{\partial^2\overline{u}}{\partial y^2}+\frac{\partial^2\overline{u}}{\partial z^2}\right)
-\end{align}
-%
-El paso que hicimos acá es bastante directo: la suma, derivada e integral (promedio) son operaciones lineales y uno puede intercambiarlas de orden (por ejemplo, $\overline{\frac{\partial u}{\partial x}} = \frac{\partial\overline{u}}{\partial x}$).
-Los términos más complicados son los no lineales; desarrollemos uno de ellos:
-%
-\begin{align}
-\overline{v\frac{\partial u}{\partial y}} &= \overline{(\overline{v}+v')\frac{\partial}{\partial y}(\overline{u}+u')} = \overline{\overline{v}\frac{\partial\overline{u}}{\partial y}} + \overline{\overline{v}\frac{\partial u'}{\partial y}} + \overline{v'\frac{\partial\overline{u}}{\partial y}} + \overline{v'\frac{\partial u'}{\partial y}} \nonumber\\
-&\text{pero, }\overline{\overline{v}\frac{\partial u'}{\partial y}} = \overline{v'\frac{\partial\overline{u}}{\partial y}}=0, \nonumber\\
-\Rightarrow&\overline{v\frac{\partial u}{\partial y}}= \overline{v}\frac{\partial\overline{u}}{\partial y} + \overline{v'\frac{\partial u'}{\partial y}}.
-\end{align}
-
-La notación que estamos usando es quizás no muy conveniente, por que tenemos que escribir mucho.
-Si usamos notación indicial, en una ecuación podemos resumir todo. 
-Llamemos al vector $\mathbf{V} = (u,v,w) = (u_1,u_2,u_3)$, donde $u_1=u$, $u_2=v$ y $u_3=w$ y $\mathbf{x} = (x,y,z) = (x_1,x_2,x_3)$.
-Podemos escribir la ecuación \eqref{eq:RANS_prev} como
-%
-\begin{equation}\label{eq:RANS_prev2}
-\frac{\partial \overline{u}_i}{\partial t} + \overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j} + \overline{u_j'\frac{\partial u'_i}{\partial x_j}} = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_i} + \nu \frac{\partial}{\partial x_j}\frac{\partial \overline{u}_i}{\partial x_j},
-\end{equation}
-%
-donde $i=1,2,3$ y $j=1,2,3$. 
-La convención dice que si un índice se repite en un término, éste es una suma.
-Por ejemplo, $\frac{\partial u_i}{\partial x_i}=\frac{\partial u_1}{\partial x_1} + \frac{\partial u_2}{\partial x_2} + \frac{\partial u_3}{\partial x_3}$ es otra forma de escribir la divergencia de la velocidad.
-
-Usando el hecho de que el flujo es incompresible, y la divergencia de las fluctuaciones es cero ($\partial u'_i/\partial x_i=0$), podemos escribir:
+Podemos encontrar la velocidad promedio dividiendo el caudal por el área, y para calcular el caudal necesitamos $\psi$.
+Viendo la definición de $\psi$ en la Ec. \eqref{eq:psi_def}, podemos decir que
 %
 \begin{equation}
-\overline{u_j'\frac{\partial u_i}{\partial x_j}} = \overline{u_j'\frac{\partial u'_i}{\partial x_j} + u_i'\frac{\partial u'_j}{\partial x_j}} = \overline{\frac{\partial u_i'u_j'}{\partial x_j}} = \frac{\partial \overline{u_i'u_j'}}{\partial x_j}
+\psi = \int u dy = 2xy + C_2(x)
 \end{equation}
 %
-y la Ec. \eqref{eq:RANS_prev2} queda
+e insertando ese resultado en la segunda expresión de la Ec. \eqref{eq:psi_def}, llegamos a
 %
-\begin{equation}\label{eq:RANS}
-\frac{\partial \overline{u}_i}{\partial t} + \overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j} + \frac{\partial \overline{u'_iu'_j}}{\partial x_j} = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_i} + \nu \frac{\partial}{\partial x_j}\frac{\partial \overline{u}_i}{\partial x_j},
+\begin{equation}
+v = -\frac{\partial \psi}{\partial x} = -2y - \frac{dC_2}{dx}.
+\end{equation}
+%
+Antes calculamos que $v=-2y$, por lo tanto, $dC_2/dx=0$ y $C_2$ es una constante
+\mbox{?`}Qué constante? En verdad, da lo mismo, y la podemos dejar en $C_2=0$, pero cualquier constante cumple con los requerimientos.
+Nosotros estamos preocupados de variaciones de $\psi$ más que $\psi$ en si, así que el valor de la constante es irrelevante.
+
+La Ec. \eqref{eq:caudal_psi} nos dice que el caudal a través de cualquier superficie que pase por los puntos $(0,0)$ y $(1,1)$ es la diferencia de $\psi$ evaluada en esos puntos, lo que es $Q=2-0=2$.
+Nos especificaron que la superficie es una línea recta entre esos puntos, por lo que el área no es más que la distancia entre ellos: $d=\sqrt{2}$, y la velocidad promedio $Q/d=1$.
+
+\subsection*{Relación de $\psi$ con la vorticidad y la ecuación de Navier-Stokes.}
+
+Vimos la clase pasada que la vorticidad es $\nabla \times\mathbf{V}$, lo que en dos dimensiones es
+%
+\begin{equation}\label{eq:vort_2D}
+\boldsymbol{\omega}=\left(\frac{\partial v}{\partial x}-\frac{\partial u}{\partial y} \right) \khat.
+\end{equation}
+%
+El reemplazo $\psi$ de la Ec. \eqref{eq:psi_def} en la Ec. \eqref{eq:vort_2D}, nos entrega
+%
+\begin{equation}\label{eq:vort_laplace}
+\boldsymbol{\omega}=\left[\frac{\partial}{\partial x}\left(-\frac{\partial \psi}{\partial x}\right) -\frac{\partial}{\partial y}\left(\frac{\partial \psi}{\partial y}\right) \right] = -\nabla^2\psi\khat
+\end{equation}
+%
+lo que relaciona $\psi$ con $\boldsymbol{\omega}$.
+
+A partir de esto, podemos obtener una formulación diferente de la ecuación de Navier-Stokes, en función de $\psi$ (y/o $\boldsymbol{\omega}$).
+Para que se acuerden, Navier-Stokes en forma vectorial es:
+%
+\begin{equation}\label{eq:NS_2}
+\frac{D\mathbf{V}}{Dt} = -\frac{\nabla p}{\rho} + \nu\nabla^2\mathbf{V}.
+\end{equation}
+%
+Si le sacamos el rotor a la Ec. \eqref{eq:NS_2} obtenemos
+%
+\begin{align}\label{eq:transp_vort}
+\frac{D(\nabla\times\mathbf{V})}{Dt} &= \underbrace{-\frac{\nabla\times\nabla p}{\rho}}_{=0} + \nu\nabla^2(\nabla\times\mathbf{V}). \nonumber\\
+\frac{D \omega_z}{Dt} &= \nabla^2 \omega_z,
+\end{align}
+%
+donde $\nabla\times\nabla p=0$ pues el rotor de un gradiente es siempre cero (revisen sus cuadernos de matemáticas, o pruebenlo!) .
+
+La Ec. \eqref{eq:transp_vort} se conoce como la ecuación de transporte de vorticidad, en donde la vorticidad es ``transportada'' por el flujo, tal como si fuera la concentración de algún contaminante.
+El caso tridimensional es más complicado pues aparece un término extra conocido como ``estiramiento de vorticidad'', el cual tiene profundas implicancias en la teoría de turbulencia.
+Usando la Ec. \eqref{eq:vort_laplace}, llegamos a la formulación de Navier-Stokes con la función corriente
+%
+\begin{equation}\label{eq:NS_psi}
+\frac{D(\nabla^2\psi)}{Dt} = \nu\nabla^4\psi.
 \end{equation}
 
-La Ec. \eqref{eq:RANS} se conoce como la ecuación de Reynolds.
-La ecuación de Reynolds es muy parecida a la ecuación de Navier-Stokes con cada término promedidado por si solo, más $\frac{\partial \overline{u'_iu'_j}}{\partial x_j}$.
-El término $\overline{u'_iu'_j}$ se conoce como el tensor de esfuerzos de Reynolds \mbox{?`}Por qué tensor? $i$ y $j$ pueden tomar tres valores (1, 2 o 3), por lo que existen 9 posibles valores, que podemos ordenar en una matriz $3\times 3$.
-Es el tensor de esfuerzos de Reynolds el que produce todas las complicaciones en el estudio de turbulencia, y se ha gastado mucho tiempo y recursos en generar ecuaciones que nos permitan modelar este término.
+Usar la Navier-Stokes en las formas de las Ecs. \eqref{eq:transp_vort} o \eqref{eq:NS_psi} tiene la gran ventaja que no hay que preocuparse de la presión, y que la incompresibilidad se satisface automáticamente. 
+El problema es que las condiciones de borde se enfuerzan naturalmente en la velocidad (impermeabilidad $\mathbf{V}\cdot\mathbf{n}=0$ y no deslizamiento $\mathbf{V}=0$), y necesitamos derivar su símil para $\psi$ o $\omega_z$ (y para el caso de $\psi$ necesitamos cuatro condiciones de contorno!).
 
-\begin{figure}[h!]
+\section*{La vorticidad}
+La clase anterior definimos la vorticidad como el rotor de la velocidad:
+%
+\begin{equation}\label{eq:vort_2}
+\boldsymbol{\omega} = \nabla\times\mathbf{V},
+\end{equation}
+%
+que (como sabrán ustedes), resulta en un vector.
+Vimos también que la vorticidad está relacionada con la rotación y deformación angular de un elemento de fluido: si $\boldsymbol{\omega}=0$, el elemento de fluido no está rotando ni deformándose angularmente.
+No se confundan: que $\boldsymbol{\omega}=0$ no significa que el elemento de fluido no pueda tener una trayectoria curva, como lo muestra la Figura \ref{fig:irrotacional}.
+%
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.5\textwidth]{clase02/flujo_momentum.pdf}
-\caption{Flujo de momentum en un flujo turbulento}
-\label{fig:flujo_momentum}
+\includegraphics[width=0.3\textwidth]{clase02/irrotacional.pdf}
+\caption{Flujo irrotacional con trayectoria curva.}
+\label{fig:irrotacional}
 \end{figure}
 %
-El nombre tensor de esfuerzos no parece ser muy adecuado, ya que son solamente términos de la inercia turbulenta, no esfuerzos.
-Sin embargo, podemos visualizar este tensor como un esfuerzo, pues genera un flujo de momentum.
-Usemos la Figura \ref{fig:flujo_momentum} para ejemplificar esto.
-Esta figura presenta un flujo uniforme turbulento con velocidad en el eje $i$, $u_i = \overline{u}_i + u'_i$, y un área $dA$ alineada con el flujo (su normal es perpendicular a $i$, $\mathbf{n}_j$).
-La cantidad de fluido que pasa por $dA$ en un tiempo $dt$ es igual a $u_jdAdt$, y el caudal $Q=u_jdA$, pero el flujo promedio no tiene componente en el eje $j$, por lo tanto, $\overline{u}_j=0$ y $u_j = u'_j$.
-El flujo de cantidad de movimiento en el eje $i$ que pasa por $dA$ entonces es 
+Intuitivamente, uno diría que $\boldsymbol{\omega}\neq 0$ en el flujo de la Figura \ref{fig:irrotacional}, sin embargo, fíjense en la cruz, que mantiene su aspecto todo el tiempo. 
+La velocidad va cayendo a medida que nos alejamos del centro de tal manera que la cruz no rota ni pierde su forma, por lo tanto, la vorticidad del flujo es $0$.
+A este tipo de flujo se les llama \emph{irrotacionales}.
+
+\paragraph*{Implicancia física del flujo irrotacional.}
+Si un flujo es irrotacional, el elemento de fluido no rota ni se deforma angularmente. 
+Por lo tanto los esfuerzos de corte en la superficie del elemento de fluido ($\tau_{ij}$ en la clase pasada) deben ser cero.
+
+Por otra parte, en un fluido Newtoniano, el esfuerzo de corte y la velocidad se relacionan a través de la viscosidad $\mu$.
+Esto significa que un fluido sin viscosidad no es capaz de generar esfuerzos de corte $\tau_{ij}$, y por ende, de generar un rotacional.
+Así llegamos a una implicancia física: si un flujo no viscoso inicialmente tiene rotor $\nabla\times\mathbf{V}=0$, la vorticidad será siempre $\boldsymbol{\omega}=0$.
+
+\paragraph*{Implicancia matemática del flujo irrotacional.}
+Se acordarán de sus cursos de matemáticas de que un campo vectorial con rotor cero puede ser representado como la gradiente de un campo escalar.
+Este es exactamente el caso cuando un flujo es irrotacional: la velocidad es un campo vectorial con rotor cero, por lo tanto debe haber una función ($\phi$) tal que $\mathbf{V} = \nabla\phi = \frac{\partial \phi}{\partial x}\ihat + \frac{\partial \phi}{\partial y}\jhat$
+
+\paragraph*{Vorticidad y circulación}
+Nuevamente, se acrodarán de sus cursos de matemáticas del concepto de circulación ($\Gamma$).
+Ésta es la integral cerrada de un campo vectorial (en este caso, la velocidad) a lo largo de una curva:
+%
+\begin{equation}\label{eq:circulacion}
+\Gamma = \oint_L \mathbf{V}\cdot\mathbf{t}dl,
+\end{equation}
+%
+donde $\mathbf{t}$ es un vector unitario tangente a la curva $L$, y $dl$ es un elemento diferencial de $L$.
+La circulación es una cantidad que cuesta interpretar físicamente, pero podemos operar sobre la ecuación \eqref{eq:circulacion} para visualizarlo más claramente.
+El teorema de Stokes (de nuevo, revisen sus cuadernos de matemáticas, o Google), nos permite pasar de una integral de línea a una de área:
 %
 \begin{equation}
-\frac{dp_i}{dt} = \rho u_i \rho \mathbf{u}\cdot\mathbf{n}_j dA = \rho u_i Q = \rho u_i u'_j dA.
+\oint_L\mathbf{V}\cdot\mathbf{t}dl = \int\int_A\nabla\times\mathbf{V}dS,
 \end{equation}
 %
-En un flujo turbulento las cantidades instantáneas no nos dicen mucho, saquemos el promedio
+donde $A$ es el área encerrada por la curva $L$ y $dS$ es un elemento diferencial de $A$.
+Fácilmente pueden reconocer el integrando dentro de la integral de área como la vorticidad. 
+En dos dimensiones llegamos a
 %
-\begin{equation}
-\frac{d\overline{p}_i}{dt} = \rho \overline{u_i u'j} dA = \rho \overline{u'_iu'_j}dA.
-\end{equation}
-%
-Esto nos indica que el tensor de esfuerzo de Reynolds está presente en el cálculo del flujo de cantidad de movimiento, sin embargo, sigue sin ser un esfuerzo.
-
-Podemos escribir el tensor de Reynolds como si fueran esfuerzos si generamos la variable $\tau$, tal que:
-%
-\begin{equation}
-\tau_{ij} = \mu\left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) - \rho \overline{u_i'u_j'},
-\end{equation}
-%
-y lo pasamos al lado derecho de la ecuación:
-%
-\begin{equation}\label{eq:tensor}
-\rho\frac{\partial \overline{u}_i}{\partial t} + \rho\overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j} +  = -\frac{\partial \overline{p}}{\partial x_i} + \frac{\partial}{\partial x_j}\tau_{ij},
+\begin{equation}\label{eq:circ_vort}
+\Gamma = \oint_L\mathbf{V}\cdot\mathbf{t}dl = \int\int_A\omega_zdS
 \end{equation}
 
-
-
-\subsection*{Energía cinética turbulenta}
-En el afán de comprender la turbulencia de mejor manera, se ha intentado agregar algo así como ``leyes de conservación turbulenta''.
-La más obvia de estas es la energía cinética turbulenta, que esla energía cinética debido a las fluctuaciones turbulentas:
+La Ec. \eqref{eq:circ_vort} nos entrega más información del significado físico de la circulación: es la rotación y deformación angular de una región del fluido ($A$), y la vorticidad no es más que la circulación por unidad de área.
+De hecho, en el caso de un fluido no viscoso ($\nu=0$), podemos reescribir la Ec. \eqref{eq:transp_vort} como $D\boldsymbol{\omega}/Dt=0$, lo que implica que
 %
-\begin{equation}
-K = \frac{1}{2}\left( \overline{u'u'}+\overline{v'v'}+\overline{w'w'}\right)=\frac{1}{2}\overline{u'_iu'_i}
+\begin{equation}\label{eq:teorema_kelvin}
+\frac{D\Gamma}{Dt}=0,
+\end{equation}
+%
+lo que se conoce como el \emph{teorema de circulación de Kelvin}.
+\mbox{?`}Qué significa este teorema físicamente? Ustedes saben que $D()/Dt$ es la variación en el tiempo de una cantidad que se mueve con el fluido; pues la circulación de una región del fluido (que se mueve con este) se mantiene constante si no hay fuerzas viscosas ($\tau$).
+Más simple, si hay una colección de moléculas que estan girando y/o deformándose angularmente, lo van a seguir haciendo al mismo ritmo si no hay viscosidad.  
+
+\section*{Flujo potencial}
+Detengámonos en la implicancia matemática del flujo irrotacional.
+Dijimos que al tener rotor nulo, existe una función escalar $\phi$ tal que $\mathbf{V}=\nabla\phi$, y $\phi$ se conoce como la función potencial.
+Si a esto le agregamos la suposición de flujo incompresible ($\nabla\cdot\mathbf{V}=0$), llegamos a
+%
+\begin{equation}\label{eq:laplace_phi}
+\nabla\cdot\mathbf{V} = \nabla\cdot\nabla\phi = \nabla^2\phi=0.
 \end{equation}
 
-Podemos derivar una ley de conservación de energía cinética desde la ecuación de Navier-Stokes al hacer el producto punto con $\mathbf{V}$, sacando el promedio de esa ecuación, y restándole ese promedio a la ecuación original. 
-Después de bastante algebra, llegamos a
-%
-\begin{align}\label{eq:K_conservacion}
-\frac{DK}{Dt} =& -\frac{\partial}{\partial x_i} \left[ \overline{u'_i\left(\frac{1}{2}u'_iu'_j+\frac{p'}{\rho}\right)}\right] - \overline{u'_iu'_j}\frac{\partial\overline{u}_j}{\partial x_i} \nonumber\\
-               & + \frac{\partial}{\partial x_i}\left[\overline{\nu u_j'\left(\frac{\partial u'_i}{\partial x_j} + \frac{\partial u_j'}{\partial x_i}\right)}\right] -\nu\overline{\frac{\partial u_j'}{\partial x_i}\left(\frac{\partial u_i'}{\partial x_j}+\frac{\partial u_j'}{\partial x_i}\right)}
-\end{align}
+La Ec. \eqref{eq:laplace_phi} es una ecuación de Laplace, y los flujos que se pueden representar de esta manera se conocen como \emph{flujo potencial}.
 
-La Ec. \eqref{eq:K_conservacion} es tremendamente complicada, pero hay algunas cosas que podemos sacar en limpio, sobre todo si la integramos en un volúmen fijo en el espacio.
-El término a la izquierda es la derivada material, en otras palabras, la razón de cambio de $K$ en un elemento de fluido que se mueve con el flujo.
-Al integrar el segundo término, podemos utilizar el teorema de la divergencia para visualizarlo como convección de energía cinética a través de la superficie.
-El tercer término no tiene una forma que se pueda asociar a un proceso de convección o difusión, y puede ser visto como una fuente, o producción de energía cinética.
-El cuarto término también toma importancia en el borde del volumen de integración con el teorema de la divergencia, y es el trabajo realizado por los esfuerzos viscosos en ese borde.
-Finalmente el quinto es la disipación viscosa.
-
-
-
+Recapitulemos para evitar confusión:
+\begin{itemize}
+\item Si un flujo es incompresible y bidimensional, hay una función corriente $\psi$ que describe las líneas de flujo cuando $\psi=$constante.
+\item Si un flujo es irrotacional, existe una función potencial $\phi$ (escalar) tal que su gradiente es igual a la velocidad $\nabla\phi=\mathbf{V}$.
+\item Si un flujo es ideal (incompresible y no viscoso), es un flujo potencial y se cumple la ecuación de Laplace $\nabla^2\phi=0$.
+\end{itemize}
