@@ -2,275 +2,273 @@
 
 Objetivos:
 \begin{itemize}
-    \item Entender el rol del número de Reynolds en la capa límite.
-    \item Analizar la fuerza sobre una placa plana.
-    \item Derivar la ecuación de Blasius
+    \item Entender por qué un perfil alar produce sustentación. 
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item El número de Reynolds en capa límite.
-    \item La relación integral de momentum en una placa plana.
-    \item Aproximaciones de la ecuación de Navier-Stokes en una placa plana.
-    \item La ecuación de Blasius.
-    \item El espesor de capa límite de Blasius.
+    \item Repaso de superposición de flujos elementales para lograr un cilindro con sustentación.
+    \item Flujos elementales con variable compleja. 
+    \item La transformación de Joukowsky.
+    \item La condición de Kutta.
+    \item El vórtice de arranque.
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.2-7.4
-    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 9.4-9.5
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Sección 8.4, 8.7.
+    \item Batchelor, G. K. (2009) An Introduction to Fluid Mechanics. Cambridge University Press. Sección 6.7.
 \end{itemize}
 \end{framed}
 
-\section*{El número de Reynolds}
+\section*{Flujos elementales con variable compleja.}
 
-En el caso del flujo sobre una placa plana que hemos estado discutiendo, la placa se puede considerar infinitamente larga.
-Esto nos pone en una disyuntiva \mbox{?`}cuál es el número de Reynolds que caracteriza al problema entonces?
-Resulta que la mejor manera que analizar estos problemas es considerando un número de Reynolds variable en el espacio.
-Por lo tanto, para una misma placa plana, tendremos una distribución de números de Reynolds, donde:
+En esta clase vamos a revisar una aplicación de flujo potencial: aerodinámica.
+Hoy estudiaremos el flujo alrededor de perfiles alares, que son las responsables de que, por ejemplo, un avión se eleve.
+Para esto, comenzaremos del análisis del flujo alrededor de un cilindro con sustentación, que estudiamos la clase pasada, y llegaremos a un perfil alar con una transformación topológica, lo que nos permitirá estudiar por qué un perfil alar produce sustentación con ecuaciones analíticas.
+
+Antes de adentrarnos en aerodinámica como tal, nos conviene re-escribir las funciones de flujos elementales utilizando números complejos:
 %
-\begin{equation}\label{eq:Re_capa}
-Re_x = \frac{U_\infty x}{\nu}.
+\begin{align}\label{eq:z_complejo}
+z = x+iy\nonumber\\
+\Phi = \phi + i\psi\nonumber\\
+V = u+iv.
+\end{align}
+
+Usando las variables de la Ec. \eqref{eq:z_complejo}, podemos escribir los flujos elementales de manera equivalente a lo que ya conocemos:
+%
+\begin{itemize}
+\item Flujo uniforme
+%
+\begin{align}\label{eq:flujo_uniforme_complejo}
+\Phi_U &= U_\infty z\nonumber\\
+       &= U_\infty (x+iy) = \phi_U + i\psi_U
+\end{align}
+%
+\item Fuente
+%
+\begin{align}\label{eq:fuente_complejo}
+\Phi_f &= \frac{q}{2\pi} \log(z)\nonumber\\
+       &= \frac{q}{2\pi} \log\left(|z|e^{i\theta}\right) = \frac{q}{2\pi} \left(\log(r) + i\theta\right) = \phi_f + i\psi_f
+\end{align}
+%
+\item Vórtice
+%
+\begin{align}\label{eq:vortice_complejo}
+\Phi_v &= -i\frac{\Gamma}{2\pi} \log(z)\nonumber\\
+       &= -i\frac{\Gamma}{2\pi} \log\left(|z|e^{i\theta}\right) = \frac{\Gamma}{2\pi} \left(i\log(r) - \theta\right) = \phi_v + i\psi_v
+\end{align}
+%
+\item Doblete
+%
+\begin{align}\label{eq:doblete_complejo}
+\Phi_d &= \frac{K}{z} \nonumber\\
+       &= \frac{K\overline{z}}{z\overline{z}} = \frac{K}{|z|^2}(x-iy)\nonumber\\ 
+       &= \frac{K}{r^2}(r\cos(\theta) - i\sin(\theta)) = \phi_d + i\psi_d
+\end{align}
+
+\end{itemize}
+
+Usar esta formulación nos simplificará mucho la vida a la hora de operar sobre dobletes y vórtices que no están centrados en el origen, ya que solamente hay que reemplazar $z$ por $z-z_0$, donde $z_0$ es el centro del vórtice, doblete o fuente.
+Es más, podemos generalizar las expresiones de flujo uniforme y doblete a considerar una inclinación de éstos. 
+Para un ángulo de inclinación $\alpha$, el flujo uniforme nos queda:
+%
+\begin{equation} \label{eq:flujo_uniforme_complejo_angulo}
+\Phi_U = U_\infty z e^{-i\alpha}
+\end{equation}
+%
+y el doblete
+\begin{equation} \label{eq:doblete_complejo_angulo}
+\Phi_d = \frac{K}{z}e^{i\alpha} 
 \end{equation}
 
-Una implicancia interesante es que si analizamos en una longitud suficientemente larga, siempre vamos a llegar a número de Reynolds suficientemente altos como para empezar a ver turbulencia.
-De hecho, como lo muestra la Figura \ref{fig:capa_limite_Re}, esto se ve en la práctica. 
-La capa límite sobre una placa plana es siempre laminar inicialmente, y eventualmente se torna turbulenta, aguas abajo.
-El número de Reynolds crítico en capa límite es alrededor de $5\cdot10^{5}$.
+Utilizando números complejos, podemos calcular $\phi$ y $\psi$ de un flujo que entra en un ángulo $\alpha$ alrededor de un cilindro centrado en $z_0$ con una sola ecuación:
 %
-\begin{figure}[!h]
+\begin{align} \label{eq:cilindro}
+\Phi_\text{cil} = \phi_\text{cil}+i\psi_\text{cil} = U_\infty z e^{-i\alpha} + \frac{K}{z-z_0}e^{i\alpha} -i\frac{\Gamma}{2\pi} \log(z-z_0).
+\end{align}
+
+Por ejemplo, un flujo entrante con velocidad $U_\infty=1$ y $\alpha=8^\circ$ que pasa alrededor de un cilindro con radio $r=1.1$, centrado en $(-0.1,0)$ y con circulación $\Gamma=-1$ tiene las líneas de flujo de la Figura \ref{fig:flujo_cil} y las líneas de equipotencial de la Figura \ref{fig:phi_cil}
+%
+\begin{figure}[h!]
 \centering
-\includegraphics[width=0.8\textwidth]{clase05/capa_limite_Re.pdf}
-\caption{Capa límite en función de $Re_x$.}
-\label{fig:capa_limite_Re}
+\includegraphics[width=0.7\textwidth]{clase05/flujo_cil.pdf}
+\caption{Líneas de flujo a $U_\infty=1$ y $\alpha=8^\circ$ alrededor de cilindro $r=1.1$ centrado en $(-0.1,0)$ con circulación $\Gamma=-1$}\label{fig:flujo_cil}
+\end{figure}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/phi_cil.pdf}
+\caption{Líneas de equipotencial a $U_\infty=1$ y $\alpha=8^\circ$ alrededor de cilindro $r=1.1$ centrado en $(-0.1,0)$ con circulación $\Gamma=1$}\label{fig:phi_cil}
 \end{figure}
 
-Cuando la capa límite se torna turbulenta, aparece una pequeña zona laminar, pegada a la placa, que se conoce como subcapa viscosa.
-Aparte de ser laminar, esta zona tiene importantes implicancias en el patrón del flujo dentro de la capa límite, ya que, si su espesor es mayor que la rugosidad de la placa, esta rugosidad no afecta al flujo y se puede considerar como una placa lisa. 
-Como pueden imaginarse, esto tiene un importante efecto en el arrastre sobre la placa.
+Para calcular la fuerza del doblete ($K$) usamos el radio del cilindro, que de la clase anterior sabemos que es $r=\sqrt{K/U_\infty}$.
 
-A continuación veremos algunas soluciones de capa límite, que dependen del número de Reynolds definido en la Ec. \eqref{eq:Re_capa}, tanto para flujo laminar, como para turbulento.
+\section*{Transformación de Joukowsky}
 
-\section*{Ecuaciones en la capa límite}
-En esta sección veremos como se reducen las ecuacines de conservación para el caso de flujo en una capa límite.
-Para nuestro análisis, este flujo es incompresible, bidimiensional y estacionario, para lo cual continuidad y Navier-Stokes quedan como
-%
-\begin{align}\label{eq:NS_capa}
-\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
-u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial x} + \nu\left( \frac{\partial^2u}{\partial x^2} + \frac{\partial^2u}{\partial y^2}\right) \nonumber\\
-u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y} &= -\frac{1}{\rho}\frac{\partial p}{\partial y} + \nu\left( \frac{\partial^2v}{\partial x^2} + \frac{\partial^2v}{\partial y^2}\right).
-\end{align}
-
-Empecemos con aproximaciones propias de flujo en una capa límite.
-En primer lugar, a pesar que es un flujo bidimensional, hay una clara dirección preferente ($x$ por sobre $y$).
-Por esto, podemos esperar que $u>>v$.
-Además, las variaciones en el eje perpendicular a la placa deben ser muchísimo más drásticas que en el eje paralelo a la placa:
+La transformación de Joukowsky nos permite mapear un círculo a un perfil aerodinámico. 
+Si $\zeta = \xi + i\eta$ son los puntos de un círculo en el plano $\zeta$, la tranformación de Joukowsky es
 %
 \begin{equation}
-\frac{\partial u}{\partial x} << \frac{\partial u}{\partial y}, \quad \frac{\partial v}{\partial x} << \frac{\partial v}{\partial y}, \quad \frac{\partial^2 u}{\partial x^2} << \frac{\partial^2 u}{\partial y^2}
-\end{equation}
-
-Por parte de la presión, nos ayuda mucho lo que ya sabemos de flujo no viscoso. 
-Afuera de la capa límite tenemos prácticamente un flujo uniforme, igual al flujo potencial, donde la ecuación de Bernoulli es válida:
-%
-\begin{equation}
-\frac{\partial p}{\partial x} = -\frac{\partial}{\partial x}\left(\rho \frac{U_\infty^2}{2}\right) = - \rho\frac{\partial U_\infty}{\partial x} = -\rho U_\infty\frac{dU_\infty}{dx} 
-\end{equation}
-
-Con estas aproximaciones, la Ec. \eqref{eq:NS_capa} queda
-%
-\begin{align}\label{eq:NS_capa_x}
-\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
-u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &\approx U_\infty \frac{dU_\infty}{dx} + \nu \frac{\partial^2u}{\partial y^2},
-\end{align}
-%
-y condiciones de borde
-%
-\begin{align}
-u &= v = 0 \text{ en } y=0\nonumber\\
-u &= U_\infty \text{ en } y=\delta.
-\end{align}
-
-La Ec. \eqref{eq:NS_capa_x} solamente menciona el eje $x$.
-En el eje $y$, al aplicar las mismas aproximaciones llegamos a una aseveración muy potente:
-%
-\begin{equation}\label{eq:NS_capa_y}
-\frac{\partial p}{\partial y} = 0,
+z = \frac{a}{2}\left(\zeta + \frac{1}{\zeta}\right)
 \end{equation}
 %
-lo que nos dice que la presión es constante dentro de la capa límite, a medida que nos alejamos de la placa.
-Esto es algo que sin darse cuenta, ya han visto experimentalmente (o lo verán pronto).
-Cuando midieron la presión en la superficie del cilindro en el laboratorio, se dieron cuenta que el flujo potencial es una muy buena aproximación.
-El flujo potencial es no viscoso, sin embargo, la condición de no deslizamiento se debe haber estado enforzando \mbox{?`}Cómo flujo potencial es una buena aproximación?
-La Ec. \eqref{eq:NS_capa_y} nos dice que la presión sobre la superficie del cilindro es igual al punto en el borde de la capa límite, normal al cilindro. 
-El flujo fuera de la capa límite se representa muy bien por un flujo potencial, como ya hemos comentado, y es este flujo el que define la presión en la superficie del cilindro.
+donde $z=x+iy$ son los puntos que definen el perfil aerodinámico, y $a$ es un factor que define el tamaño. 
+Eso si, existe una condición: el contorno del círculo debe intersectar el punto $\xi=1, \eta=0$, y el punto $\xi=-1, \eta=0$ debe estar contenido dentro del círculo. 
+Esto es porque un perfil aerodinámico tiene un lado puntiagudo atrás (cúspide), los cuales son reproducidos por los puntos singulares de la transformación (donde la derivada de la transformación es cero); esto ocurre en $\xi=1, \eta=0$ y $\xi=-1, \eta=0$.
+De hecho, si el círculo está centrado e intersecta los dos puntos críticos, la transformación entrega una línea (Figura \ref{fig:perfil_linea}), que es la única forma de tener dos cúspides.
+Por lo tanto, de no cumplir estas condiciones, la transformación genera geometrías que no se asemejan a un perfil aerodinámico.
 
-\section*{Solución de capa límite en flujo laminar --- Ecuación de Blasius}
-La Ec. \eqref{eq:NS_capa_x} se puede resolver analíticamente para un flujo laminar y velocidad $U_\infty$ constante, la cual fue propuesta por Blasius (quien era estudiante de Prandtl) en 1908.
-Blasius hizo el siguiente cambio de coordenadas
-%
-\begin{equation}\label{eq:f_blasius}
-\frac{u}{U_\infty} = f'(\eta)
-\end{equation}
-%
-donde 
-%
-\begin{equation}\label{eq:eta_blasius}
-\eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}.
-\end{equation}
-%
-No sabemos mucho de la la función $f(\eta)$, pero viendo la Ec. \eqref{eq:eta_blasius}, nos podemos dar cuenta que lejos de la placa ($\eta\to\infty$ cuando $y\to\infty$), $u=U_\infty$, por lo tanto $f'(\infty) = 1$ según la Ec. \eqref{eq:f_blasius}.
-Por otra parte, sobre la placa ($y=0$ y $\eta=0$) la velocidad $u=0$ por la condición de no deslizamiento, por lo que $f'(0)=0$.
-
-Reemplacemos esta transformación en la Ec. \eqref{eq:NS_capa_x}.
-Lo más fácil es encontrar $u$ y su derivada, estos son
-%
-\begin{align}\label{eq:u_blasius}
-u &= U_\infty f'(\eta) \nonumber\\
-\frac{\partial u}{\partial x} &= U_\infty f''(\eta)\frac{\partial \eta}{\partial x}\nonumber\\
-\frac{\partial u}{\partial y} &= U_\infty f''(\eta)\frac{\partial \eta}{\partial y}\nonumber\\
-\frac{\partial^2 u}{\partial y^2} &= U_\infty \left[f'''(\eta)\left(\frac{\partial \eta}{\partial y}\right)^2 + f''(\eta)\cancelto{0}{\frac{\partial^2\eta}{\partial y^2}}\right] = U_\infty f'''(\eta)\left(\frac{\partial \eta}{\partial y}\right)^2
-\end{align}
-%
-donde
-%
-\begin{align}\label{eq:deta_dx}
-\frac{\partial \eta}{\partial x} &= \frac{1}{2}y\left(\frac{U_\infty}{\nu x}\right)^{-1/2} \frac{-U_\infty}{\nu x^2} = -\frac{1}{2x} \eta\nonumber\\
-\frac{\partial \eta}{\partial y} &= \left(\frac{U_\infty}{\nu x}\right)^{1/2}.
-\end{align}
-
-Para encontrar $v$, usaremos conceptos que aprendimos en flujo potencial.
-Se acordarán que en un flujo incompresible, por continuidad, existe una función corriente $\psi$ tal que
-%
-\begin{equation}
-u=\frac{\partial\psi}{\partial y}, \quad v=-\frac{\partial\psi}{\partial x}.
-\end{equation}
-%
-Por lo tanto, a partir de la Ec. \eqref{eq:u_blasius} podemos encontrar una expresión para $\psi$
-%
-\begin{equation}\label{eq:psi_1}
-\psi = \int u dy = U_\infty \left(\frac{\nu x}{U_\infty}\right)^{1/2}f(\eta).
-\end{equation}
-
-Calculemos $v$:
-%
-\begin{align}\label{eq:v_blasius}
-v &= -\frac{\partial\psi}{\partial x} = -U_\infty\left[\frac{1}{2}\left(\frac{\nu x}{U_\infty}\right)^{-1/2}\frac{\nu}{U_\infty}f(\eta) + \left(\frac{\nu x}{U_\infty}\right)f'(\eta)\frac{\partial \eta}{\partial x}\right] \nonumber\\
-& = -U_\infty\left[\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} f(\eta) - \left(\frac{\nu x}{U_\infty}\right)^{1/2}f'(\eta)\frac{\eta}{2x}\right] \nonumber\\  
-& = -U_\infty\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} \left[f(\eta) - f'(\eta)\eta\right]
-\end{align}
-%
-Al aplicar la condición de borde $v=0$ sobre la placa ($\eta=0$), llegamos a
-%
-\begin{equation}
-0 = -U_\infty\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2} f(0)
-\end{equation}
-%
-lo que nos entrega la condición de contorno $f(0)=0$.
-
-Reemplazando las Ecs. \eqref{eq:u_blasius}, \eqref{eq:deta_dx} y \eqref{eq:v_blasius} en la Ec. \eqref{eq:NS_capa_x} para $dU_\infty/dx = 0$, nos da:
-%
-\begin{equation}
--U_\infty f'U_\infty f''\frac{\eta}{2x} - \frac{U_\infty}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2}(f-f'\eta)U_\infty f''\left(\frac{U_\infty}{\nu x}\right)^{1/2} = \nu U_\infty f'''\left(\frac{U_\infty}{\nu x}\right).
-\end{equation}
-%
-Noten que en esta última ecuación no escribimos el argumento de la función $f$ por comodidad.
-Cancelando los términos correspondientes, llegamos a la ecuación de Blasius
-%
-\begin{equation}
-f'''+\frac{ff''}{2}=0
-\end{equation}
-
-\section*{Espesor de capa límite de Blasius}
-
-Recién llegamos a la ecuación de Blasius, que describe el perfil de velocidad dentro de la capa límite sobre una placa plana sin gradiente de presión:
- %
- \begin{align}\label{eq:blasius2}
-f'''&+\frac{1}{2}ff''=0\nonumber\\
-f'(\eta) &= \frac{u}{U_\infty} \nonumber\\
-\eta &= y\left(\frac{U_\infty}{\nu x}\right)^{1/2}\nonumber\\
-f(0) &= 0\nonumber\\
-f'(0) &= 0\nonumber\\
-f'(\infty) &= 1
- \end{align}
-
- La ecuacion de Blasius es una ecuación diferencial ordinaria que no tiene solución analítica, sin embargo, podemos resolverla numéricamente.
- Si se fijan en el código del repositorio Github,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase05/blasius.ipynb}} verán  que resolvemos esta ecuación con un método de Euler, y que el borde de la capa límite (donde $u=0.99U_\infty$), se da para $\eta=5$.
-En este punto $y=\delta$, y reemplazando en la Ec. \eqref{eq:blasius2} llegamos a
-%
-\begin{equation}\label{eq:delta_blasius}
-\frac{\delta}{x} = \frac{5}{\sqrt{Re_x}}
-\end{equation}
-
-Comparando el espesor de capa límite de von Kármán (que asume un perfil parabólico) y la Ec. \eqref{eq:delta_blasius}, nos podemos dar cuenta que la solución dada por von Kármán, que asume un perfil parabólico, no está tan lejos de la solución real.
-En el caso de von Kármán, llegamos a un factor $5.5$ y en Blasius de $5$, solamente un 10\% de diferencia.
-Además, vemos en la Figura \ref{fig:capa_limite_blasius} que el perfil parabólico de von Kármán (línea punteada) es una buena aproximación del perfil de Blasius (línea sólida) dentro de la capa límite.
-%
-\begin{figure}
+\begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{clase05/capa_limite_blasius.pdf}
-\caption{Perfil de velocidad dentro de la capa límite para $x=0.1$, $x=1$ y $x=2$. Línea sólida representa el perfil de Blasius, los puntos sólidos el fin de la capa límite, y la línea punteada el perfil parabólico de von Kármán.}
-\label{fig:capa_limite_blasius}
+\includegraphics[width=0.7\textwidth]{clase05/perfil_linea.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio 1 centrado en el origen}\label{fig:perfil_linea}
 \end{figure}
 
-\paragraph*{Espesor de desplazamiento}
 
-El espesor de desplazamiento de define como 
+La Figura \ref{fig:perfil_simetrico} muestra la tranformación de Joukouwsky sobre un círculo centrado en $\xi=-0.1, \eta=0$, con radio $r=1.1$ (para que intersecte el punto $\xi=1, \eta=0$).
+Como ven, se genera un perfil aerodinámico simétrico.
 %
-\begin{equation}
-\delta^* = \int_0^\infty\left(1-\frac{u(y)}{U_\infty}\right)dy
-\end{equation}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.1$ centrado en $\xi=-0.1, \eta=0$}\label{fig:perfil_simetrico}
+\end{figure}
 %
-lo cual podemos reescribir en términos de $f(\eta)$, con $dy = d\eta\left(\frac{\nu x}{U_\infty}\right)^{1/2}$
+Podemos así jugar con la posición del cilindro para variar la geometría del perfil, donde la posición $\xi$ del centro modifica el ancho del perfil, y $\eta$ la curvatura.
+Por ejemplo, la Figura \ref{fig:perfil_simetrico_ancho} es el resultado de la transformación de un cilindro centrado en $\xi=-0.2, \eta=0$, y como ven, es mucho más ancho que la Figura \ref{fig:perfil_simetrico}.
 %
-\begin{align}
-\delta^* &= \left(\frac{\nu x}{U_\infty}\right)^{1/2}\int_0^\infty(1-f'(\eta))d\eta\\
-& = \left.\left(\frac{\nu x}{U_\infty}\right)^{1/2} (\eta-f(\eta))\right|_\infty
-\end{align}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico_ancho.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.2$ centrado en $\xi=-0.2, \eta=0$}\label{fig:perfil_simetrico_ancho}
+\end{figure}
 
-Usando el mismo código que antes, nos damos cuenta que al infinito el valor de $\eta-f'(\eta)$ tiende a 1.721, y podemos escribir
+Por otra parte, la Figura \ref{fig:perfil_curvo} resulta de aplicar la transformación a un círculo centrado en $\xi=-0.1, \eta=0.1$, ejemplificando que de mover el centro en el eje $\eta$ el perfil toma una curvatura.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/perfil_curvo.pdf}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.1, \eta=0.1$}\label{fig:perfil_curvo}
+\end{figure}
+
+\section*{Flujo alrededor de un perfil alar y la condición de Kutta}
+
+Utilicemos la transformación de Joukowsky para estudiar el flujo alrededor de un perfil alar.
+El caso más simple es el cilindro sin circulación, y un flujo de entrada sin ángulo.
+Si centramos el cilindro en el punto $(-0.1,0)$ (el radio es tal que el círculo intersecta el punto $(1,0)$) y el flujo de entrada tiene $U_\infty=1$, obtenemos el flujo de la primera imagen de la Figura \ref{fig:flujo_cil_simple}, y si a eso le aplicamos la transformación de Joukowsky, obtenemos el flujo al rededor del perfil de la misma figura.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_cil_simple.pdf}
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.$ con un flujo entrante de $U_\infty=1$.}\label{fig:flujo_cil_simple}
+\end{figure}
+
+El flujo de la Figura \ref{fig:flujo_cil_simple} se comporta como esperamos, pero no es muy interesante.
+En aplicaciones reales, las alas de los aviones se enfrentan al flujo en un ángulo (el ángulo de ataque).
+Podemos agregar este efecto a través de $\alpha$ en la Ec. \eqref{eq:cilindro}.
+A modo de ejemplo, si en el flujo en la Figura \ref{fig:flujo_cil_simple} consideramos $\alpha=15^\circ$, llegamos a la Figura \ref{fig:flujo_perfil_alpha15} 
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_alpha15.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_alpha15}
+\end{figure}
+
+La Figura \ref{fig:flujo_perfil_alpha15} tiene algo raro: el flujo en la parte de atrás se escapa del perfil alar en un ángulo diferente al del perfil, lo que no tiene mucho sentido físico.
+Si uno revisa imágenes del flujo detrás de perfiles alares\footnote{\url{https://www.youtube.com/watch?v=6UlsArvbTeo}}, se da cuenta que el perfil alar desvía al flujo, y sale tangencial a la punta posterior.
+Es más, en la figura \ref{fig:flujo_perfil_alpha15} da la impresión que las líneas de flujo de la parte inmediatamente inferior al perfil alar están curvándose hacia arriba y ``devolviéndose'' aguas arriba por la parte superior, lo cual es algo que la viscosidad no permite hacer.
+Sabemos que la viscosidad tiene que ver con el ``arrastre'' que un elemento de fluido produce en su vecino, y se podrán imaginar que si un elemento de fluido es arrastrado por sus vecinos, este no puede doblar por una esquina tan pronunciada.
+A pesar que nuestro modelo es no viscoso, por lo que genera este tipo de resultados no físicos, debemos hacernos cargo de alguna forma de este efecto viscoso.
+
+Hasta ahora, no hemos considerado una circulación; agreguémosla a nuestro modelo.
+Si consideramos $\Gamma=-2$ (negativo pues el vórtice debe rotar en sentido horario) en el flujo de la Figura \ref{fig:flujo_perfil_alpha15}, obtenemos el flujo de la Figura \ref{fig:flujo_perfil_gamma2}
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma2.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.$ con $\Gamma=-2$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma2}
+\end{figure}
+
+La Figura \ref{fig:flujo_perfil_gamma2} parece mejorar con respecto a \ref{fig:flujo_perfil_alpha15}, ya que las líneas se acercan a ser tangentes al perfil alar, pero todavía no lo son.
+Probemos con $\Gamma=-5$, como lo muestra la Figura \ref{fig:flujo_perfil_gamma5}.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma5.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.$ con $\Gamma=-5$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma5}
+\end{figure}
+
+En el caso de la Figura \ref{fig:flujo_perfil_gamma5} nos hemos pasado con mucha circulación , ya que las líneas de flujo aparecen apuntando hacia abajo.
+
+Intentémoslo con $\Gamma=-3.6$.
+Este resultado corresponde a la Figura \ref{fig:flujo_perfil_gamma3}, y parece ser que el flujo sale perfectamente tangencial al perfil alar.
+%
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{clase05/flujo_perfil_gamma3.pdf}
+\caption{Flujo alrededor de perfil alar que resulta de la transformación de un cilindro centrado en $\xi=-0.1, \eta=0.$ con $\Gamma=-3.6$ y un flujo entrante de $U_\infty=1$ y ángulo de ataque $\alpha=15^\circ$.}\label{fig:flujo_perfil_gamma3}
+\end{figure}
+
+El resultado de la Figura \ref{fig:flujo_perfil_gamma3} es el físicamente correcto.
+A pesar de que todas las pruebas que hicimos acá cumplen con el flujo potencial, solamente una de ellas tiene relevancia física, pues se hace cargo del efecto de la viscosidad.
+Esta condición de tangencialidad a la salida del perfil alar se conoce como \emph{condición de Kutta}.
+
+\section*{La condición de Kutta y sustentación}
+
+En palabras más técnicas, la condición de Kutta dice que un cuerpo con un lado puntiagudo genera la cantidad de circulación al rededor de si mismo necesario para mantener un punto de estancamiento en la punta.
+Esto tiene trementa implicancia en la física, y empezamos a responder la pregunta \mbox{?`}Por qué vuelan los aviones?
+La gracia de que trabajamos con el perfil de Joukowsky es que se hace patente que al estar en un ángulo genera sustentación, pues es equivalente a un cilindro con sustentación.
+Si $\Gamma_\text{Kutta}$ es la circulación que cumple con la condición de Kutta (para que la solución tenga relevancia física), la fuerza sobre el perfil alar es
 %
 \begin{equation}
-\frac{\delta^*}{x} = \frac{1.721}{\sqrt{Re_x}}
+L = \rho\Gamma_\text{Kutta}U_\infty,
+\end{equation}
+%
+que es la sustentación sobre el cilindro equivalente.
+
+En resumen \mbox{?`}por qué un ala es capaz de levantar un avión? Por que el ángulo del ala desvía el flujo hacia abajo y la punta de la parte posterior del perfil alar fuerza al flujo a salir tangencial (por viscosidad).
+Esto genera una circulación alrededor del ala que resulta en una fuerza de sustentación.
+El flujo potencial no es capaz de reproducir esto por si solo, ya que no considera viscosidad, y debemos agregarle al flujo una circulación $\Gamma_\text{Kutta}$ tal que se cumple la condición de Kutta.
+
+El que exista una transformación analítica que nos lleve a un perfil aerodinámico es un caso muy particular de los perfiles de Joukousky, pero no es el caso general. 
+Por lo tanto, para un perfil sin una transformación hay que monitorear la velocidad a la salida del perfil para ver si hay estancamiento, y así encontrar $\Gamma_\text{Kutta}$.
+
+Para Joukowsky, podemos aprovechar que si existe una transformación para calcular analíticamente $\Gamma_\text{Kutta}$. 
+Sabemos que el punto del cilindro que mapea a la punta es el punto singular $(1,0)$, por lo tanto, la condición de Kutta se cumple tal que el punto de estancamiento en el cilindro se encuentre en $(1,0)$ en el cilindro.
+
+Usando variable compleja, la función potencial en el caso del cilindro esta dado por Ec. \eqref{eq:cilindro}, y la velocidad es
+%
+\begin{equation}
+V = u+iv = \frac{d\Phi_\text{cil}}{dz} = U_\infty e^{-i\alpha} - \frac{K}{(z-z_0)^2}e^{i\alpha} - i\frac{\Gamma}{2\pi(z-z_0)}.
+\end{equation}
+%
+Sabiendo que $R = \sqrt{K/U_\infty}$, y que en el punto de estancamiento $V(1,0)=0$, podemos despejar $\Gamma_K$
+%
+\begin{equation}
+\Gamma_\text{Kutta} = -2\pi i\left[ U_\infty e^{-i\alpha}(z-z_0) - \frac{R^2U_\infty}{z-z_0}e^{i\alpha}\right]
 \end{equation}
 
-\paragraph*{Esfuerzo cortante.}
-Sabemos que la definición de $\tau_w$ es
+\subsection*{Vórtice de arranque}
+Hace un par de clases discutimos algo que quizás pasó algo desapercibido, pero hoy lo revisitamos: el teorema de circulación de Kelvin
 %
 \begin{equation}
-\tau_w = \left.\mu\frac{du}{dy}\right|_0
-\end{equation}
-%
-lo cual se puede escribir en términos de $f$ y $\eta$ como
-%
-\begin{align}
-\tau_w &= \left. U_\infty\mu \frac{df'}{dy}\right|_0 = U_\infty\mu \left(\frac{U_\infty}{\nu x}\right)^{1/2}f''(0) \nonumber\\
-&= U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2}f''(0) = 0.332055 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} 
-\end{align}
-%
-Por otra parte, el coeficiente de arrastre es
-%
-\begin{equation}
-c_f = \frac{\tau_w}{\frac{1}{2}U_\infty^2\rho} = \frac{2\cdot0.332055}{\sqrt{Re_x}} = \frac{0.664}{\sqrt{Re_x}}
+\frac{D\Gamma}{Dt}=0
 \end{equation}
 
-\paragraph*{Espesor de momentum.}
-En la definición del espesor de momentum dijimos que
+El teorema de circulación de Kelvin dice que para un flujo no viscoso, la circulación se mantiene constante en el tiempo.
+La solución que aparece graficada en la Figura \ref{fig:flujo_perfil_gamma3} no es más que el estado estacionario de un problema transiente, que tiene que haber partido con velocidad cero.
+Aquí salta algo extraño: si el flujo está quieto, $\Gamma=0$, sin embargo, en el estado estacionario $\Gamma=\Gamma_\text{Kutta}$, por lo que se generó circulación de alguna manera y aparentemente estamos violando el teorema de circulación de Kelvin.
+Resulta que cuando el flujo inicia su movimiento, se desprende del perfil alar un vórtice con exactamente la circulación contraria $\Gamma=-\Gamma_\text{Kutta}$, que se conoce como \emph{vórtice de arranque}, cancelando la circulación total.
+El vórtice de arranque se puede ver en simulaciones\footnote{\url{https://www.youtube.com/watch?v=B-tcx5hTf_A}} y con experimentos muy simples.\footnote{\url{https://www.youtube.com/watch?v=t7Sp4Nd9cg0}}
+
+La circulación se define como
 %
 \begin{equation}
-\tau_w = \rho U_\infty^2 \frac{d\theta}{dx}
+\Gamma = \oint_L\mathbf{V}\cdot\mathbf{t}dl,
 \end{equation}
 %
-y usando la expresión que encontramos recién para $\tau_w$, quedamos con
-%
-\begin{align}
-\theta &= \int_0^x 0.332 U_\infty^{3/2}\left(\frac{\mu\rho}{x}\right)^{1/2} \frac{1}{\rho U_\infty^2} dx \nonumber\\
-&= \int_0^x 0.332 \left(\frac{\mu}{xU_\infty\rho}\right)^{1/2} dx = 2\cdot0.332 x^{1/2}\left(\frac{\mu}{U_\infty\rho}\right)^{1/2}
-\end{align}
-%
-y dividiendo por $x$, queda
-%
-\begin{equation}
-\frac{\theta}{x} = \frac{0.664}{\sqrt{Re_x}}
-\end{equation}
+donde $L$ es una curva cerrada, de la cual el vector $\mathbf{t}$ es tangente, y $dl$ es un elemento de $L$.
+Si $L$ es una curva que encierra al perfil alar solamente, inicialmente calcularíamos $\Gamma=0$, y en el estado estacionario $\Gamma=\Gamma_\text{Kutta}$.
+Sin embargo, si $L$ encierra tanto el perfil alar como el vórtice de arranque (que probablemente está lejos aguas abajo), $\Gamma=0$ y se cumple el teorema de la circulación de Kelvin.

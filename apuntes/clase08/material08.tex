@@ -2,182 +2,215 @@
 
 Objetivos:
 \begin{itemize}
-    \item Describir el mecanismo de separación de capa límite.
-    \item Predecir la separación de la capa límite.
-    \item Calcular la fuerza sobre cuerpos sumergidos no aerodinámicos.
+    \item Modelar el efecto de la viscosidad en flujos cercanos a una pared.
+    \item Mostrar las distintas definiciones de capa límite.
+    \item Encontrar expresiones para las distintas definiciones de capa límite a partir de un perfil dado. 
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item El mecanismo de separación de capa límite.
-    \item El factor de forma y su influencia en la separación de la capa límite.
-    \item El arrastre por fricción y el arrastre por presión.
-    \item Coeficiente de arrastre.
+    \item Flujo viscoso sobre una placa plana.
+    \item La capa límite y su espesor.
+    \item El espesor de desplazamiento.
+    \item El espesor de momentum.
+    \item El análisis de von Kármán.
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 9.6-9.7.
-    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.5-7.6.
+    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 7.1-7.4
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Secciones 9.1-9.3
 \end{itemize}
 \end{framed}
 
-\section*{Separación de la capa límite}
+\section*{Flujo viscoso sobre una superficie}
 
-Hasta ahora, todos nuestros análisis se han hecho bajo la suposición que la capa límite se mantiene pegada a la pared todo el tiempo, sin embargo, sabemos que esto no es así en la práctica. 
-De hecho, ustedes fueron testigos de esto en el laboratorio 1.
-Cuando midieron la presión alrededor de un cilindro, se dieron cuenta que en la zona posterior se perdía la tendencia tipo ``flujo potencial'' y la medición de presión se estancaba.
-Esto ocurrió porque el flujo se separó de la pared del cilindro.
-
-La razón por qué la capa límite se separa de la pared es la gradiente de presión.
-Si la presión cae con $x$, se dice que hay una gradiente de presión favorable, ya que contrarresta la desaceleración del flujo debido al esfuerzo viscoso sobre la pared.
-Por otra parte, si la presión aumenta con $x$, se dice que existe un gradiente de presión adverso, el cual desacelera el flujo, y puede generar la separación.
-Un caso práctico es el flujo en un ducto divergente, donde la desaceleración del flujo genera un aumento de presión aguas abajo, y si el ángulo entre las paredes es muy grande, el flujo se puede separar.
-Otro ejemplo es el flujo sobre un ala, donde al tener un ángulo de ataque muy alto, la gradiente de presión en la parte superior del ala se torna insostenible para la capa límite, y se separa.
-
-\begin{figure}
+Hace algunas clases estuvimos estudiando flujo potencial, el cual era no viscoso.
+Una implicancia de su ``no viscosidad'' era que la condición de borde en una pared era de impermeabilidad ($\mathbf{V}\cdot\mathbf{n}=0$), sin embargo, el flujo podía deslizarse.
+Obviamente, sabemos que no existe tal cosa como un flujo ``no viscoso''. 
+De hecho, experimentalmente podemos ver que la velocidad del fluido en la interfaz con el sólido es igual a la velocidad del sólido, en otras palabras, el fluido no desliza.
+%
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.8\textwidth]{clase08/separacion.pdf}
-\caption{Mecanismo de separación de la capa límite.}
-\label{fig:separacion}
+\includegraphics[width=0.8\textwidth]{clase08/capa_limite.pdf}
+\caption{Flujo sobre una placa plana.}
+\label{fig:capa_limite}
+\end{figure}
+%
+Tomemos, por ejemplo, el flujo uniforme que se topa con una placa plana en la Figura \ref{fig:capa_limite}.
+Lo que esperamos que ocurra es que el flujo en la placa tenga velocidad cero, y de ahí vaya creciendo paulatinamente hasta llegar a la velocidad de entrada $U_\infty$.
+En el principio de la placa (a $x$ pequeño), esperaríamos que el efecto de la placa no llega muy lejos, y la velocidad rápidamente retoma $U_\infty$, sin embargo, aguas abajo, el efecto de la placa llega mucho más adentro en el flujo, y este efecto crece a medida que nos movemos a lo largo de ella.
+Esta zona de influencia de la placa se conoce como \emph{capa límite}, y su espesor se representa como $\delta$.
+En la FIgura \ref{fig:capa_limite}, la capa límite está representada por la línea punteada.
+El flujo fuera de la capa límite es un flujo uniforme que perfectamente puede ser modelado como un flujo uniforme potencial, a pesar que sepamos que el fluido tiene viscosidad, pero afuera de la capa límite el efecto de la viscosidad es despreciable.
+
+\section*{Definiciones de capa límite}
+Una pregunta válida es \mbox{?`}dónde consideramos que el flujo finalmente a retomado su velocidad $U_\infty$? 
+En otras palabras, \mbox{?`}cuál es el criterio para dibujar la línea punteada en la Figura \ref{fig:capa_limite}, y definir el espesor $\delta(x)$?
+Aquí simplemente tenemos que ponernos de acuerdo, y la convención dice que consideraremos que el fin de la capa límite se encuentra donde la velocidad paralela a la placa ha alcanzado $0.99U_\infty$.
+Sin embargo, existen otras formas de definir el espesor de la capa límite, que se conocen como el espesor de desplazamiento y el espesor de momentum.
+
+\subsection*{Espesor de desplazamiento}
+El espesor de desplazamiento ($\delta^*$) corresponde a la distancia que debiese desplazarse la pared para que pasara el mismo caudal asumiendo un flujo no viscoso. 
+Esto se explica mejor por la Figura \ref{fig:espesor_desplazamiento}, donde si el flujo no fuese viscoso, la pared se tendría que correr $\delta^*$ más arriba para que pase el mismo caudal.
+El caudal (por unidad de ancho) que pasa dentro de la capa límite es
+%
+\begin{equation}
+Q = \int_0^\delta u(y)\mathrm{d}y.
+\end{equation}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{clase08/espesor_desplazamiento.pdf}
+\caption{Espesor de desplazamiento.}
+\label{fig:espesor_desplazamiento}
 \end{figure}
 
-La Figura \ref{fig:separacion} muestra el mecanismo de separación de la capa límite.
-El gradiente adverso de presión desacelera al flujo cerca de la pared, y lejos de la pared la inercia de $U_\infty$ arrastra la capa límite.
-Por este efecto, la gradiente de velocidad sobre la placa disminuye, a tal punto que llega a ser cero ($\partial u/\partial y=0$).
-Es en este punto donde se considera que el flujo se separa, ya que después de él hay un flujo en dirección contraria, que despega la capa límite.
-
-\mbox{?`}Se acuerdan que el perfil de velocidad de una capa límite turbulenta tenía una gradiente de velocidad mayor que el perfil de Blasius cerca de la pared?
-Si la gradiente es mayor, el mecanismo descrito por la Figura \ref{fig:separacion} demora más en separar el flujo (debe ``empujar'' el perfil desde una gradiente mayor).
-Esta es la razón por la cual el flujo turbulento se demora más en separar.
-De hecho, en las alas de aviones es muy común encontrar placas en la superficie que hacen las veces de generadores de turbulencia.
-Al generar turbulencia, se retarda la separación, lo que es deseable para evitar el temido ``stall''.
-
-\subsection*{Separación y el factor de forma}
-
-Hasta ahora, cuando hemos hablado de la relación integral de von Kármán, solamente ha sido en el cotexto de un flujo a presión constante.
-En el caso general, esta relación es
-%
-\begin{equation}\label{eq:integral_vK}
-\tau_w = \rho U_\infty^2\frac{d\theta}{dx} + \rho(\delta^*+2\theta)U_\infty \frac{dU_\infty}{dx}.
-\end{equation}
-%
-De hecho, si evalúan la Ec. \eqref{eq:integral_vK} para el caso particular donde la presión es constante (y, por ende, la velocidad $U_\infty$ es constante), llegamos a la expresión que vimos hace algunas clases.
-Podemos adimensionalizar la Ec. \eqref{eq:integral_vK}, y reescribirla de la siguiente forma
+Por otra parte, sabemos que para un flujo no viscoso, el caudal por unidad de ancho sería simplemente $Q_\text{NV} = U_\infty \cdot l$, donde $l$ es el alto de la sección transversal.
+Para que $Q=Q_\text{NV}$, $l=Q/U_\infty$, y sabemos que $\delta^*=\delta-l$, por lo tanto
 %
 \begin{equation}
-\frac{\tau_w}{\rho U_\infty^2} = \frac{c_f}{2} = \frac{d\theta}{dx} + (H+2)\frac{\theta}{U_\infty} \frac{dU_\infty}{dx}.
+\delta^* = \delta - l = \delta - \int_0^\delta \frac{u(y)}{U_\infty}\mathrm{d}y.
 \end{equation}
 %
-donde $H=\delta^*/\theta$ se conoce como el factor de forma.
-El factor de forma es el mejor indicador de cuando va a ocurrir la separación. 
-En el caso de flujo laminar, $H_\text{sep}=3.5-4$ al separarse la capa límite.
-Si es turbulento, un valor típico es $H_\text{sep}=2.6$.
-Como referencia, en una placa plana, $H_\text{lam} = 2.6$ si la capa límite es laminar, y $H_\text{turb} = 1.3$ si es turbulenta, por lo tanto, para la placa plana no ocurrirá separación.
-
-\section*{Arrastre sobre cuerpos sumergidos}
-
-En general, es más común encontrar cuerpos donde la capa límite se separa, lo cual complica mucho el cálculo de la fuerza sobre éste.
-Cuando la capa límite se separa, ya no tenemos expresiones de $c_f$, y tenemos que usar coeficientes empíricos para obtener la fuerza.
-La forma más fácil de analizar estos problemas es descomponiendo la fuerza (en verdad, el coeficiente de arrastre), en dos: arrastre por fricción y arrastre por presión
+Podemos reescribir $\delta = \int_0^\delta 1\mathrm{d}y$, y reemplazando en la última ecuación llegamos a la siguiente expresión para $\delta^*$
 %
-\begin{equation}
-C_D = \frac{F_D}{\frac{1}{2}\rho U_\infty^2 A} = C_f + C_p,
-\end{equation}
-%
-donde,
-%
-\begin{align}\label{eq:CfCp}
-C_f & = \frac{F_f}{\frac{1}{2}\rho U_\infty^2 A}= \frac{1}{A}\int c_f dA = \frac{1}{\frac{1}{2}\rho U_\infty^2 A}\int\tau_wdA\nonumber\\
-C_p & = \frac{F_p}{\frac{1}{2}\rho U_\infty^2 A}= \frac{1}{\frac{1}{2}\rho U_\infty^2 A}\int p dA.
-\end{align}
-
-\subsection*{Arrastre por fricción}
-Este es el caso que ya hemos estado estudiando, donde el cuerpo está alineado con el flujo, y la capa límite no se separa.
-Tengan en consideración que para que un cuerpo tenga arrastre por fricción solamente, no es necesario que sea una placa plana, más bien, en cualquier cuerpo aerodinámico donde no hay separación (por ejemplo, un perfil alar), la fuerza de arrastre es solamente por fricción.
-Para encontrar expresiones para esta fuerza, solamente debemos integrar las expresiones para $c_f$ que hemos estudiado últimamente.
-En el caso laminar, esto sería
-%
-\begin{align}
-C_f &= \frac{1}{A}\int\frac{0.664}{\sqrt{Re_x}}dA = \frac{1}{bL} \frac{0.664}{\left(\frac{V}{\nu}\right)}\int_0^L \frac{1}{\sqrt{x}} b dx \nonumber\\
-&= \frac{1}{L} \frac{0.664}{\left(\frac{V}{\nu}\right)} 2\sqrt{L} = \frac{1.33}{\sqrt{Re_L}}.
-\end{align}
-
-Por otra parte, para capa límite turbulenta, $c_f=0.0594/Re_x^{1/5}$, y si despreciamos el hecho que el principio de la placa tiene un régimen laminar:
-%
-\begin{align}\label{eq:Cf_turb}
-C_f &= \frac{1}{A}\int\frac{0.0594}{Re_x^{1/5}}dA = \frac{0.0594}{bL}\left(\frac{\nu}{U_\infty}\right)^{1/5}\int_0^Lx^{-1/5}bdx \nonumber\\
-&=\frac{0.0594}{L}\left(\frac{\nu}{U_\infty}\right)^{1/5}\frac{5}{4}L^{4/5} = \frac{0.0742}{Re_L^{1/5}}.
-\end{align}
-
-En la clase anterior, llegamos a la expresión $c_f=0.0594/Re_x^{1/5}$ asumiendo que el perfil de velocidades se comportaba como $\sim y^{1/7}$, y al hacer el símil con flujo en tubería utilizamos la fórmula de Blasius para el factor de fricción $f$. 
-La fórmula de Blasius es empírica, y tiene límites de aplicabilidad (funciona para $Re_D <10^5$), y esta limitante se traspasa a la placa plana.
-De hecho, la fórmula de la Ec. \eqref{eq:Cf_turb} funciona bien para $Re_L<10^7$, y $Re_L>5\cdot10^5$ (ya que ahí ocurre la transición a turbulencia).
-Para $Re_L>10^9$, Schlichting propuso la siguiente relación
-%
-\begin{equation}
-C_f = \frac{0.455}{\log^{2.58}_{10}Re_L}
+\begin{equation}\label{eq:espesor_desplazamiento}
+\delta^* = \int_0^\delta \left(1-\frac{u(y)}{U_\infty}\right)\mathrm{d}y
 \end{equation}
 
-Una particularidad del flujo sobre una placa plana es que coexiste flujo laminar (al inicio de la placa) y flujo turbulento (aguas abajo).
-Si la zona donde el flujo es laminar no es despreciable, la expresión de la Ec. \eqref{eq:Cf_turb} ya no es válida. 
-En este caso, se hacen los siguientes ajustes:
+\subsection*{Espesor de momentum}
+\paragraph*{Flujo de momentum sobre una placa.}
+La placa de la Figura \ref{fig:capa_limite} es suficientemente delgada como para no bloquear el flujo, sin embargo, la condición de deslizamiento hace que la velocidad sea cero sobre la placa, afectando el perfil de velocidad.
+Hagamos un análisis integral de la cantidad de movimiento como lo que hacíamos en el curso anterior.
 %
-\begin{align}
-C_f &= \frac{0.0742}{Re_L^{1/5}} - \frac{1740}{Re_L} \text{ para $5\cdot10^{-5}<Re_L<10^7$}\nonumber\\
-C_f &= \frac{0.455}{\log^{2.58}_{10}Re_L} - \frac{1610}{Re_L} \text{ para $5\cdot10^{-5}<Re_L<10^9$}
-\end{align}
-
-\subsection*{Arrastre por presión}
-
-El caso contrario, un cuerpo que soporta arrastre por presión solamente es aquel donde el flujo se separa completamente, y no hay un arrastre por fricción en la dirección del flujo.
-El caso canónico es la placa que se enfrenta perpendicular al flujo.
-En este caso, hay una capa límite en la cara enfrentada al flujo, sin embargo, el flujo sobre esta placa es perpendicular al flujo principal, y no aporta al arrastre.
-Si hacemos un análisis de contidad de movimeinto sobre un volumen de control que solamente encierre la placa (por lo tanto, no hay flujos entrando y saliendo del volumen de control), veremos que la fuerza neta sobre la placa es solamente debido a la presión, dejándonos con la segunda expresión en la Ec. \eqref{eq:CfCp}.
-
-El arrastre por presión está generalmente relacionado con el área enfrentada al flujo.
-En este sentido, el arrastre por presión de una placa circular de radio $R$ será el mismo que sobre una esfera de radio $R$. 
-Esto ocurre porque las componentes de $p\mathbf{n}$ (donde $\mathbf{n}$ es normal a la superficie) que no están alineadas con el flujo generalmente se cancelan.
-
-Es prácticamente imposible obtener una expresión analítica para la presión alrededor de un cuerpo con separación de capa límite. 
-Es por esto que para encontrar valores de $C_p$ es necesario recurrir a herramientas computacionales, a diferencia del arrastre por fricción.
-
-\subsection*{Arrastre por fricción y presión}
-
-En general, el arrastre es por una combinación de $C_f$ y $C_p$.
-Considerando que es imposible obtener valores para $C_p$ de manera analítica, utilizamos valores para $C_D$ empíricos para nuestro análisis.
-Los valores de $C_D$ dependen de la geometría (esfera, semi-esfera, cilindro, placa, etc.), y se sacan de tablas (vean la tabla 9.3 del Fox).
-Eso si, $C_D$ depende también del $Re$, sin embargo, las tablas solamente entregan información ``discreta'', complicando el análisis.
-Un ejemplo de esto es la Figura \ref{fig:arrastre_esfera} (sacada de \url{http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml}), que muestra el arrastre sobre una esfera (y un disco) con respecto al número de Reynolds.
-%
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.7\textwidth]{clase08/arrastre_esfera.jpg}
-\caption{Arrastre sobre una esfera y un disco.}
-\label{fig:arrastre_esfera}
+\includegraphics[width=0.8\textwidth]{clase08/analisis_integral.pdf}
+\caption{Volúmen de control para análisis integral.}
+\label{fig:analisis_integral}
 \end{figure}
-
-Miremos la Figura \ref{fig:arrastre_esfera} y veremos algunas cosas interesantes.
-Primero, vemos que para número de Reynolds muy bajo, la relación es prácticamente lineal.
-De hecho, a Reynolds tan bajos el flujo no se separa, y despreciando los términos convectivos de la ecuación de Navier-Stokes podemos encontrar analíticamente que
+%
+Elijamos el volumen de control que muestra la Figura \ref{fig:analisis_integral}, donde la parte de abajo está justo sobre la placa, el lado derecho va desde la placa hasta el fin de la capa límite $\delta(x)$, la línea superior coincide con una línea de flujo, y el lado izquierdo tiene altura $h$.
+Recordando el análisis integral de la cantidad de movimiento, la ecuación para la fuerza en el eje $x$ es
 %
 \begin{equation}
-F_D = 3\pi\mu U_\infty d
+\sum F_x = \frac{\partial}{\partial t} \int_{\vol} u\rho \mathrm{d}\vol + \oint_{\partial\vol} u\rho\mathbf{V}\cdot\mathbf{n}\mathrm{d}S.
 \end{equation}
 %
-y obtener la expresión para el coeficiente de arrastre 
+Consideremos un flujo externo con velocidad constante, y sin gradientes de presión. En este caso, la única fuerza es debido a la condición de no delizamiento. Además, el primer término de acumulación es cero, no pasa flujo ni por abajo (pared) ni por arriba (línea de flujo), y considerando que el flujo a la entrada es constante $U_\infty$, llegamos a
+%
+\begin{equation}\label{eq:capa_limite_momentum1}
+F_x = -\rho U_\infty^2 bh + \rho b \oint_0^\delta u^2\mathrm{d}y.
+\end{equation}
+%
+También, el principio de continuidad nos dice que todo lo que entra por la izquierda, sale por la derecha
+%
+\begin{align}\label{eq:capa_limite_cont}
+\rho U_\infty bh &= \rho b \int_0^\delta u(y)\mathrm{d}y \nonumber\\
+\Rightarrow U_\infty h &= \int_0^\delta u(y)\mathrm{d}y.
+\end{align}
+%
+Reemplazando la Ec. \eqref{eq:capa_limite_cont} en la Ec. \eqref{eq:capa_limite_momentum1}, podemos reescribir la Ec. \eqref{eq:capa_limite_momentum1} como
+%
+\begin{equation}\label{eq:capa_limite_momentum}
+D = -F_x = \rho b \oint_0^\delta u(U_\infty - u)\mathrm{d}y.
+\end{equation}
+%
+donde $D$ es la fuerza sobre la placa.
+
+\paragraph*{Espesor de momentum}
+Como podemos imaginarnos, la fuerza sobre la placa depende del largo de esta (o el largo $L$ de la Figura \ref{fig:analisis_integral}), por lo tanto $D=D(x)$.
+De aquí podemos definir el espesor de momentum ($\theta$) como:
+%
+\begin{equation}\label{eq:espesor_momentum}
+\theta = \int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y
+\end{equation}
+%
+por lo tanto,
+%
+\begin{equation}\label{eq:D_momentum}
+D(x) = \rho b U_\infty^2\theta.
+\end{equation}
+
+El espesor de momentum puede ser visto como la distancia que debemos mover la placa hacia arriba tal que un flujo no viscoso tuviese el mismo momentum.
+Fíjense en la Ec. \eqref{eq:D_momentum}; ésta no es más que el flujo de momentum a través de un área de ancho $b$ y alto $\theta$ de un flujo uniforme, igualado a la fuerza sobre la placa.
+Considerando que la fuerza sobre la placa debe ser igual al flujo de momentum de la capa límite, $\theta$ es un altura tal que los flujos de momentum del caso viscoso y no viscoso, sean iguales.
+
+\section*{Espesor de capa límite laminar sin gradiente de presión}
+
+\subsection*{El análisis de von Kármán}
+\paragraph*{La relación integral de momentum.}
+
+Quizás la forma más fácil de encontrar una expresión para el espesor de capa límite $\delta$ es a través de un análisis de cantidad de movimiento de la placa, como la que hicimos para llegar a la Ec. \eqref{eq:D_momentum}.
+De no ser $U_\infty$  independiente de $x$, por Bernoulli podemos darnos cuenta que habría un gradiente de presión, y considerando que $dp/dy=0$ dentro de la capa límite, tendríamos que sumar la contribución de este $\Delta p$ a la suma de fuerzas.
+De este caso ya hablaremos más adelante.
+
+La fuerza sobre la placa $D(x)$ es el resultado de esfuerzos cortantes ($\tau_w$) a lo largo de la placa.
+Matemáticamente, esto es
 %
 \begin{equation}
-C_D = \frac{24}{Re}
+D(x) = b\int_0^x \tau_w(x)\mathrm{d}x,
 \end{equation}
+%
+lo que implica que
+%
+\begin{align}\label{eq:tau_w}
+\frac{dD}{dx}=b\tau_w \text{ y, }\nonumber\\
+\tau_w=\rho U_\infty^2 \frac{d\theta}{dx}.
+\end{align}
+%
+Esta última relación se conoce como la relación integral de momentum para flujo en la capa límite sobre una placa plana.
 
-Cuando el flujo se separa, perdemos esa relación lineal y pareciera ser que la relación entre $C_D$ y $Re$ se establiza, sin embargo, llega un punto donde $C_D$ cae drásticamente. 
-Esta caída responde a la transición de la capa límite a turbulenta, que, como ya sabemos, demora más en separar, por lo tanto hay un área ``extra'' de no-separación que empuja la esfera hacia adelante, disminuyendo el arrastre.
-Esto además confirma que en estos tipos de problema, el arrastre por presión es mayor que el arrastre por fricción, ya que la capa límite turbulenta tiene un perfil de velocidad con mayor gradiente, y por ende, mayor $\tau_w$.
+\paragraph*{Espesor de capa límite de von Kármán.}
+Para obtener una expresión de $\delta(x)$, von Kármán asumió un perfil de velocidad con forma parabólica:
+%
+\begin{equation}\label{eq:perfil_vk}
+u(x,y) = U_\infty\left(\frac{2y}{\delta}-\frac{y^2}{\delta^2}\right) \quad 0\leq y\leq \delta(x).
+\end{equation}
+%
+Reemplazando la Ec. \eqref{eq:perfil_vk} en el espesor de momentum $\theta$, llegamos a
+%
+\begin{equation}\label{eq:espesor_mom_vk}
+\theta = \int_0^\delta \left(\frac{2y}{\delta} - \frac{y^2}{\delta^2}\right)\left(1-\frac{2y}{\delta} + \frac{y^2}{\delta^2}\right)\mathrm{d}y=\frac{2}{15}\delta.
+\end{equation}
+%
+Podemos también calcular $\tau_w$ usando:
+%
+\begin{equation}\label{eq:tau_w2}
+\tau_w = \mu\frac{du}{dy} = 2\frac{\mu U_\infty}{\delta}.
+\end{equation}
+%
+Reemplazando la relación integral de momentum (Ec. \eqref{eq:tau_w}) en la Ec. \eqref{eq:tau_w2}, y usando la Ec. \eqref{eq:espesor_mom_vk} llegamos a una expresión para $\delta$:
+%
+\begin{align}
+2\frac{\mu U_\infty}{\delta} &= \rho U_\infty^2 \frac{d\theta}{dx} = \rho U_\infty^2 \frac{2}{15}\frac{d\delta}{dx}\nonumber\\
+\Rightarrow \delta d\delta &= 15\frac{\nu}{U_\infty}dx
+\end{align}
+% 
+e integrando esta última expresión, tomando en cuenta que $\delta=0$ para $x=0$, obtenemos:
+%
+\begin{align}\label{eq:delta_vk}
+\frac{1}{2}\delta^2 &= 15 \frac{\nu x}{U_\infty} \nonumber\\
+\Rightarrow \frac{\delta}{x} &= 5.5\left(\frac{\nu}{U_\infty x}\right)^{1/2} = \frac{5.5}{\sqrt{Re_x}}.
+\end{align}
 
-Si la superficie es rugosa, la transición a turbulencia será antes, y $C_D$ caerá a un menor Reynolds.
-Esto se ve en la Figura \ref{fig:arrastre_esfera} en la línea punteada.
-Una aplicación de esto son las pelotas de golf, que tienen hoyitos para generar turbulencia y retrasar la separación, para así disminuir el arrastre.
+Por otra parte, podemos también calcular el coeficiente de arrastre local $c_f$ como:
+%
+\begin{equation}\label{eq:cf_vk}
+c_f = \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = 4\frac{1}{\rho U_\infty^2}\frac{\mu U_\infty}{\delta} = \frac{0.73}{\sqrt{Re_x}}
+\end{equation}
+%
+y el espesor de desplazamiento:
+%
+\begin{align}\label{eq:desplazamiento_vk}
+\delta^* &= \int_0^\delta\left(1-\frac{u}{U_\infty}\right)\mathrm{d}y = \int_0^\delta \left(1-\frac{2y}{\delta}+\frac{y^2}{\delta^2}\right)\nonumber\\
+&= \left. y-\frac{y^2}{\delta}+\frac{y^3}{3\delta}\right/_0^\delta = \frac{\delta}{3}\nonumber\\
+\Rightarrow \frac{\delta^*}{x} &= \frac{1.83}{\sqrt{Re_x}}
+\end{align}
 
-En el caso que un cuerpo esté compuesto por partes de cuerpos de los cuales conocemos su arrastre, el arrastre total será la suma de cada una de las componentes.
-Por ejemplo, un cilindro que está alineado con el flujo (con la sección transversal enfrentada a la velocidad externa), puede ser visto como la suma del flujo contra una placa circular más el flujo sobre una placa plana (el manto).
+Los valores de espesor de capa límite obtenidos con el análisis de von Kármán dependen de la aproximación que la velocidad dentro de la capa límite tiene forma parabólica. 
+En la realidad, esto no es así, sin embargo los valores de $\delta$, $\delta^*$, $c_f$, $\tau_w$ y $\theta$ dados por este análisis hacen buenas predicciones y, en general, están a menos de un 10\% del valor real.
+
+
+
