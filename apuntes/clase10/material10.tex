@@ -2,420 +2,273 @@
 
 Objetivos:
 \begin{itemize}
-    \item Estudiar las propiedades de la ecuación de Laplace. 
-    \item Presentar flujos potenciales elementales. 
+    \item Conocer soluciones de capa límite diferentes a una placa plana. 
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item Repaso de flujos ideales.
-    \item Condiciones de contorno para la ecuación de Laplace.
-    \item Flujos potenciales elementales.
+    \item Solución de Falkner-Skan. 
+    \item Flujo sobre una cuña. 
+    \item Capa límite con succión o soplido. 
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 4.9-4.10
-    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 6.7.
+    \item White, F. M. (2006) Viscous Fluid Flow. McGraw-Hill. Tercera edición. Sección 4.3
 \end{itemize}
 \end{framed}
 
-\section*{Flujo potencial}
-La clase pasada introducimos un par de conceptos nuevos, al menos en el contexto de mecánica de fluidos: la función corriente ($\psi$) y la función potencial ($\phi$). 
-Un campo de velocidad tiene una función corriente cuando éste tiene divergencia nula y bidimensional, y tiene una función potencial cuando es irrotacional, donde
+\section*{Capa límite con gradiente de presión}
+
+Hemos visto en clases anteriores que podemos hacer aproximaciones en la ecuación de Navier-Stokes y continuidad para llegar a la siguiente ecuación:
 %
-\begin{align}\label{eq:phi_def_3}
-u &= \frac{\partial\phi}{\partial x} = \frac{\partial\psi}{\partial y}\nonumber\\
-v &= \frac{\partial\phi}{\partial y} = -\frac{\partial\psi}{\partial x}
+\begin{align}\label{eq:NS_capa_x10}
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} &= 0 \nonumber\\
+u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y} &\approx U_\infty \frac{dU_\infty}{dx} + \nu \frac{\partial^2u}{\partial y^2},
 \end{align}
 %
-Físicamente, esto significa que el flujo debe ser incompresible y no viscoso, o sea, un \emph{flujo ideal}.
+y para fines del análisis de von Kármán y Blasius, la presión (y por ende, la velocidad al infinito $U_\infty$) eran constantes. 
+De hecho, dijimos que fuera de la capa límite la viscosidad juega un papel despreciable, y podemos utiliar ecuaciones de flujo potencial, por ejemplo, Bernoulli.
+A continuación, vamos a estudiar una solución de capa límite para el caso en que la presión, y por ende, $U_\infty$, varía con $x$.
 
-En la vida real, no exiten los flujos totalmente ideales, pero hay ciertas situaciones en que se comportan muy cercano a ideal y la teoría de flujo potencial nos ayuda a modelarlos.
-Dos ejemplos son
+Similar a la solución de Blasius, hagamos el cambio de variable
+%
+\begin{equation}\label{eq:u_F-S}
+\frac{u}{U_\infty} = f'(\eta),
+\end{equation}
+%
+pero en este caso, $\eta=yg(x)$.
+Para Blasius $g(x)=\sqrt{U_\infty/\nu x}$, pero en este caso más general tendremos que trabajar un poco más para encontrar $g(x)$.
+Utilizando la ecuación de continuidad, podemos escribir $v$ como
+%
+\begin{equation}\label{eq:v_F-S}
+v = -\frac{\partial}{\partial x}\int_0^yudy
+\end{equation}
+%
+e insertando eso en la ecuación de Navier-Stokes, llegamos a
+%
+\begin{equation}\label{eq:NS_F-S}
+u\frac{\partial u}{\partial x} - \frac{\partial}{\partial x}\left(\int_0^yudy\right) \frac{\partial u}{\partial y} \approx U_\infty \frac{dU_\infty}{dx} + \nu \frac{\partial^2u}{\partial y^2}.
+\end{equation}
+%
+Reemplacemos la transformación en la Ec. \eqref{eq:u_F-S} en la Ec. \eqref{eq:NS_F-S}.
+Primero, las derivadas de $u$, considerando que ahora $U_\infty = U(x)$:
+%
+\begin{align}\label{eq:NS_F-S_der}
+\frac{\partial u}{\partial x} &= U'f'+Uf''\frac{\partial \eta}{\partial x}\nonumber\\
+\frac{\partial u}{\partial y} &= Uf''\frac{\partial\eta}{\partial y}\nonumber\\
+\frac{\partial^2 u}{\partial y^2} &= Uf'''\left(\frac{\partial\eta}{\partial y}\right)^2 + Uf''\frac{\partial^2\eta}{\partial y^2} = Uf'''\left(\frac{\partial\eta}{\partial y}\right)^2
+\end{align}
+%
+ya que $\partial^2\eta/\partial y^2=0$.
+Calculemos la integral en la Ec. \eqref{eq:NS_F-S}
+%
+\begin{align}
+&\frac{\partial}{\partial x}\left(\int_0^yudy\right) = \int_0^y\frac{\partial u}{\partial x}dy = \int_0^y \left(U'f'+Uf''\frac{\partial\eta}{\partial x}\right)dy = \nonumber\\
+&\int_0^y \left(U'f'+Uf''yg'\right)dy = \int_0^\eta \left(U'f'+Uf''\eta\frac{g'}{g}\right)\frac{d\eta}{g} \nonumber\\
+&\int_0^\eta \frac{U'f'}{g}d\eta = \frac{U'}{g}\int_0^\eta f'd\eta = \frac{U'f}{g}\nonumber\\
+&\int_0^\eta Uf''\eta\frac{g'}{g^2}d\eta = \frac{Ug'}{g^2}\int_0^\eta f''\eta d\eta = \frac{Ug'}{g^2}\left(\eta f' \int_0^\eta f'd\eta\right) =\frac{Ug'}{g^2} \left(f'\eta - f\right),    
+\end{align}
+%
+donde usamos integración por parte para resolver la última integral ($u=\eta$, $dv=f''d\eta$).
+La integral en la Ec. \eqref{eq:NS_F-S} queda entonces:
+%
+\begin{equation}\label{eq:NS_F-S_int}
+\frac{\partial}{\partial x}\left(\int_0^yudy\right) = \frac{U'f}{g} + \frac{Ug'}{g^2} \left(f'\eta - f\right) 
+\end{equation}
+
+Reemplacemos las Ecs. \eqref{eq:NS_F-S_int} y \eqref{eq:NS_F-S_der} en la Ec. \eqref{eq:NS_F-S}, considerando que $\partial\eta/\partial y=g$, $\partial\eta/\partial x = yg'$, y que podemos reescribir $y$ como $y=\eta/g$:
+%
+\begin{equation}
+Uf'(U'f'+Uf''\eta\frac{g'}{g})-Uf''g\left(\frac{U'f}{g}+\frac{Ug'}{g^2}(f'\eta-f)\right) = UU'+\nu Uf'''g^2
+\end{equation}
+%
+Despejando $f'''$, y factorizando llegamos a
+%
+\begin{align}\label{eq:F-S_raw}
+f'''&=\frac{1}{Ug^2}\left[U'(Uf'^2-Uf''f-U)+U^2\left(f'f''\eta\frac{g'}{g} - f''\frac{g'}{g}(f'\eta-f)\right)\right] \nonumber\\
+f'''&=\frac{U'}{\nu g^2}(f'^2-f''f-1)+\frac{Ug'}{\nu g^3}ff''
+\end{align}
+
+\subsection*{Solución autosimilar}
+El aporte de Falkner y Skan fue buscar una solución autosimilar de la Ec.\eqref{eq:F-S_raw}.
+Una solución autosimilar es aquella que es similar a si misma.
+Por ejemplo, la solución de Blasius es autisimilar: no depende ni de $x$ ni de $y$, sino que de $\eta$, y, sin importar donde nos encontremos a lo largo de la placa (el valor de $x$), la solución siempre tendrá la misma forma en la coordenada $\eta$.
+De la misma manera, para que la Ec. \eqref{eq:F-S_raw} sea similar, tenemos que evitar la depdendencia en $x$ e $y$, y que dependa solamente de $\eta$.
+Para que esto ocurra, $U'/\nu g^2$ y $Ug'/\nu g^3$ deben ser constantes.
+
+Falkner y Skan se dieron cuenta que existe una solución autosimilar si $\eta=Cyx^a$, o sea, $g(x)=Cx^a$. 
+Reemplacemos en $U'/\nu g^2$
+%
+\begin{equation}
+\frac{U'}{\nu g^2} = \frac{U'}{\nu C^2x^{2a}},
+\end{equation}
+%
+por lo tanto, para que se haga constante y haya similaridad, $U'=K_1x^{2a}$, o $U(x)=Kx^m$ donde $m=2a+1$.
+Para Falkner-Skan, el flujo fuera de la capa límite tiene que variar como una potencia.
+Reemplacemos eso en $Ug'/\nu g^3$
+%
+\begin{equation}
+\frac{Ug'}{\nu g^3}=\frac{Kx^maCx^{a-1}}{\nu C^3x^{3a}} = \frac{Kx^{2a+1}aCx^{a-1}}{\nu C^3x^{3a}} = \frac{Ka}{\nu C^2}
+\end{equation}
+%
+también se hace constante, y la Ec. \eqref{eq:F-S_raw} se hace autosimilar.
+
+Las constantes $C$ y $K$ tienen la única restricción que deben adimensionalizar el sistema.
+La mejor elección es decir que 
+%
+\begin{equation}
+C^2 = K\frac{1+m}{\nu}
+\end{equation}
+%
+en cuyo caso, sabiendo que $\eta=yg(x)$, $g(x)=Cx^a$ y $U=Kx^m$:
+%
+\begin{align}\label{eq:eta_F-S}
+\eta &= y\sqrt{K\frac{1+m}{\nu}}x^a = y\sqrt{K\frac{1+m}{\nu}}x^{\frac{m-1}{2}} \nonumber\\
+&= y\sqrt{K\frac{1+m}{\nu}x^{m-1}} = y\sqrt{\frac{1+m}{\nu}\frac{U}{x}}
+\end{align}
+%
+y para $m=0$, nos quedamos con la transformación de coordenadas hecha por Blasius.
+Reemplazando estos valores de $C$ y $K$, quedamos con
+%
+\begin{align}
+\frac{U'}{\nu g^2} &= \frac{Kmx^{m-1}}{\nu C^2g^{2a}} = \frac{mK}{\nu C^2} = \frac{m}{\nu}\frac{\nu}{1+m} = \frac{m}{m+1}\nonumber\\
+\frac{Ug'}{\nu g^3} &= \frac{Ka}{\nu C^2} = \frac{\nu}{1+m}\frac{m-1}{2\nu} = \frac{m-1}{2(m+1)}
+\end{align}
+%
+y la Ec. \eqref{eq:F-S_raw} queda
+%
+\begin{align}\label{eq:F-S}
+&f''' = \frac{m}{1+m}(f'^2-f''f-1)+\frac{m-1}{2(m+1)}ff''\nonumber\\
+&f''' = -\frac{ff''}{2} + \frac{m}{m+1}(f'^2-1).
+\end{align}
+%
+Esta es la ecuación de Falkner-Skan.
+La Ec. \eqref{eq:F-S} se transforma en la ecuación de Blasius para $m=0$. 
+
+\section*{Flujo sobre una cuña}
+Una pregunta válida es si la solución de Falkner-Skan tiene alguna aplicación práctica, es decir, si existe algún flujo que hacia el infinito tenga una velocidad que siga una forma de ``potencia'' ($U\sim x^m$).
+De hecho, existe un flujo potencial que se comporta de esta manera; su función corriente es
+%
+\begin{equation}
+\psi(r,\theta) = C_0 r^{m+1}\sin((m+1)\theta).
+\end{equation}
+%
+lo cual da una velocidad
+%
+\begin{align}
+v_r = \frac{1}{r}\frac{\partial\psi}{\partial\theta} = C_0 r^m(m+1)\cos[(m+1)\theta] \nonumber\\
+v_\theta = -\frac{\partial\psi}{\partial r} = -C_0 r^m(m+1)\sin[(m+1)\theta]
+\end{align}
+
+Considerando que el flujo tiene un $\psi$, significa que puede representar un flujo incompresible.
+Para saber si puede ser potencial, saquen el rotor del campo, y verán que es $0$.
+
+La velocidad varía como $\sim r^m$ para un ángulo $\theta$ constante. 
+Las líneas de flujo varían dependiendo de $m$:
+%
 \begin{itemize}
-\item Flujo sobre cuerpos sumergidos, lejos de cuerpo: muy aplicado a aerodinámica, que revisaremos en un par de clases más. El flujo se ve afectado cerca del cuerpo, pero si uno se aleja de este, el flujo es prácticamente potencial.
-\item Tornados: el flujo atmosférico de escala ``global'' puede ser visto como bidimiensional, ya que la dimensión de altura es muchísimo más chica que la extensión en los otros sentidos. Un tornado se aproxima muy bien por un vórtice ideal.
+\item $m=1$: flujo contra una pared, como el que aparece en la Figura \ref{fig:m_1}.
+\item $m<1$: flujo sobre una cuña, como en la Figura \ref{fig:m_01}, donde $m=0.17$.
+\item $m>1$: flujo en paredes encontradas, cono en la Figura \ref{fig:m_2}, con $m=2$.
 \end{itemize}
 
-Además, vimos que al haber una función potencial de la velocidad y que el flujo sea incompresible ($\nabla\cdot\mathbf{V}=0$), el potencial $\phi$ debe satisfacer la ecuación de Laplace
-%
-\begin{equation}\label{eq:pot_laplace}
-\nabla^2\phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0.
-\end{equation}
-
-Ya vimos la clase pasada que la línea que define $\psi=$constante corresponde a una línea de flujo \mbox{?`}Cómo es el caso para $\phi=$constante?
-Consideremos la curva $y=y(x)$ que describe $\phi(x,y(x))=$constante, y derivemos esto en función de $x$:
-%
-\begin{align}\label{eq:linea_potencial}
-\frac{d\phi}{dx} &= \frac{\partial\phi}{\partial x}\frac{dx}{dx} + \frac{\partial\phi}{\partial y} \frac{dy}{dx} = 0\nonumber\\
-\Rightarrow &\frac{dy}{dx} = \frac{\partial\phi/\partial x}{\partial\phi/\partial y} = \frac{u}{v}.
-\end{align}
-%
-La clase pasada dijimos que en una línea de flujo $dy/dx=v/u$, lo cual es exactamente perpendicular al resultados que llegamos en la Ec. \eqref{eq:linea_potencial}.
-Por lo tanto, las líneas de $\phi=$constante son perpendiculares a las líneas de $\psi=$constante.
-
-\subsection*{Condiciones de contorno}
-Para resolver una ecuación diferencial necesitamos condiciones de contorno y/o iniciales.
-En el caso de mecánica de fluidos, las condiciones de contorno están relacionadas con la velocidad, ya sea en el contacto del fluido con un sólido, como en la interfaz entre dos fluidos, o en regiones lejos de cualquier perturbación. 
-Necesitamos entonces traducir esas condiciones de contorno de velocidad, que son muy intuitivas, a potencial $\phi$. 
-Veámoslo caso a caso:
-%
-\begin{itemize}
-\item \emph{Superficie sólida:} ya sabemos que en el caso de un flujo viscoso, la viscosidad fuerza al fluido a tener la misma velocidad que la pared sólida en la interfaz (no deslizamiento). 
-En este caso, el flujo no es viscoso y no se cumple la condición de no deslizamiento, sin embargo, el fluido no puede penetrar la pared (condición de impermeabilidad).
-Esto significa que en la pared, la componente de la velocidad normal a la superficie debe ser cero:
-%
-\begin{equation}
-\mathbf{V}_\mathbf{n} = 0
-\end{equation}
-%
-donde $\mathbf{n}$ es un vector unitario normal a la superficie.
-Usando la Ec. \eqref{eq:phi_def_3}, vemos que en términos de $\phi$, esto es:
-%
-\begin{equation}\label{eq:phi_pared_bc}
-\nabla\phi\cdot\mathbf{n} = \frac{\partial\phi}{\partial\mathbf{n}} = 0.
-\end{equation}
-%
-La Ec. \eqref{eq:phi_pared_bc} es una condición de borde de Neumann que dice que la variación de $\phi$ normal a la superficie debe ser cero.
-Noten que si a la condición de borde en la Ec. \eqref{eq:phi_pared_bc} le agregamos que $\mathbf{V}\cdot\mathbf{t}$ donde $\mathbf{t}$ es un vector tangencial a la superficie, llegamos a la condición de borde de no deslizamiento.
-
-\item \emph{Interfaz entre dos fluidos:} si tenemos dos fluidos no viscosos, ellos van a ser capaces de deslizarse en la interfaz.
-Sin embargo, la componente normal de la velocidad en la interfaz debe ser la misma, ya que si no, se podrían crear ``hoyos'' sin fluido!
-%
-\begin{equation}
-\mathbf{V}_1\cdot\mathbf{n}=\mathbf{V}_2\cdot\mathbf{n},
-\end{equation}
-%
-donde $1$ y $2$ denotan los dos fluidos, y $\mathbf{n}$ es un vector normal a la interfaz.
-En términos de $\phi$, queda
-%
-\begin{equation}
-\frac{\partial\phi_1}{\partial\mathbf{n}} = \frac{\partial\phi_2}{\partial\mathbf{n}}
-\end{equation}
-
-\item \emph{Flujo al infinito:} la teoría de flujo potencial se muy usado para modelar flujos al infinito, por ejemplo, cuerpos sumergidos.
-De hecho, en este caso podemos derivar una condición de contorno muy intuitiva: el flujo que se encuentra muy lejos de un cuerpo sumergido no debiese sentir su presencia.
-Por lo tanto, si el fluido se aproxima con una velocidad $\mathbf{V}=\mathbf{V}_\infty$, podemos decir que
-%
-\begin{align}
-\mathbf{V}_{r\to\infty}=&\mathbf{V}_\infty\text{, o, }\nonumber\\
-\nabla\phi(r\to\infty) =&\mathbf{V}_\infty 
-\end{align}
-\end{itemize}
-
-%\section*{Propiedades de la ecuación de Laplace}
-%La Ec. \eqref{eq:pot_laplace} se conoce como ecuación de Laplace.
-%Ésta es la ecuación diferencial parcial más simple que podemos encontrar, sin embargo, es muy útil en la modelación de muchos fenómenos físicos: electrostática, conducción de calor, flujo potencial, etc.
-
-\section*{Flujos planos elementales}
-No haremos la demostración acá, pues es más un tema de matemática pura, pero la ecuación de Laplace para un set definido de condiciones de contorno tiene solución única
-\mbox{?`}Qué significa esto para nosotros?
-Que si tenemos una situación donde enforzamos algunas de las condiciones de borde que discutimos en la sección anterior, el resultado de la ecuación de Laplace va a ser único y éste tendrá sentido físico (en el contexto de que consideramos un flujo no viscoso e incompresible como ``físico'').
-Esto nos entrega una poderosa herramienta de modelación, ya que la ecuación de Laplace es muchísimo más simple que la de Navier-Stokes, y representa un buen modelo para flujos en que la viscosidad y la compresibilidad no juega un rol importante.
-
-Existe un grupo de flujos que llamamos ``elementales'' que no son más que soluciones de la ecuación de Laplace en la Ec. \eqref{eq:phi_def_3} con condiciones de contorno físicas.
-A partir de éstas, se hacen estudios muy elaborados en, por ejemplo, aerodinámica.
-Sin embargo, no son las únicas formas de flujo potencial: mientras la función sea solución de la ecuación de Laplace y cumpla con condiciones de borde físicas, ésta perfectamente puede representar a un flujo.
-
-\subsection*{Flujo uniforme}
-La ecuación de Laplace involucra segundas derivadas igualadas a cero
-\mbox{?`}Cuál es la función más simple que pueden pensar que cumple con esa condición? Una función lineal ($\phi=Ax$).
-Agreguémosles a esto condiciones de contorno físicas: la velocidad al infinito es uniforme y horizontal $\mathbf{V}_{r\to\infty}=\partial\phi/\partial x=U_\infty\ihat$.
-El resultado es un flujo uniforme horizontal con velocidad $U_\infty$, como el que muestra la Figura \ref{fig:flujo_uniforme}.
-%
-\begin{figure}[!h]
+\begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{clase10/flujo_uniforme.pdf}
-\caption{Flujo uniforme eje x}
-\label{fig:flujo_uniforme}
+\includegraphics[width=0.5\textwidth]{clase10/m_1.png}
+\caption{Líneas de flujo para $m=1$}
+\label{fig:m_1}
+\end{figure}
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{clase10/m_01.png}
+\caption{Líneas de flujo para $m=0.17$}
+\label{fig:m_01}
+\end{figure}
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{clase10/m_2.png}
+\caption{Líneas de flujo para $m=2$}
+\label{fig:m_2}
 \end{figure}
 
-En la Figura \ref{fig:flujo_uniforme} el flujo se mueve horizontalmente, de izquierda a derecha, con velocidad $U_\infty$.
-La ecuación del potencial es $\phi=U_\infty x$, por lo que las líneas de $\phi$ constante son líneas de $x$ constante, o sea, paralelas al eje $y$.
-Por otra parte, las líneas de flujo ($\psi$ constante) deben ser perpendiculares a las líneas de equipotencial.
-Chequémos esto:
+\section*{Espesor de capa límite de Falkner-Skan}
+Usando el mismo método de resolución que en el caso de Blasius de la clase pasada, podemos resolver la Ec. \eqref{eq:F-S} numéricamente, y así obtener el valor del espesor de la capa límite.\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/falkner-skan.ipynb}}
+Como es de imaginarse, este espesor depende de $m$.
+Veamos dos casos: flujo contra una pared y sobre una cuña.
+
+\paragraph*{Flujo contra una pared: $m=1$.}
+Usando prueba y error, llegamos a que la condición de contorno $f''(0)$ tal que la condición $f'(\infty)=1$, es $f''(0)=0.871572$.
+Así, resolvimos la ecuación diferencial y vimos que $f'(\eta) = 0.99$ en $\eta=3.37$. 
+Considerando que en ese punto, $y=\delta$, podemos reeplazar en la Ec. \eqref{eq:eta_F-S} para llegar a
+%
+\begin{equation}
+\frac{\delta}{x}=\frac{3.37}{\left((m+1)\frac{U_\infty x}{\nu}\right)^{1/2}} = \frac{3.37}{\sqrt{2\cdot Re_x}} 
+\end{equation}
+
+\paragraph*{Flujo sobre una cuña: $m=0.17$.}
+En este caso, la condición de contorno correcta fue $f''(0)=0.547838$, y llegamos a que $f'(\eta)=0.99$ ocurre en $\eta=4.2$, por lo tanto, 
+%
+\begin{equation}
+\frac{\delta}{x}=\frac{4.2}{\left((m+1)\frac{U_\infty x}{\nu}\right)^{1/2}} = \frac{3.37}{\sqrt{1.176\cdot Re_x}} 
+\end{equation}
+
+\section*{Capa límite con succión y soplido}
+Entre las técnicas más recurrentes para el control de la capa límite está la succión y soplido. De hecho, la succión se usa en aplicaciones aerodinámicas para evitar la separación del flujo, lo que no solo disminuye la posibilidad de "stall", pero además reduce el arrastre sobre el cuerpo.
+
+Para forzar la succión o soplido de la pared, podemos considerar una velocidad vertical $v_w$ en la pared, lo que cambia las condiciones de contorno de la ecuación de Blasius. Vimos en una clase reciente que la velocidad $v$ es
+%
+\begin{equation}
+v = -\frac{U_\infty}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2}(f-f'\eta)
+\end{equation}
+%
+pero en la pared, $v=v_w$, $\eta=0$ y $f'(0)=0$, y queda
+%
+\begin{equation}
+\frac{v_w}{U_\infty} = -\frac{1}{2}\left(\frac{\nu}{U_\infty x}\right)^{1/2}f(0)
+\end{equation}
+%
+lo que nos da una nueva condición de contorno para $f(0)$:
+%
+\begin{equation}
+f(0) = -2\sqrt{Re_x}\frac{v_w}{U_\infty}
+\end{equation}
+%
+Así, quedamos con la ecuación de Blasius:
+%
+\begin{equation}
+f'''+\frac{1}{2}ff''=0
+\end{equation}
+%
+donde sabemos que
 %
 \begin{align}
-\frac{\partial\psi}{\partial y} &= u = U_\infty \Rightarrow \psi=U_\infty y + f(x) \nonumber \\
-\frac{\partial\psi}{\partial x} &= \frac{\partial}{\partial x}\left(U_\infty y + f(x)\right) = f'(x) = -v = 0 \Rightarrow f(x) = C_0 = 0.
+f'(\eta) = \frac{u}{U_\infty}\\
+\eta = y\left(\frac{U_\infty}{\nu x}\right)^{1/2}
 \end{align}
 %
-La líneas de $\psi$ constante son líneas de $y$ constante, paralelas al eje $x$, confirmando que son perpendiculares a las líneas de equipotencial.
-
-Podemos hacer el mismo trabajo en casos parecidos.
-Por ejemplo, el flujo en dirección vertical con velocidad $V_\infty$ se obtiene con $\phi=V_\infty y$, y la solución es igual a la Figura \ref{fig:flujo_uniforme}, pero con las líneas de $\phi$ y $\psi$ constante intercambiadas.
-Otro caso: \mbox{?`}cómo obtener un flujo en la dirección contraria? Simplemente cambiando de signo las condiciones de borde ($-U_\infty$ o $-V_\infty$).
-
-En resumen:
-%
-\begin{itemize}
-\item Flujo uniforme horizontal
-\begin{align}
-u &= U_\infty \quad v = 0 \nonumber \\
-\phi&=\pm U_\infty x \quad \psi= \pm U_\infty y
-\end{align}
-
-\item Flujo uniforme vertical
-\begin{align}
-u &= 0 \quad v = V_\infty \nonumber \\
-\phi&=\pm V_\infty y \quad \psi= \mp V_\infty x
-\end{align}
-%
-Noten que $\pm$ y $\mp$ están dados vuelta en el último caso, debido al signo negativo en la última expresión de $\psi$ en la Ec. \eqref{eq:phi_def_3}.
-\end{itemize}
-
-\subsection*{Fuente y sumidero}
-El siguiente caso simple tiene una derivación algo más complicada, pero vale la pena hacerla porque la encontramos en muchas aplicaciones físicas (electromagnetismo, acústica, entre otras).
-Digamos que queremos resolver la siguiente ecuación, con condición de borde de velocidad cero al infinito:
-%
-\begin{align}\label{eq:fuente_laplace}
-\nabla^2\phi=q\delta(r)\nonumber\\
-\mathbf{V}(r\to\infty)=\nabla\phi(r\to\infty) = 0,
-\end{align}
-%
-donde $q$ es una constante y $\delta(r)$ se conoce como la función \emph{delta de Dirac}:
-%
-\begin{equation}
-\delta(r) = 
-\begin{cases}
-\infty \text{ si } r=0,\\
-0 \text{ en otro caso.}
-\end{cases}
-\end{equation}
-%
-Ustedes debiesen conocer la función $\delta(r)$ de sus clases de matemáticas, pero si no se acuerdan, solamente necesitan saber dos propiedades:
-%
-\begin{align}\label{eq:prop_delta}
-\int_{\vol} \delta(\mathbf{r}-\mathbf{r}_0)d\mathbf{r}=&
-\begin{cases}
-1 \text{ si $\mathbf{r}_0$ está dentro del volumen $\vol$}\\
-0 \text{ si $\mathbf{r}_0$ está fuera de $\vol$}
-\end{cases}\nonumber\\
-\int_{\vol} f(\mathbf{r}) \delta(\mathbf{r}-\mathbf{r}_0)d\mathbf{r}=&
-\begin{cases}
-f(\mathbf{r}_0) \text{ si $\mathbf{r}_0$ está dentro del volumen $\vol$}\\
-0 \text{ si $\mathbf{r}_0$ está fuera de $\vol$.}
-\end{cases}
-\end{align}
-%
-En palabras, si el dominio de la integral pasa por el punto donde $delta$ está centrado ($\mathbf{r}_0$), su integral es $1$ y si está multiplicando a una función cualquiera, el resultado de la integral es la función evaluada en ($\mathbf{r}_0$).
-Si la integral no pasa por $\mathbf{r}_0$, todo da cero.
-
-Al mirar la Ec. \eqref{eq:fuente_laplace}, lo primero que salta a la vista es que no hay un cero a la derecha \mbox{!`}no es la ecuación de Laplace!
-Pero $\delta$ es diferente a cero solamente en el origen ($r=0$), por lo que para $r>0$ la Ec. \eqref{eq:fuente_laplace} si es la ecuación de Laplace.
-
-Veamos la Ec. \eqref{eq:fuente_laplace} de cerca para responder dos cosas {\bf(1)} \mbox{?`}Qué significa la constante $q$? y {\bf(2)} \mbox{?`}Cuál es la solución de la ecuación?
-
-\paragraph{El significado físico de $q$}
-Agarremos la Ec. \eqref{eq:fuente_laplace} e integrémosla en un dominio $\vol$ que incluya el origen, donde $\delta$ está ubicado:
-%
-\begin{equation}
-\int_{\vol}\nabla^2\phi d\mathbf{r}= \int_{\vol}q\delta d\mathbf{r}. 
-\end{equation}
-%
-La integral a la derecha es fácilmente resolvible con las propiedades de la Ec. \eqref{eq:prop_delta}, y a la de la izquierda se le puede aplicar el teorema de la divergencia:
-%
-\begin{equation}\label{eq:fuente_int}
-\int_{\partial\vol}\nabla\phi\cdot\mathbf{n}dS = q,
-\end{equation}
-%
-donde $\partial\vol$ es la frontera de $\vol$, $dS$ un elemento diferencial de $\vol$, y $\mathbf{n}$ es un vector unitario normal a $\partial\vol$.
-Pero $\nabla\phi=\mathbf{V}$, por lo que obtenemos
-%
-\begin{equation}
-\int_{\partial\vol}\mathbf{V}\cdot\mathbf{n}dS = q,
-\end{equation}
-%
-y lo que tenemos en el lado izquierdo de la ecuación no es más que la definición de caudal que pasa por la superficie $\partial\vol$, dándole un sentido físico a la constante $q$..
-Todavía no hemos definido la superficie $\partial\vol$, y solamente hemos dicho que encierra al origen, por lo que sería perfectamente válido que fuera un círculo con un radio muy muy pequeño centrado en el origen \mbox{?`}de dónde sale el caudal $q$?
-Como $q\neq0$, dentro del volumen $\vol$ tiene que haber algo que esté generando (o sacando) flujo: la función $\delta$ es una fuente (o sumidero) de fluido.
-
-\paragraph{Solución de $\phi$}
-En coordenadas polares, el operador Laplaciano es 
-%
-\begin{equation}
-\nabla^2\phi = \frac{1}{r}\frac{\partial\phi}{\partial r} + \frac{\partial^2\phi}{\partial r^2} + \frac{1}{r^2}\frac{\partial^2\phi}{\partial\theta}.
-\end{equation}
-%
-y considerando solamente un flujo radial, la Ec. \eqref{eq:fuente_laplace} en el dominio $r>0$ es
-%
-\begin{equation}
-\frac{1}{r}\frac{\partial\phi}{\partial r} + \frac{\partial^2\phi}{\partial r^2} = 0.
-\end{equation}
-%
-Considerando la condición de contorno $\nabla\phi(r\to\infty)=0$, por inspección podemos llegar a que la solución tiene la forma 
-%
-\begin{equation}
-\phi = A_0\ln(r) + B_0,
-\end{equation}
-%
-y necesitamos saber el valor de $A_0$ (por simplicidad, asumiremos $B_0=0$).
-Revisitemos la Ec. \eqref{eq:fuente_int} conociendo la solución para $\phi$ que propusimos recién.
-Para hacernos la vida más fácil, consideremos que $\vol$ es un círculo de radio $R$, ya que así la componente $r$ y el vector normal $\mathbf{n}$ están alineados, y no nos molesta el producto punto.
-Sabiendo que $\nabla\phi=\partial\phi/\partial r$, llegamos a que
+y las condiciones de borde
 %
 \begin{align}
-\int_{\partial\vol}\frac{\partial(A\ln(r))}{\partial{r}}dS &= q\nonumber\\
-\frac{A_0}{R}2\pi R&= q\nonumber\\
-\Rightarrow A_0 &= \frac{q}{2\pi}.
+f'(0) &= 0\\
+f'(\infty) &= 1\\
+f(0) &= -2\sqrt{Re_x}\frac{v_w}{U_\infty}=-2v_w^*
 \end{align}
-%
-Así llegamos a que
-\begin{equation}
-\phi=\frac{q}{2\pi}\ln(r)\nonumber\\
-\end{equation}
 
-Esta última ecuación se conoce como función de Green para el operador laplaciano en dos dimensiones. 
-La función de Green es tremendamente útil en muchas aplicaciones: electroestática, electrodinámica, acústica, y un largo etc. y de ahí lo interesante de que vean de donde viene.
-De hecho, probablemente ya la han usado sin darse cuenta.
-En tres dimensiones, la función de Green es $\frac{1}{r}$ \mbox{?`}se acuerdan del potencial electrostático de una carga puntual? Es exactamente el mismo concepto.
-De hecho, si cambiamos $\mathbf{V}$ por el campo eléctrico $\mathbf{E}$, todo lo que hemos visto se aplica a electrostática.
-Otro ejemplo más cercano a la mecánica: el $\frac{1}{r}$ del potencial gravitacional de planetas aparece al modelar planetas como masas puntuales en el espacio, y se modela con la ecuación de Laplace.
-
-En coordenadas polares, la gradiente se define como $\nabla()=(\partial()/\partial r,1/r\partial()/\partial\theta)$, donde la primera componente es radial y la segunda angular.
-Sabiendo que $\nabla\phi=\mathbf{V}=(V_r,V_\theta)$:
-%
-\begin{equation}\label{eq:Vfuente}
-V_r = \frac{\partial\phi}{\partial r} = \frac{q}{2\pi r}\quad V_\theta= \frac{1}{r}\frac{\partial\phi}{\partial\theta}=0.
-\end{equation}
-%
-Esto nos dice que la solución ecuación diferencial en \eqref{eq:fuente_laplace} es un flujo radial, con una fuente en el centro, donde su velocidad decae a medida que nos alejamos del centro.
-
-Por otra parte, sabemos que las líneas de corriente ($\psi=$constante) son perpendiculares a la líneas de equipotencial, así es que podemos escribir $\psi$ intercambiando $V_r$ y $V_\theta$:
-\begin{equation}\label{eq:psi_polar}
-V_r=\frac{1}{r}\frac{\partial\psi}{\partial\theta} \quad V_\theta=-\frac{\partial\psi}{\partial r}
-\end{equation}
-
-Insertando la expresión de $V_r$ en la Ec. \eqref{eq:Vfuente} en la Ec. \eqref{eq:psi_polar} e integrando, llegamos a que
+\paragraph*{Espesor de capa límite con soplido $v_w=0.1$.}
+Resolviendo la ecuación de Blasius numéricamente\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/succion.ipynb}} con la condición de contorno modificada para $f(0)$, y la condición de contorno $f''(0)=0.2615$ para que se cumpla que $f'(\infty)=1$, nos damos cuenta que $u=0.99U_\infty$ en $\eta=5.32$. 
+Como era de esperar, el soplido ensancha la capa límite (comparado con Blasius, donde $\eta=4.92$). De esta forma, podemos llegar a 
 %
 \begin{equation}
-\psi = \int V_rr d\theta = \int\frac{q}{2\pi r} rd\theta = \frac{q}{2\pi}\theta. 
+\frac{\delta}{x}=\frac{5.32}{\left(\frac{U_\infty x}{\nu}\right)^{1/2}} = \frac{5.32}{\sqrt{Re_x}} 
 \end{equation}
 
-En resumen:
-\begin{itemize}
-\item Fuente:
-\begin{align}
-V_r &= \frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
-\end{align}
-\item Sumidero:
-\begin{align}
-V_r &= -\frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
-\end{align}
-\end{itemize}
-%
-y el flujo se muestra en la Figura \ref{fig:fuente}
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{clase10/fuente.pdf}
-\caption{Fuente o sumidero.}
-\label{fig:fuente}
-\end{figure}
-
-En la Figura \ref{fig:fuente} se ve que las líneas de flujo son de $\theta=$constante y las de equipotencial de $r=$constante.
-
-\subsection*{Vórtice}
-Demos vuelta un poco las cosas.
-Acabamos de resolver la ecuación $\nabla^2\phi=\delta$, y vimos que las líneas de equipotencial eran circulares (Figura \ref{fig:fuente}).
-Tratemos de generar un flujo donde las líneas de flujo sean las circulares: reemplacemos $\phi$ por $\psi$ en la Ec. \eqref{eq:fuente_laplace}
-%
-\begin{align}\label{eq:lap_psi}
-\nabla^2\psi=\Gamma\delta(r)\nonumber\\
-\mathbf{V}(r\to\infty)=0.
-\end{align}
-%
-Donde $\Gamma$ es, por ahora, solamente una constante.
-\mbox{?`}Tiene algún sentido lo que estamos haciendo? La respuesta es si.
-Ya vimos la clase pasada que $\nabla^2\psi=\omega_z$, por lo que la Ec. \eqref{eq:lap_psi} es una distribución tipo ``delta'' de la vorticidad, y el flujo sigue siendo irrotacional (y potencial o ideal) para $r>0$.
-
-No es necesario repetir todo lo que hicimos anteriormente, sabemos que la solución es 
-%
-\begin{align}
-\phi&=\frac{\Gamma}{2\pi}\theta \nonumber\\
-\Rightarrow V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
-\Rightarrow \psi &= -\int V_\theta dr = -\frac{\Gamma}{2\pi}\ln(r)
-\end{align}
-%
-Este flujo se llama vórtice, donde la velocidad es angular y su magnitud va decayendo a medida que nos alejamos del centro del vórtice.
-Este tipo de flujos es muy útil para modelar, por ejemplo, tornados, que se comportan como flujo potencial alejados de su centro.
-
-Gráficamente, el vórtice es igual a la Figura \ref{fig:fuente}, pero con las líneas de corriente y equipotenciales intercambiadas, como aparece en la Figura \ref{fig:vortice}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{clase10/vortice.pdf}
-\caption{Vórtice.}
-\label{fig:vortice}
-\end{figure}
-
-La pregunta es, así como encontramos que $q$ era el caudal que salía de la fuente (o se iba por el sumidero) \mbox{?`}Cuál es el significado físico de $\Gamma$?
-Ya discutimos que el lado derecho de la Ec. \eqref{eq:lap_psi} es una distribución puntual de vorticidad ($\Gamma\delta=\omega_z$).
-Si integramos esto en todo el espacio, y viendo las propiedades en la Ec. \eqref{eq:prop_delta}, llegamos a
-%
-\begin{align}
-\int\Gamma\delta d\mathbf{r} &= \int\omega_z d\mathbf{r}\nonumber\\
-\Gamma &= \int\omega_z d\mathbf{r},
-\end{align}
-%
-lo cual es la definición de circulación que discutimos la clase pasada.
-$\Gamma$ es la circulación.
-
-\subsection*{Doblete}
-Por último, el doblete aparece de la superposición de una fuente y un sumidero de igual $q$ que están infinitesimalmente cerca en el origen.
-Para esta derivación, necesitaremos saber como expresar una fuente y sumidero que no están ubicados en el centro, y luego veremos como se comporta esa solución a medida que los acercamos al límite en que la distancia entre ellos tiende a cero.
-%
-\begin{figure}[!h]
-\centering
-\includegraphics[width=0.7\textwidth]{clase10/fuente_sumidero.pdf}
-\caption{Fuente y sumidero a distancia $a$ del centro.}
-\label{fig:fuente_sumidero}
-\end{figure}
-
-La función corriente de la fuente es $\psi_f=\frac{q}{2\pi}\theta_1$ y el del sumidero $\psi_s=-\frac{q}{2\pi}\theta_2$, por lo tanto, la función corriente del doblete es la suma de estas dos contribuciones $\psi=\frac{q}{2\pi}(\theta_1-\theta_2)$.
-El punto $P$ en la Figura \ref{fig:fuente_sumidero} está ubicado en el punto $(x,y)$, por lo tanto $\tan(\theta_1)=\frac{y}{x+a}$ y $\tan(\theta_2)=\frac{y}{x-a}$, y usando identidades trigonométricas, podemos decir que
-%
-\begin{align}
-\tan(\theta_1-\theta_2) &= \frac{\tan(\theta_1)-\tan(\theta_2)}{1+\tan(\theta_1)\tan(\theta_2)}\nonumber\\
-&=\frac{\frac{y}{x+a}-\frac{y}{x-a}}{1+\frac{y}{x+a}\frac{y}{x-a}} = \frac{y(x-a)-y(x+a)}{x^2-a^2+y^2} = -\frac{2ya}{x^2-a^2+y^2}.
-\end{align}
-%
-Veamos ahora que pasa en el límite en que $a\to0$.
-En ese caso, $\theta_1$ es muy cercano a $\theta_2$, y por aproximación de ángulo pequeño $\tan(\theta_1-\theta_2)\approx\theta_1-\theta_2$.
-Además, al $a\to0$, $x^2-a^2+y^2\approx x^2+y^2$.
-Por otra parte, y para que todo nuestro resultado no se vaya a cero, saquemos el límite $q\to\infty$ para que así $qa$ tienda a un numero finito.
-Con todo esto, la suma de la fuente más el sumidero, queda
+\paragraph*{Espesor de capa límite con succión $v_w=-0.1$.}
+En este caso, necesitamos setear $f''(0) = 0.4061$ para cumplir con la condición de contorno al infinito.
+Numéricamente,\footnote{\url{https://github.com/cdcooper84/mec220/blob/master/apuntes/clase10/succion.ipynb}} nos damos cuenta que $u=0.99U_\infty$ para $\eta=4.58$. Como es de esperar, la succión adelgaza la capa límite, y llegamos a que
 %
 \begin{equation}
-\psi=\frac{q}{2\pi}(\theta_1-\theta_2) = -\frac{q}{2\pi}\frac{2ya}{x^2+y^2}.
+\frac{\delta}{x}=\frac{4.58}{\left(\frac{U_\infty x}{\nu}\right)^{1/2}} = \frac{4.58}{\sqrt{Re_x}} 
 \end{equation}
-%
-Llamemos $K=\frac{qa}{\pi}$, y reemplacemos por coordenadas polares ($y=r\sin\theta$, $r=\sqrt{x^2=y^2})$:
-%
-\begin{equation}
-\psi = -K\frac{r\sin(\theta)}{r^2}=-K\frac{\sin(\theta)}{r}.
-\end{equation}
-
-Usando la Ec. \eqref{eq:psi_polar}, llegamos a
-%
-\begin{equation}
-V_r = -K\frac{\cos(\theta)}{r^2}\quad V_\theta = -K\frac{\sin(\theta)}{r^2}
-\end{equation}
-%
-e integrando estas expresiones, encontramos el potencial $\phi$:
-%
-\begin{equation}
-\phi=K\frac{\cos(\theta)}{r}
-\end{equation}
-%
-La Figura \ref{fig:doblete} muestra las líneas de corriente y equipotenciales de un doblete.
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{clase10/doblete.pdf}
-\caption{Doblete}
-\label{fig:doblete}
-\end{figure}

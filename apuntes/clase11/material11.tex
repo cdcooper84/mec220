@@ -2,361 +2,349 @@
 
 Objetivos:
 \begin{itemize}
-    \item Estudiar la superposición de flujos potenciales. 
+    \item Encontrar expresiones para la velocidad, espesor de capa límite y coeficiente de fricción cuando el flujo en la capa límite es turbulento. 
 \end{itemize}
 
 Contenidos:
 \begin{itemize}
-    \item Repaso de flujos elementales.
-    \item El principio de superposición en la ecuación de Laplace. 
-    \item Ejemplos de aplicación
-    \begin{itemize}
-        \item El cuerpo de Rankine. 
-        \item Flujo alrededor de un cilindro. 
-    \end{itemize}
+    \item Expresiones de capa límite turbulenta para perfil supuesto.
+    \item La ley de pared. 
 \end{itemize}
 
 Bibliografía:
 \begin{itemize}
-    \item White, F. M. (2008) Mecánica de Fluidos. McGraw-Hill. Sexta edición. Secciones 4.10
-    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 6.7.
+    \item Fox, R. W., Pritchard, P. J. y McDonald, A. T. (2009) Introduction to Fluid Mechanics. John Wiley \& Sons. Sección 9.5.
+    \item White, F. M. (2006) Viscous Fluid Flow. McGraw-Hill. Tercera edición. Sección 6.4.
 \end{itemize}
 \end{framed}
 
-\section*{Flujos elementales}
+En clases anteriores hemos estado analizando la capa límite de diferentes maneras usando von Kármán, Blasius, Flakner-Skan, y considerando succión y soplido.
+Todos estos análisis tienen una cosa en común: la capa límite es considerada laminar.
+Ya vimos también que el número de Reynolds en el caso de placa plana es variable en el espacio, y va subiendo a medida que nos movemos por la placa ($Re_x=U_\infty x/\nu$).
+Ya sabemos que a medida que crece el número de Reynolds, el flujo se torna inestable, y ante cualquier perturbación se desencadena la transición a turbulencia.
+Debido a esto, en la capa límite sobre una placa plana tendremos coexistirá flujo laminar (al incio de la placa) y flujo turbulento (aguas abajo), y en general se considera el Reynolds crítico como $Re_{cr} = 5\cdot10^{5}$.
+Un ejemplo de esto se ve en la Figura \ref{fig:capa_limite_Re}, donde la capa límite se pega un salto cuando pasa de laminar a turbulenta, y en la parte turbulenta aparece una región denominada subcapa viscosa o laminar.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{clase05/capa_limite_Re.pdf}
+\caption{Representación gráfica de la capa límite y su transición a turbulencia.}
+\label{fig:capa_limite_Re}
+\end{figure}
 
-La clase pasada estudiamos flujos potenciales elementales.
-Estos son, básicamente, soluciones analíticas de la ecuación de Laplace (con un $\delta$ de Dirac en algunos casos) con condiciones de contorno que tienen sentido físico.
-Para el caso de los flujos elementales que estudiamos, la condición de que usamos es de velocidad hacia el infinito, que era $U_\infty$ en el flujo uniforme, y cero en los vórtices, fuente, sumidero y dobletes.
-Sin embargo, no hay que confundirse: cualquier solución de la ecuación de Laplace que cumpla con condiciones de borde físicas representa el movimiento de un flujo ideal.
-De hecho, hoy vamos a encontrar más soluciones de flujo potencial.
+En esta clase vamos a analizar la capa límite turbulenta más en detalle.
 
-Solo como recordatorio de la clase pasada, los flujos elementales son:
+\section*{Capa límite con un perfil de velocidad dado}
 
+Así como vimos hace algunas clases cuando estudiamos turbulencia, sabemos que el perfil de velocidades va a ser bastante más desordenado en el caso laminar.
+Es más, la velocidad va a ir variando con respecto a un promedio $\overline{u}$ debido a fluctuaciones turbulentas $u'$\footnote{Vean el siguiente video desde el minuto 18:40: \url{https://www.youtube.com/watch?v=wMxK2GtFFq0}}, lo que hace muy difícil su análisis.
+
+Experimentalmente, se ha visto que la velocidad promedio de la capa límite turbulenta se acerca mucho a un perfil $y^{1/7}$, más específicamente:
+%
+\begin{equation}\label{eq:perfil_turbulento}
+\frac{u}{U_\infty} = \left(\frac{y}{\delta}\right)^{1/7}.
+\end{equation}
+%
+La Figura \ref{fig:capa_limite_turbulenta} compara la capa límite de Blasius, von Kármán ($\sim y^2$) y turbulenta ($\sim y^{1/7}$), donde el punto negro denota donde está el fin de la capa límite. Como pueden ver, el perfil turbulento tiene una gradiente mucho mayor al perfil laminar cerca de la pared, por lo tanto, el esfuerzo de pared ($\tau_w$) será mayor.
+Cabe destacar que este no es un gran modelo cerca del fin de la capa límite, donde la gradiente no permite una transición suave al flujo uniforme al infinito.
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{clase11/capa_limite_turbulenta.pdf}
+\caption{Perfil de capa límite laminar (Blasius y von Kármán) y turbulenta.}
+\label{fig:capa_limite_turbulenta}
+\end{figure}
+
+Durante las últimas clases, hemos estado buscando expresiones para $\delta$, $\delta^*$, $\theta$ y $C_f$ para cada forma de modelar la capa límite. 
+Esta no es la excepción, e intentaremos encontrar estas expresiones para el caso turbulento.
+Debido a que estamos asumiendo un perfil de velocidades, este análisis debiese ser equivalente al de von Kármán cuando asumimos el perfil parabólico.
+En ese caso, igualamos los esfuerzos de pared calculados con la relación integral de von Kármán:
+%
+\begin{equation}\label{eq:integral_vK}
+\tau_w = \rho U_\infty^2 \frac{d\theta}{dx}
+\end{equation}
+%
+donde $\theta$ es el espesor de momentum, a la ecuación de Newton $\tau_w = \left.\mu\frac{du}{dy}\right|_0$, sin embargo, al sacar la derivada de la Ec. \eqref{eq:perfil_turbulento} obtenemos
+%
+\begin{equation}
+\tau_w = \left.\mu \frac{d}{dy}\left(U_\infty\frac{u}{\delta}\right)^{1/7}\right|_0 = \left.\frac{U_\infty\mu}{\delta^{1/7}}y^{-6/7}\right|_0 = \infty.
+\end{equation}
+%
+Claramente, tenemos un problema con el perfil escogido, y vamos a tener que sacar $\tau_w$ de otra manera.
+La forma más fácil es hacer un símil con flujo en tuberías, y usar el resultado de $\tau_w$ de ahí para igualarlo a la ecuación integral de momentum de von Kármán.
+En este símil, la velocidad al infinito ($U_\infty$) será la velocidad al centro de la tubería, por lo tanto, $\delta=R$.
+Partamos analizando el volumen de control de la Figura \ref{fig:volumen_control}, de ancho $dx$ que ocupa toda la sección transversal de la tubería.
+Aplicando el principio de conservación de la cantidad de movimiento, los flujos se cancelan por continuidad, las únicas fuerzas son por la presión y el esfuerzo de pared y quedamos con
+%
+\begin{align}\label{eq:deltap_tuberia}
+\Delta p\pi R^2 &= \tau_w2\pi Rdx\nonumber\\
+\Delta p &= \frac{2\tau_w dx}{R}.
+\end{align}
+%
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth]{clase11/volumen_control.pdf}
+\caption{Volumen de control en una tubería.}
+\label{fig:volumen_control}
+\end{figure}
+
+Por otra parte, del estudio de flujo en tuberías sabemos que un Bernoulli modificado entre $1$ y $2$ da que la caída de presión es solamente debido a la altura de pérdidas:
+%
+\begin{equation}\label{eq:perdida_altura}
+\frac{\Delta p}{\rho} = h_L g = f \frac{dx}{D}\frac{\overline{V}^2}{2}.
+\end{equation}
+%
+Reemplazando la Ec. \eqref{eq:deltap_tuberia} en la Ec. \eqref{eq:perdida_altura}, nos deja
+%
+\begin{equation}
+\tau_w = \frac{f}{8}\rho\overline{V}^2
+\end{equation}
+
+El factor $f$ es el factor de fricción.
+En Mecánica de Fluidos General aprendimos que hay muchas formas de calcular $f$: a través del diagrama de Moody, o con las ecuaciones de Haaland, Colebrook, Blasius, etc.
+Usemos la ecuación de Blasius, que tiene la ventaja de ser explícita, y válida hasta $Re=10^5$ (ojo: $Re$, no $Re_x$):
+%
+\begin{equation}
+f = \frac{0.316}{Re^{1/4}}
+\end{equation}
+%
+y reemplazando quedamos con 
+%
+\begin{equation}\label{eq:tau_tuberia}
+\tau_w = \frac{0.0395\rho\overline{V}^2}{Re^{1/4}} = \frac{0.0332\rho\overline{V}^2}{\left(\frac{R\overline{V}}{\nu}\right)^{1/4}}
+\end{equation}
+
+Acordémonos que estamos haciendo el simil de flujo sobre una placa con flujo en tubería, y sobre la placa, la velocidad que nos interesa es $U_\infty$, correspondiente a la velocidad en el centro de la tubería $U_c$.
+Para parar los valores de $\overline{V}$ a $U_c=U_\infty$ en la Ec. \eqref{eq:tau_tuberia} podemos usar el caudal:
+%
+\begin{equation}
+Q = \overline{V}A = \int_0^Ru2\pi r dr.
+\end{equation}
+%
+Si reemplazamos en esta ecuación que $u=U\infty(y/\delta)^{1/7}$, y que $y=R-r$ llegamos a
+%
+\begin{align}
+\overline{V}A=2\pi U_\infty\int_0^R\left(1-\frac{r}{R}\right)^{1/7}rdr = \frac{49}{120}R^22\pi U_\infty\nonumber\\
+\Rightarrow \overline{V} = U_\infty\frac{49\cdot2\pi R^2}{120\pi R^2} = 0.817 U_\infty.
+\end{align}
+%
+Sabiendo que $R=\delta$, podemos reescribir la Ec. \eqref{eq:tau_tuberia} como
+%
+\begin{equation}\label{eq:tau_placa}
+\tau_w = \frac{0.0332\rho(0.817 U_\infty)^2}{\left(\frac{\delta0.817 U_\infty}{\nu}\right)^{1/4}} = 0.0233\rho U_\infty^2\left(\frac{\nu}{\delta U_\infty}\right)^{1/4}
+\end{equation}
+
+La Ec. \eqref{eq:tau_placa} está mucho mejor, ya que $\tau_w$ no es infinito como cuando usamos la ley de viscosidad de Newton.
+Igualemos la Ec. \eqref{eq:tau_placa} a la relación integral de von Kármán (Ec. \eqref{eq:integral_vK}):
+%
+\begin{align}\label{eq:delta_turb}
+\tau_w = \rho U_\infty^2\frac{d\theta}{dx} &= \rho U_\infty^2 \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right]\nonumber\\
+0.0233 \left(\frac{\nu}{\delta U_\infty}\right)^{1/4} &= \frac{d}{dx}\left[\int_0^\delta \frac{u}{U_\infty}\left(1-\frac{u}{U_\infty}\right)dy\right] = \frac{d}{dx}\left[\frac{7}{72}\delta\right]\nonumber\\
+\Rightarrow 0.0233\cdot\frac{72}{7}\left(\frac{\nu}{U_\infty}\right)^{1/4} dx &= \delta^{1/4}d\delta\nonumber\\
+\delta^{5/4} &= \frac{0.3}{\left(\frac{U_\infty x}{\nu}\right)^{1/4}}x^{5/4}\nonumber\\
+\frac{\delta}{x} &= \frac{0.382}{Re_x^{1/5}}
+\end{align}
+
+Por otra parte, de la Ec. \eqref{eq:tau_placa} tenemos el esfuerzo sobre la placa plana y el valor de $\delta$ con la Ec. \eqref{eq:delta_turb}, y el coeficiente de fricción es
+%
+\begin{align}
+c_f &= \frac{\tau_w}{\frac{1}{2}\rho U_\infty^2} = \frac{0.0233\rho U_\infty^2\left(\frac{\nu}{\delta U_\infty}\right)^{1/4}}{\frac{1}{2}\rho U_\infty^2 }\nonumber\\
+    &= 0.0466\left(\frac{\nu}{\delta U_\infty}\right)^{1/4} = 0.0466\left(\frac{\nu}{\frac{0.382x}{Re_x^{1/5} U_\infty}}\right)^{1/4} \nonumber\\
+    &= \frac{0.0594}{Re_x^{1/5}}
+\end{align}
+
+Además, podemos integrar la ecuación para espesor de desplazamiento usando el perfil de velocidad $\sim y^{1/7}$ para obtener
+%
+\begin{equation}
+\frac{\delta^*}{x}=\frac{0.0463}{Re^{1/5}} 
+\end{equation}
+
+\section*{Ley de pared}
+
+Así como en el análisis de von Kármán para el caso laminar, uno podría alegar que el asumir un perfil de velocidad es poco riguroso (sobre todo en el caso turbulento), pero funciona bastante bien.
+En todo caso, podemos hacer un análisis más detallado, y con mayor trasfondo físico, para obtener u perfil de velocidades.
+Ocurre que el comportamiento de la capa límite en la zona cercana a la pared (el primer $\sim20\%$ de $\delta$), tiene un comportamiento muy universal, que es independiente de si estamos frente a una placa plana, curva, una tubería, etc.
+
+Para llegar a este comportamiento universal, primero debemos adimensionalizar las variables; usemos análisis dimensional para esto.
+La primera pregunta es \mbox{?`}cuáles son las variables importantes? Las más fáciles son: $\mu$, $\rho$, $y$ y $u$.
+En la zona cercana a la pared, el flujo externo está muy lejos, y consideraremos que $U_\infty$ no es una variable importante en el problema, eso si, al estar la placa cerca, $\tau_w$ es importante.
+Quedamos entonces con $5$ parámetros importantes, que se describen por $3$ unidades dimensionales básicas (T,L,M), y el problema se describe usando solamente dos variables adimensionales.
+Usando el teorema de Buckingham, llegamos a los siguientes parámetros adimensionales:
+%
+\begin{align}
+u^+ = u\sqrt{\frac{\rho}{\tau_w}}\nonumber\\
+y^+ = \frac{y}{\nu}\sqrt{\frac{\tau_w}{\rho}}
+\end{align}
+%
+y si definimos $u_\tau=\sqrt{\tau_w/\rho}$ podemos reescribir los parámetros adimenisonales como
+%
+\begin{align}\label{eq:unidades_pared}
+u^+=\frac{u}{u_\tau}\nonumber\\
+y^+=\frac{yu_\tau}{\nu}.
+\end{align}
+%
+Las variables $u^+$ y $y^+$ son la velocidad y distancia en \emph{unidades de pared}.
+
+Recordemos un poco de lo que aprendimos estudiando turbulencia.
+Cuando el flujo es turbulento, conviene usar la ecuación de Navier-Stokes promediada, que conocemos como ecuación RANS (Reynolds Averaged Navier-Stokes):
+%
+\begin{equation}\label{eq:RANS}
+\frac{\partial \overline{u}_i}{\partial t} + \overline{u}_j\frac{\partial \overline{u}_i}{\partial x_j}  = -\frac{1}{\rho}\frac{\partial \overline{p}}{\partial x_i} + \frac{\partial}{\partial x_j}\left(\nu \frac{\partial \overline{u}_i}{\partial x_j} - \overline{u'_iu'_j}\right).
+\end{equation}
+%
+Hagamos las siguientes aproximaciones y consideraciones:
+%
 \begin{itemize}
-\item Flujo uniforme horizontal (dirección $+x$):
-\begin{align}
-u &= U_\infty \quad v = 0 \nonumber \\
-\phi&= U_\infty x \quad \psi= U_\infty y
-\end{align}
-
-\item Flujo uniforme vertical (dirección $+y$):
-\begin{align}
-u &= 0 \quad v = V_\infty \nonumber \\
-\phi&= V_\infty y \quad \psi= -V_\infty x
-\end{align}
-
-\item Fuente:
-\begin{align}
-V_r &= \frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=\frac{q}{2\pi}\ln(r) \quad \psi=\frac{q}{2\pi}\theta
-\end{align}
-
-\item Sumidero:
-\begin{align}
-V_r &= -\frac{q}{2\pi r}\quad V_\theta=0\nonumber\\
-\phi&=-\frac{q}{2\pi}\ln(r) \quad \psi=-\frac{q}{2\pi}\theta
-\end{align}
-
-\item Vórtice (dirección contra reloj):
-\begin{align}
-V_r &= 0 \quad V_\theta=\frac{\Gamma}{2\pi r}\nonumber\\
-\phi&=\frac{\Gamma}{2\pi}\theta \quad \psi = -\frac{\Gamma}{2\pi}\ln(r).
-\end{align}
-
-\item Doblete: 
-\begin{align}
-V_r = -K\frac{\cos(\theta)}{r^2}\quad V_\theta = -K\frac{\sin(\theta)}{r^2}\nonumber\\
-\phi=K\frac{\cos(\theta)}{r}\quad \psi = -K\frac{\sin(\theta)}{r}.
-\end{align}
-
+\item $\overline{u} >> \overline{v}$, $\overline{w}$
+\item $\frac{\partial}{\partial y} >> \frac{\partial}{\partial x}$, $\frac{\partial}{\partial z}$
+\item Flujo estacionario
+\item Presión constante
 \end{itemize}
-
-\section*{Principio de superposición}
-Sabemos que para flujos ideales tanto $\phi$ como $\psi$ satisfacen la ecuación de Laplace.
-La ecuación de Laplace es homogenea (todos los términos de la ecuación contienen la variable dependiente) y lineal (la variable dependiente no está elevada a una potencia), por lo tanto, si $\phi_1$ y $\phi_2$ satisfacen la ecuación de Laplace, $\phi_3=\phi_1+\phi_2$ también es una solución.
-Si aterrizamos esto al caso de flujo potencial, podríamos decir que $\mathbf{V}_3=\mathbf{V}_1+\mathbf{V}_2$, además $\psi_3=\psi_1+\psi_2$.
-Esta propiedad nos permite combinar soluciones simples de flujo potencial, como los flujos elementales, para modelar flujos más interesantes, con aplicaciones reales.
-De hecho, esta ya lo hicimos sin darnos cuenta en la derivación del doblete: sumamos la solución de una fuente y un sumidero.
-En esta clase, vamos a revisar algunas soluciones con superposición que son relevantes en mecánica de fluidos.
-
-Algo que no hemos discutido en profundidad todavía, y que hoy tomará importancia, es la interpretación de líneas de flujo como cuerpos sólidos.
-La característica de las líneas de flujo es que la velocidad es tangencial a ellas, por lo tanto, no existe flujo ``a través'' de una línea de flujo.
-Por otra parte, al ser este un flujo no viscoso, la condición de contorno correspondiente es la de impermeabilidad (flujo no pasa a través de un sólido, $\mathbf{V}\cdot\mathbf{n}=0$), pero si puede resbalar por él.
-Si se fijan, la condición de borde de impermeabilidad es equivalente a una línea de flujo, por lo que podemos mirar a una línea de flujo como un cuerpo sólido.
-Vamos a revisitar esto en los ejemplos que veremos a continuación, y les quedará mucho más claro.
-
-\subsection*{Cuerpo de Rankine}
-
-El cuerpo de Rankine es de los flujos superpuestos más simples, en donde se suma un flujo uniforme con una fuente.
-En este caso, conviene pasar las ecuaciones de flujo uniforme a coordenadas polares, dejándonos
+%
+Las primera aproximación de la lista viene simplemente de decir que, en promedio, el flujo tiene una dirección claramente preferente: la dirección $x$.
+Por otra parte, la segunda es que la variación de velocidad en la dirección $y$ (alejándose de la placa) es muchísimo más rápida que en la dirección del flujo y en la dirección perpendicular.
+Aplicando esas consideraciones, y la ecuación de continuidad, la Ec. \eqref{eq:RANS} en la dirección $x$ se simplifica a 
 %
 \begin{equation}
-\phi_U = U_\infty r\cos(\theta) \quad \psi_U = U_\infty r\sin(\theta).
+\nu\frac{\partial^2 \overline{u}}{\partial y^2} - \frac{\partial \overline{u'v'}}{\partial v} = 0.
 \end{equation}
 %
-Por lo tanto, la función potencial y corriente del cuerpo de Rankine es
+Adimensionalizando con $u_\tau$, llegamos a
 %
-\begin{align}\label{eq:rankine}
-\phi_R &= \phi_U+\phi_f = U_\infty r\cos(\theta) + \frac{q}{2\pi}\ln(r)\nonumber\\
-\psi_R &= \psi_U+\psi_f = U_\infty r\sin(\theta) + \frac{q}{2\pi}\theta,
+\begin{align}
+\nu\frac{\partial^2\overline{u^+}u_\tau}{\partial y^{+2}\left(\frac{\nu}{u_\tau}\right)^2} - \frac{\partial \overline{u^{+\prime}v^{+\prime}}}{\partial y^+\frac{\nu}{u_\tau}}u_\tau^2 = 0\nonumber\\
+\frac{\partial^2\overline{u^+}}{\partial y^{+2}}-\frac{\partial \overline{u^{+\prime}v^{+\prime}}}{\partial y^+} = 0\nonumber\\
+\frac{\partial}{\partial y^+}\left(\frac{\partial\overline{u^+}}{\partial y^+}-\overline{u^{+\prime}v^{+\prime}}\right) = 0
 \end{align}
 %
-y podemos calcular la velocidad al sacar la grandiente del potencial ($\nabla\phi$)
+e integrando queda
 %
-\begin{align}\label{eq:rankine_vel}
-V_r = \frac{\partial\phi}{\partial r} = U_\infty\cos(\theta) + \frac{q}{2\pi r} \nonumber\\
-V_\theta = \frac{1}{r}\frac{\partial\phi}{\partial\theta} = -U_\infty\sin(\theta)
-\end{align}
+\begin{equation}\label{eq:uplus_aux}
+\frac{\partial\overline{u^+}}{\partial y^+}-\overline{u^{+\prime}v^{+\prime}}= C_0
+\end{equation}
 
-\paragraph{Ejemplo.}
-Sumemos un flujo uniforme con $U_\infty=1$ con una fuente con caudal $q=5$ y grafiquemos sus líneas de flujo.
-Viendo la Ec. \eqref{eq:rankine}, la función corriente sería
+El valor de $C_0$ no es importante, y podemos elegit $C_0=1$.
+La Ec. \eqref{eq:uplus_aux} muestra que la fuerza en un elemento de fluido el equilibrio entre las fuerzas viscosas ($\partial \overline{u^+}/\partial y^+$ esta relacionada con el esfuerzo de un fluido Newtoniano), y el esfuerzo de Reynolds (acuérdense de la interpretación de $\overline{u'_iu'_j}$ como un esfuerzo).
+Veamos dos casos extremos:
+
+\paragraph*{Flujo cerca de la pared.} En este caso, los esfuerzos viscosos debido a la presencia de la pared van a dominar sobre los esfuerzos turbulentos:
 %
-\begin{equation}\label{eq:rankine_ej}
-\psi_R = r\sin(\theta)+\frac{1}{2\pi}\theta.
+\begin{align}
+&\frac{\partial\overline{u^+}}{\partial y^+} >> \overline{u^{+\prime}v^{+\prime}}\nonumber\\
+&\Rightarrow \frac{\partial\overline{u^+}}{\partial y^+} = 1.
+\end{align}
+%
+Integrando, llegamos a
+%
+\begin{equation}\label{eq:subcapa_viscosa}
+\overline{u^+} = y^+.
 \end{equation}
 %
-Esta solución está graficada en la Figura \ref{fig:rankine}
+La zona de la capa límite que se comporta de esta manera lineal es la subcapa viscosa (vean la Figura \ref{fig:capa_limite_Re}).
+
+\paragraph*{Flujo alejado de la pared.} En este caso, la pared está suficientemente lejos que el esfuerzo viscoso no es importante:
 %
-\begin{figure}[h!]
+\begin{align}
+&\frac{\partial\overline{u^+}}{\partial y^+} << \overline{u^{+\prime}v^{+\prime}}\nonumber\\
+&\Rightarrow \overline{u^{+\prime}v^{+\prime}} = 1.
+\end{align}
+%
+Hay que tener en consideración que, a pesar que llamamos a esta zona ``lejos'', sigue estando dentro de la zona \emph{interna} de la capa límite (bajo el primer 20\%).
+Este caso es un poco más complicado, ya que no sabemos como se comportan las fluctuaciones.
+La forma de enfrentar esto es usando modelos que representen el efecto de las fluctuaciones.
+El modelo más simple es representar el esfuerzo de Reynolds usando el concepto de viscosidad turbulenta (acuérdense de las clases de turbulencia!):
+%
+\begin{equation}\label{eq:visc_turb}
+\overline{u'v'} = \nu_t \frac{\partial\overline{u}}{\partial v}.
+\end{equation}
+%
+Adimensionalicemos esta ecuación:
+%
+\begin{align}
+\overline{u^{+\prime}v^{+\prime}} = \nu_t \frac{\partial\overline{u}}{\partial v}\frac{1}{u_\tau^2} = 1\nonumber\\
+\Rightarrow u_\tau^2 = \nu_t \frac{\partial \overline{u}}{\partial y}
+\end{align}
+%
+Ahora necesitamos un modelo para representar $\nu_t$.
+El más básico que estudiamos era el modelo de longitud de mezcla de Prandtl:
+%
+\begin{equation}\label{eq:long_mezcla}
+\nu_t = l_m^2\left|\frac{\partial\overline{u}}{\partial y}\right|,
+\end{equation}
+%
+y reemplazando en la Ec. \eqref{eq:visc_turb} llegamos a
+%
+\begin{align}
+u_\tau^2 &= l_m^2\left|\frac{\partial\overline{u}}{\partial y}\right|\frac{\partial\overline{u}}{\partial y} \nonumber\\
+\Rightarrow u_\tau &= l_m\frac{\partial\overline{u}}{\partial y}.
+\end{align}
+%
+Esto parece un argumento circular, ya que, a pesar que tenemos una expresión para $\nu_t$, necesitamos un modelo para determinar $l_m$. 
+En flujo sobre una placa plana, es sabido que $l_m=\kappa y$ funciona bien, lo que nos deja con
+%
+\begin{equation}
+u_\tau = \kappa y \frac{\partial\overline{u}}{\partial y}
+\end{equation}
+%
+y si adimensionalizamos esta ecuación, quedamos con:
+%
+\begin{align}
+u_\tau &= \kappa y^+\frac{\nu}{u_\tau} \frac{\partial\overline{u^+}u_\tau}{\partial y^+ \frac{\nu}{u_\tau}}\nonumber\\
+\Rightarrow 1&= \kappa y^+ \frac{\partial\overline{u^+}}{\partial y^+}\nonumber\\
+\frac{1}{\kappa}\frac{\partial y^+}{y^+} &= \partial u^+.
+\end{align}
+%
+Integrando, quedamos con
+%
+\begin{equation}\label{eq:ley_pared}
+u^+ = \frac{1}{\kappa}\ln(y^+) + B,
+\end{equation}
+%
+que se conoce como la ley de pared.
+En general, $\kappa=0.41$ y $B=5$ son los valores más aceptados para las constantes en la Ec. \eqref{eq:ley_pared}.
+La ley de pared tiene un carácter universal, ya que se cumple tanto en flujo cobre una placa plana, como dentro de una tubería o en placas curvas.
+
+La gráfica en la Figura \ref{fig:ley_pared} demuestra lo cercana que está la ley de pared de experimentos, y nos confirma que el modelo $l_m = \kappa y$ funciona muy bien.
+%
+\begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{clase11/rankine.pdf}
-\caption{Cuerpo de Rankine}
-\label{fig:rankine}
+\includegraphics[width=0.7\textwidth]{clase11/ley_pared.png}
+\caption{Comparación de la ley de pared con experimentos. Gráfica obtenida de Clauser, Francis H. ``The turbulent boundary layer.'' Advances in applied mechanics 4 (1956): 1-51.}
+\label{fig:ley_pared}
 \end{figure}
 
-Un punto de interés de esta suma entre flujo uniforme y fuente es que debe haber un punto de velocidad $\mathbf{V}=0$ sobre el eje $x$; busquemos ese punto.
-Sobre el eje $x$ la componente $V_\theta$ debe ser 0 (por simetría), y $\theta=\phi$.
-Reemplazando esos valores en la Ec. \eqref{eq:rankine_vel}, llegamos a
+En la Figura \ref{fig:ley_pared} podemos ver que la subcapa laminar (donde $u^+=y^+$) llega hasta $y^+\approx5$, y que la zona logaritmica comienza alrededor de $y^+=30$.
+En la zona intermedia no hay un término dominante en la Ec. \eqref{eq:uplus_aux}, y existen varios modelos que intentan reproducir el perfil de velocidades.
+En general, el flujo de la capa límite turbulenta se presenta con las tres zonas independientes (subcapa viscosa, zona intermedia, capa logarítmica), sin embargo, hay modelos que cubren las tres en una sola ecuación.
+Un ejemplo de esto es el modelo de Spalding (1961):
 %
-\begin{align}
-V_r = 1\cos(\pi) + \frac{5}{2\pi r} &= 0\nonumber\\
-\Rightarrow r &= \frac{5}{2\pi}.
-\end{align}
-%
-Entonces, existe un punto de estancamiento en $r=2\pi, \theta=\pi$.
-
-Fíjense más de cerca en la Figura \ref{fig:rankine}: parece ser que tenemos dos regiones, una dentro y otra afuera de la línea de flujo con $\psi=2.5$. 
-Reemplacemos la ubicación del punto de estancamiento en $\psi_R$ de la Ec. \eqref{eq:rankine_ej}:
-%
-\begin{equation}
-\psi_R(r=2\pi,\theta=\pi) = 2\pi\sin(\pi)+\frac{5}{2\pi}\pi = 2.5
+\begin{equation}\label{eq:spalding}
+y^+ = u^+ + e^{-\kappa B}\left[e^{\kappa u^+} -1 -\kappa u^+ -\frac{(\kappa u^+)^2}{2} - \frac{(\kappa U^+)^3}{6}\right].
 \end{equation}
 %
-la línea que divide las dos regiones pasa exactamente por el punto de estancamiento! 
-Esto nos indica que la línea de flujo $\psi=2.5$ puede ser vista como un sólido enfrentado a un flujo: es el cuerpo de Rankine.
-La región fuera de la línea $\psi=2.5$ pasa alrededor del cuerpo de Rankine, mientras que lo que está adentro se puede considerar dentro del sólido.
-Aquí hay una aplicación de la interpretación de una línea de flujo como un sólido, ya que genera un punto de estancamiento, y sabemos que la velocidad nunca tendra una componente normal a éste, por lo que el flujo nuna lo atravesará.
-
-\subsection*{Flujo alrededor de un cilindro}
-La suma de un doblete y un flujo uniforme entrega un lo que se conoce como flujo alrededor de un cilindro.
-La función potencial y corriente da:
+De hecho, utilizando el modelo de Spalding (más algunas aproximaciones), es posible llegar a la siguiente expresión para el coeficiente de arrastre:
 %
-\begin{align}\label{eq:cilindro_pot}
-\phi_c &= \phi_U+\phi_d = U_\infty r\cos(\theta) + K\frac{\cos(\theta)}{r}\nonumber\\
-\psi_c &= \psi_U+\psi_d = U_\infty r\sin(\theta) - K\frac{\sin(\theta)}{r}
-\end{align}
-%
-y sacando el gradiente podemos obtener la velocidad:
-%
-\begin{align}\label{eq:cilindro_vel}
-V_r = \frac{\partial\phi}{\partial r} = U_\infty\cos(\theta) - K\frac{\cos(\theta)}{r^2} \nonumber\\
-V_\theta = \frac{1}{r}\frac{\partial\phi}{\partial\theta} = -U_\infty\sin(\theta) - K\frac{\sin(\theta)}{r^2}
-\end{align}
-
-\paragraph{Ejemplo.} 
-Sumemos a un flujo uniforme con $U_\infty$ un doblete con $K=1$.
-La ecuación de la función corriente queda:
-%
-\begin{equation}\label{eq:cilindro_ej}
-\psi_c =  1 r\sin(\theta) - 1\frac{\sin(\theta)}{r}
-\end{equation}
-%
-y la figura \ref{fig:cilindro} muestra sus curvas de nivel ($\psi=$constante) gráficamente.
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{clase11/cilindro.pdf}
-\caption{Flujo alrededor de un cilindro}
-\label{fig:cilindro}
-\end{figure}
-
-Viendo la Figura \ref{fig:cilindro} se hace patente por qué se le conoce como flujo alrededor de un cilindro: el flujo se divide en dos zonas: el flujo externo y lo que está encerrado por el cículo con $\psi=0$.
-De la experiencia con el cuerpo de Rankine, podemos suponer que ese círculo con $\psi=0$ puede representar a un sólido; veamos si se genera un punto de estancamiento en él.
-Por simetría, podemos intuir que el punto de estancamiento se encuentra sobre el eje $x$, en el lado izquierdo del cilindro, donde se enfrenta con el flujo ($\theta=\pi$).
-Sobre el eje $x$, no hay componente $\theta$ de la velocidad, y queremos encontrar $r$ tal que la velocidad sea $0$:
-%
-\begin{align}
-V_r = 1\cos(\pi) - 1\frac{\cos(\pi)}{r^2} =0 \nonumber\\
-\Rightarrow r = 1.
-\end{align}
-%
-Justamente, si reemplazamos $r=1, \theta=\pi$ en la Ec. \eqref{eq:cilindro_ej}, llegamos a $\psi_c=0$, cosa que habíamos intuído gráficamente de la Figura \ref{fig:cilindro}.
-Además, podemos darnos cuenta que hay otro punto de estancamiento en $r=1, \theta=0$. 
-
-Generalicemos esto a cualquier $U_\infty$ y $K$.
-En el caso general, el punto de estancamiento estaría en:
-%
-\begin{align}
-V_r = U_\infty\cos(\pi) - K\frac{\cos(\pi)}{r^2} &=0 \nonumber\\
-\Rightarrow r &= \sqrt{\frac{K}{U_\infty}}
-\end{align}
-%
-por lo tanto, la curva de nivel que delimita al cilindro se obtiene reemplazando $\theta=\pi,r=\sqrt{K/U_\infty}$ en la Ec. \eqref{eq:cilindro_pot}
-%
-\begin{align}
-\psi_c &= U_\infty \sqrt{\frac{K}{U_\infty}}\sin(\theta) - K\frac{\sin(\theta)}{\sqrt{\frac{K}{U_\infty}}}\nonumber\\
-\psi_c&=\sqrt{U_\infty K}\sin(\theta)-\sqrt{U_\infty K}\sin(\theta)=0.
-\end{align}
-%
-Así, podemos ver que el cilindro siempre estará delimitado por la curva $\psi_c=0$.
-
-Verifiquemos que realmente se trata de un cilindro.
-Sabemos que el sólido está delimitado por la curva $\psi_c=0$, que es:
-%
-\begin{align}
-\psi_c &= U_\infty r\sin(\theta) - K\frac{\sin(\theta)}{r} = 0\nonumber\\
-&U_\infty\sin(\theta)r\left(1-\frac{K}{U_\infty r^2}\right) = 0\nonumber\\
-&\Rightarrow r=\sqrt{\frac{K}{U_\infty}}.
-\end{align}
-%
-La curva $r=\sqrt{K/U_\infty}$ en coordenadas polares representa un círculo con radio $r=\sqrt{K/U_\infty}$, confirmándonos que es un cilindro circular.
-Si no están tan familiarizados con las coordenadas polares pueden transformar a coordenadas cartesianas, donde $r=\sqrt{x^2+y^2}$:
-%
-\begin{equation}
-r^2=x^2+y^2=\frac{K}{U_\infty}.
+\begin{equation}\label{eq:cf}
+c_f = \frac{0.455}{\ln^2(0.06 Re_x)}.
 \end{equation}
 
-\paragraph{Velocidad en la superficie del cilindro.}
-La línea de flujo $\psi_c=0$ es un círculo por el cual no atraviesa flujo, pues la velocidad es tangente.
-Ya que es un círculo, la componente radial de la velocidad debe ser cero.
-Por otra parte, desde la Ec. \eqref{eq:cilindro_vel}, la velocidad angular sobre la superficie del cilindro es
-%
-\begin{equation}
-V_c = -U_\infty\sin(\theta) - K\frac{\sin(\theta)}{\frac{K}{U_\infty}} = -2U_\infty\sin(\theta).
-\end{equation}
-%
-lo que nos confirma que hay dos puntos de estancamiento (en $\theta=\pi$ y $\theta=0$).
-Además nos podemos dar cuenta que el punto de máxima velocidad es la parte superior e inferior del cilindro ($\theta=\pi/2$ y $\theta=3\pi/2$), donde la velocidad es el doble de la velocidad al infinito.
-Sobre el eje $y$ ($\theta=\pi/2$) la velocidad no tiene componente radial (por simetría), así es que, a medida que nos alejamos de la superficie del cilindro, la velocidad debe variar desde $2U_\infty$ a $U_\infty$ de la forma
-%
-\begin{equation}
-V_\theta = -U_\infty - \frac{K}{r^2}
-\end{equation}
+\section*{Efecto de la rugosidad}
 
-\paragraph{Presión alrededor del cilindro.}
+Hasta ahora, nada hemos hablado de la rugosidad de la placa, considerándola despreciable.
+La pregunta entonces es \mbox{?`}Hasta que punto podemos considerar la rugosidad despreciable? Esto guarda relación con el tamaño de la subcapa laminar.
+Si la rugosidad media de la pared ($\epsilon$) es más pequeña que la subcapa viscosa (en otras palabras, $\epsilon^+<y^+$=5), la rugosidad no afectará al resto de la capa límite, y se considera que es hidráulicamente lisa.
+Conectemos esto con cosas que hemos estudiado antes: el diagrama de Moody.
+En el diagrama de Moody, el factor de fricción es función del número de Reynolds y la rugosidad relativa $\epsilon/D$.
+Si uno se fija en la curva que se encuentra más abajo, verán que dice ``tubería lisa'', es decir, con rugosidad despreciable. 
+Esto es exactamente a lo que se refiere esa curva, donde el factor de fricción no se ve influenciado por la rugosidad, pues es más pequeña que el límite de la subcapa viscosa.
 
-Revisitemos sus conocimientos de mecánica de fluidos general.
-La ecuación de Bernoulli es válida para flujos incompresibles y no viscosos (es una integración de la ecuación de Euler), que es exactamente la situación en flujo potencial.
-Despreciando el efecto de la diferencia de altura (que de hecho se cancela), podemos aplicar la ecuación de Bernoulli entre un punto al infinito (donde $\mathbf{V}=U_\infty$ y $p=p_\infty$) para llegar a una expresión de presión en la superficie del cilindro:
-%
-\begin{align}\label{eq:cilindro_p}
-&\frac{p_\infty}{\rho} + \frac{U_\infty^2}{2} = \frac{p_c(\theta)}{\rho} + \frac{V_c^2}{2}\nonumber\\
-&p(\theta) = \frac{\rho}{2}\left(U_\infty^2-V_c^2\right) + p_\infty = \frac{U_\infty^2\rho}{2}\left(1-4\sin^2(\theta)\right) + p_\infty
-\end{align}
-
-Usemos la Ec. \eqref{eq:cilindro_p} para encontrar la fuerza que está resistiendo el cilindro.
-Si hacemos un volúmen de control justo por el contorno del cilindro, no hay flujo que entre al volumen de control y la única fuerza presente es la que la presión hace sobre el contorno del volúmen de control.
-Esta fuerza es siempre normal a la superficie y con dirección opuesta a la normal $\mathbf{n}$ que sale del cilindro, la cual es equivalente a un vector unitario $\mathbf{r}/|\mathbf{r}|$ en dirección radial (ver Figura \ref{fig:presion_cilindro}).
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.5\textwidth]{clase11/presion_cilindro.pdf}
-\caption{Presión alrededor del cilindro}
-\label{fig:presion_cilindro}
-\end{figure}
-
-Integremos la Ec. \eqref{eq:cilindro_p} sobre toda la superficie del cilindro para encontrar la componente $x$ de la fuerza.
-%
-\begin{align}\label{eq:fuerza_x}
-&F_x = \oint_A -p\mathbf{n}dS\cdot\ihat = -\oint_A p\mathbf{r}\cdot\ihat Rd\theta \nonumber\\
-&\mathbf{r}\cdot\ihat =\frac{r_x}{R} \text{, donde, } r_x = R\cos(\theta),
-\end{align}
-%
-donde $R$ es el radio del cilindro, $\mathbf{r}=(r_x,r_y)$ es en este caso la superficie del cilindro, y un elemento de superficie es $dS-Rd\theta$.
-Si usamos la Ec. \eqref{eq:cilindro_p}, llegamos a
+Si $\epsilon$ es más grande que la subcapa viscosa, necesitamos hacer algunos ajustes en las Ecs. \eqref{eq:ley_pared} y \eqref{eq:cf}.
+Existen varios modelos (empíricos) que intentan describir este efecto, donde los más aceptados son:
 %
 \begin{align}
-F_x = -\int_0^{2\pi}\left[\frac{U_\infty^2\rho}{2}(1+4\sin^2(\theta))+p_\infty\right]R\cos(\theta)d\theta=0.
-\end{align}
-El primer y segundo término son la integral $\int_0^{2\pi}\cos(\theta)d\theta=0$.
-El segundo término es $\int_0^{2\pi}\sin^2\theta\cos\theta d\theta=0$, lo cual es fácil de demostrar al reemplazar $u=\sin\theta$.
-
-En conclusión, la componente $x$ de la fuerza es $F_x=0$, lo cual va totalmente contra la intuición: si viene un flujo sobre un cuerpo \mbox{?`}no debiese empujarlo? En un flujo ideal, no.
-Esto se conoce como la paradoja de D'Alembert, y fue resuelta por Prandtl en 1904, cuando considera la viscosidad. 
-
-\subsection*{Cilindro con circulación}
-Al cilindro que ya calculamos en la sección anterior, sumémosle un vórtice de circulación $\Gamma$ que gira en sentido horario:
-%
-\begin{align}\label{eq:cilindro_circ_pot}
-\phi_L &= \phi_U+\phi_d+\phi_v = U_\infty r\cos(\theta) + K\frac{\cos(\theta)}{r} - \frac{\Gamma}{2\pi}\theta \nonumber\\
-\psi_L &= \psi_U+\psi_d+\psi_v = U_\infty r\sin(\theta) - K\frac{\sin(\theta)}{r} + \frac{\Gamma}{2\pi}\ln(r)
+u^+ &= \frac{1}{\kappa} \ln(y^+) + B - \frac{1}{\kappa}\ln(1+0.3\epsilon^+)\nonumber\\
+c_f &= \left[2.87+1.58\log_{10}\left(\frac{x}{\epsilon}\right)\right]^{-2/5}\nonumber\\
+C_f &= \left[1.89+1.62\log_{10}\left(\frac{L}{\epsilon}\right)\right]^{-2/5}
 \end{align}
 %
-y sacando el gradiente podemos obtener la velocidad:
-%
-\begin{align}\label{eq:cilindro_circ_vel}
-V_r = \frac{\partial\phi}{\partial r} = U_\infty\cos(\theta) - K\frac{\cos(\theta)}{r^2} \nonumber\\
-V_\theta = \frac{1}{r}\frac{\partial\phi}{\partial\theta} = -U_\infty\sin(\theta) - K\frac{\sin(\theta)}{r^2} - \frac{\Gamma}{2\pi r}
-\end{align}
-
-\paragraph*{Ejemplo.}
-Grafiquemos las líneas de flujo de un flujo uniforme con $U_\infty=1$ sumado a un doblete con $K=1$ y un vórtice centrado con $\Gamma=5$.
-La ecuación de $\psi_L$ es
-%
-\begin{equation}
-\psi_L = r\sin(\theta) - \frac{\sin(\theta)}{r} + \frac{5}{2\pi}\ln(r)
-\end{equation}
-%
-y sus curvas de nivel están graficadas en la Figura \ref{fig:cilindro_circ}
-%
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.7\textwidth]{clase11/cilindro_circ.pdf}
-\caption{Cilindro con circulación}
-\label{fig:cilindro_circ}
-\end{figure}
-
-Miremos la Figura \ref{fig:cilindro_circ} más de cerca.
-Es muy parecido al caso anterior, con dos regiones separadas por la línea $\psi_L=0$, sin embargo, los puntos de estancamiento se corrieron hacia abajo!
-Pensemos en las implicancias físicas de este hecho; por Bernoulli, sabemos que el punto de menor velocidad es el punto de mayor presión.
-Antes, los puntos de estancamiento estaban centrados y en puntos opuestos, pero ahora ambos están en la parte inferior: existe una fuerza neta que empuja al cilindro hacia arriba.
-
-Esto se conoce como el \emph{efecto Magnus}, y existen muchos ejemplos bien domésticos que estoy seguro que han visto (si no, pregúntenle a Fabien Barthez\footnote{\url{https://www.youtube.com/watch?v=XdL7EDKr_rk}})
-El efecto Magnus es la base del estudio de la aerodinámica, y la búsqueda de geometrías que puedan volar.
-En las clases siguientes vamos a adentrarnos más en estos temas.
-
-\paragraph*{Fuerza de sustentación}
-Así como en el cilindro anterior, calculemos la fuerza sobre el cilindro.
-Sabemos que la velocidad en la superficie del cilindro tiene solamente componente en $\theta$, por lo tanto, usando la Ec. \eqref{eq:cilindro_circ_vel} en $r=\sqrt{K/U_\infty}$ (el radio del cilindro), obtenemos
-%
-\begin{align}\label{eq:cilindro_vel_superficie}
-V_L &= -U_\infty\sin(\theta) - U_\infty\sin(\theta) - \frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\nonumber\\
-V_L &= -2U_\infty\sin(\theta) - \frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}.
-\end{align}
-%
-Aplicando Bernoulli entre el infinito y la superficie del cilindro (despreciando efectos de altura), llegamos a:
-%
-\begin{align}\label{eq:cilindro_circ_p}
-p(\theta) &= \frac{\rho}{2}\left(U_\infty^2-V_L^2\right) + p_\infty \nonumber\\
-&= \frac{\rho}{2}\left(U_\infty^2+4U_\infty^2\sin^2(\theta) + 2\frac{\Gamma U_\infty}{\pi}\sqrt{\frac{U_\infty}{K}}\sin(\theta) + \left[\frac{\Gamma}{2\pi}\sqrt{\frac{U_\infty}{K}}\right]^2\right) + p_\infty
-\end{align}
-
-Diferente a la Ec. \eqref{eq:fuerza_x}, en este caso estamos interesados en calcular la componente $y$ de la fuerza, por lo tanto, la ecuación queda: 
-%
-\begin{align}\label{eq:fuerza_y}
-&F_y = \oint_A -p\mathbf{n}dS\cdot\jhat \text{, con }\mathbf{r}\cdot\jhat =r_y\sqrt{\frac{U_\infty}{K}} \text{ y } r_y = \sqrt{\frac{K}{U_\infty}}\sin(\theta),\nonumber\\
-&F_y = -\int_0^{2\pi}\left[p(\theta)\right]\sqrt{\frac{K}{U_\infty}}\sin(\theta)d\theta.
-\end{align}
-%
-La intregral del primer, cuarto y quinto término de la Ec. \eqref{eq:cilindro_circ_p} es básicamente $\int_0^{2\pi}\sin(\theta)d\theta$, cual da cero.
-Por otra parte, la integral del segundo término es $\int_0^{2\pi}\sin^3(\theta)d\theta=\int_0^{2\pi}(1-\cos^2(\theta))\sin(\theta)d\theta$, que también da cero (reemplacen $u=cos(\theta)$).
-Finalmente, el único término que no se hace cero es el tercero, donde se cancela el $\sqrt{K/U_\infty}$, y es
-%
-\begin{align}
-F_y &= 2\frac{\rho}{2}\frac{\Gamma U_\infty}{\pi}\int_0^{2\pi}\sin^2(\theta)d\theta = \rho\frac{\Gamma U_\infty}{\pi}\int_0^{2\pi}\frac{1}{2}(1-\cos(2\theta))d\theta\nonumber\\
-    &= \rho\frac{\Gamma U_\infty}{\pi}\frac{1}{4}(2\theta-\sin(2\theta))_0^{2\pi} = \rho\frac{\Gamma U_\infty}{\pi}\pi = \rho\Gamma U_\infty.
-\end{align}
-
-Este resultado nos indica que un cilindro que gira produce una sustentación $L=\rho\Gamma U_\infty$ por unidad de largo.
+donde $\epsilon^+ =\epsilon u_\tau/\nu$, $L$ es el largo total de la placa, y $c_f$ y $C_f$ son los coeficientes de arrastre local y total, respectivamente.

@@ -419,7 +419,7 @@ La condición de contorno de no-deslizamiento contiene a la de impermeabilidad, 
 La Ec. \eqref{eq:no_deslizamiento} es una condición de borde de Dirichlet.
 
 \paragraph*{Interfaz de fluido.}
-En el caso en que hay dos fluidos de diferente densidad, podemos modelar el problema por ``parte'', y resolver las ecuaciones de Navier-Stokes en uno y otro fluido, acoplando ambas ecuaciones con una condición de interfaz.
+\emph{Condición de velocidad.} En el caso en que hay dos fluidos de diferente densidad, podemos modelar el problema por ``parte'', y resolver las ecuaciones de Navier-Stokes en uno y otro fluido, acoplando ambas ecuaciones con una condición de interfaz.
 La primera, y más obvia, condición es que debe haber continuidad de la velocidad normal a través de la interfaz.
 Imagínense qué ocurriría si las velocidades normales no fueran la misma a un lado y otro de la interfaz: se podrían generar hoyos o espacios vacíos en la solución, lo que no tiene sentido físico:
 %
@@ -435,15 +435,67 @@ En el caso viscoso, sabemos que no puede haber una discontinuidad en la velocida
 %
 lo que contiene a la Ec. \eqref{eq:interfaz_normal}.
 
-Por otra parte, el esfuerzo cortante también debe ser continuo a través de la interfaz.
-Si no fuese así, no podría haber balance de cantidad de movimiento a través de la superficie, y físicamente no tiene sentido. 
-Matemáticamente, esto es
+\emph{Condición sobre el esfuerzo.}
+Por otra parte, si hacemos un balance de cantidad de movimiento, encontramos una condición para el esfuerzo cortante a través de la interfaz.
+%
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.7\textwidth]{clase01/interfaz.pdf}
+\caption{Interfaz de fluidos}
+\label{fig:interfaz}
+\end{figure}
+%
+La Figura \ref{fig:interfaz} representa una superficie $S$ que corresponde a la interfaz entre dos fluidos, y usaremos el cilindro de la línea segmentada como volumen de control, de $2\epsilon$ de alto y $\epsilon$ de radio, para hacer un análisis de cantidad de movimiento.
+La curva $C$ es el cruce entre el borde del volumen de control y la interfaz.
+
+Realicemos el análisis de cantidad de movimiento en el límite $\epsilon\to0$.
+Según el bien conocido teorema de transporte de Reynolds
+%
+\begin{equation}\label{eq:rtt_mom}
+\frac{\partial}{\partial t}\int_\text{VC} \mathbf{u} d\vol + \oint_\text{SC}\mathbf{u}\rho\mathbf{u}\cdot d\mathbf{S} = \sum\mathbf{F}
+\end{equation}
+%
+El lado izquierdo de la Ecuación \eqref{eq:rtt_mom} es cero cuando $\epsilon\to0$, ya que
+%
+\begin{align}
+&\int_\text{VC} \mathbf{u} d\vol = \overline{\mathbf{u}}\pi\epsilon^22\epsilon = 0\nonumber\\
+&\oint_\text{SC}\mathbf{u}\rho\mathbf{u}\cdot d\mathbf{S} = \overline{\mathbf{u}}_12\pi\epsilon2\epsilon + \overline{\mathbf{u}}_22\pi\epsilon^2 = 0
+\end{align}
+%
+por lo que solamente queda la suma de fuerzas.
+Las fuerzas que afectan al volumen de control son: fuerzas de cuerpo (gravedad), presión sobre las caras, esfuerzos cortantes, y la tensión superficial de la interfaz.
+Consideremos que no hay gravedad (para simplificar), y además, dado que $\epsilon\to0$ la fuerza de la presión es efectivamente cero. 
+Esto nos deja con un equilibrio entre esfuerzos cortantes y la tensión superficial:
+%
+\begin{equation}
+\oint_C \sigma \mathbf{t} dl = \oint_\text{SC} \tau \mathbf{t}dS.
+\end{equation}
+%
+donde $\mathbf{t}$ es un vector tangente a la interfaz.
+Usando el teorema de Stokes y algo de manipulaciones de algebra lineal, podemos reescribir el lado izquierdo y derecho como
+%
+\begin{equation}
+\oint_\text{SC} \nabla\sigma -\sigma\kappa\mathbf{n} dS = \int_\text{SC} \tau_1 \mathbf{t}dS - \int_\text{SC} \tau_2 \mathbf{t}dS.
+\end{equation}
+%
+donde $\kappa$ es la curvatura de la interfaz, $\mathbf{n}$ un vector normal a ella, y los subíndices $1$ y $2$ indican uno y otro lado de la interfaz.
+De esta forma, podemos sacar las integrales y llegamos a
+%
+\begin{equation}\label{eq:interfaz_general}
+\nabla\sigma -\sigma\kappa\mathbf{n} = (\tau_1 - \tau_2) \mathbf{t}.
+\end{equation}
+%
+De esta forma, al hacer el producto punto con $\mathbf{t}$ para obtener la componente tangencial, queda
+%
+\begin{equation}
+\nabla\sigma\cdot\mathbf{t} = (\tau_1 - \tau_2).
+\end{equation}
+%
+Por lo tanto, de no considerar la tensión superficial, el esfuerzo cortante debe ser continuo
 %
 \begin{equation}\label{eq:interfaz}
 \tau_1 = \tau_2 \text{ en la interfaz}.
 \end{equation}
-%
-Ahora, si quisieramos considerar tensión superficial, la Ec. \eqref{eq:interfaz} está incompleta, pues hay que balancearla con dicha fuerza.
 
 Usando la ley de viscosidad de Newton podemos reescribir la Ec. \eqref{eq:interfaz} para el caso unidimensional como
 %
@@ -458,6 +510,9 @@ Para seguir cumpliendo con la igualdad, $\left.\partial u/\partial y\right|_1>>\
 Esto implica que la derivada de la velocidad, a medida que se acerca a la interfaz, cae a cero, y la velocidad es máxima en ese punto.
 En palabras más físicas, la derivada se hace cero porque el fluido con viscosidad casi nula no es capaz de soportar los esfuerzos cortantes del flujo más viscoso.
 Esto es muy común de usar en flujos con superficie libre.
+
+En este análisis hicimos un poco de trampa al no considerar el efecto de la presión, que sirvió para simplificar. 
+En el caso de análisis normal (\eqref{eq:interfaz_general}$\cdot\mathbf{n}$), terminamos con que el salto de presión es proporcional a la tensión superficial por la curvatura. 
 
 \paragraph*{Flujo al infinito.}
 Por último, en muchos casos puede ser útil poner una condición de borde al infinito (por ejemplo, para modelar un cuerpo sumergido en un flujo).

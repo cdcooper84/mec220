@@ -10,12 +10,12 @@ Actualmente, el curso se denomina Mecánica de Fluidos II, sin embargo éste cam
 * Parte 1:
     * Repaso de Navier-Stokes
     * Flujo potencial
-    * Introducción a turbulencia
 * Parte 2:
+    * Introducción a turbulencia
     * Capa límite
     * Flujo sobre cuerpos sumergidos
 * Parte 3:
-    * Flujo compresible
+    * Flujo compresible unidimensional
     * Ondas de choque
 
 Para una programación más detallada, remítase al repositorio.
