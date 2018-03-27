@@ -110,29 +110,29 @@ La transformación de Joukowsky nos permite mapear un círculo a un perfil aerod
 Si $\zeta = \xi + i\eta$ son los puntos de un círculo en el plano $\zeta$, la tranformación de Joukowsky es
 %
 \begin{equation}
-z = \frac{a}{2}\left(\zeta + \frac{1}{\zeta}\right)
+z = \zeta + \frac{k^2}{\zeta}
 \end{equation}
 %
-donde $z=x+iy$ son los puntos que definen el perfil aerodinámico, y $a$ es un factor que define el tamaño. 
-Eso si, existe una condición: el contorno del círculo debe intersectar el punto $\xi=1, \eta=0$, y el punto $\xi=-1, \eta=0$ debe estar contenido dentro del círculo. 
-Esto es porque un perfil aerodinámico tiene un lado puntiagudo atrás (cúspide), los cuales son reproducidos por los puntos singulares de la transformación (donde la derivada de la transformación es cero); esto ocurre en $\xi=1, \eta=0$ y $\xi=-1, \eta=0$.
+donde $z=x+iy$ son los puntos que definen el perfil aerodinámico, y $k$ es un factor que define el tamaño ($k\approx4c$, donde $c$ es la cuerda del perfil). 
+Eso si, existe una condición: el contorno del círculo debe intersectar el punto $\xi=k, \eta=0$, y el punto $\xi=-k, \eta=0$ debe estar contenido dentro del círculo. 
+Esto es porque un perfil aerodinámico tiene un lado puntiagudo atrás (cúspide), los cuales son reproducidos por los puntos singulares de la transformación (donde la derivada de la transformación es cero); esto ocurre en $\xi=k, \eta=0$ y $\xi=-k, \eta=0$.
 De hecho, si el círculo está centrado e intersecta los dos puntos críticos, la transformación entrega una línea (Figura \ref{fig:perfil_linea}), que es la única forma de tener dos cúspides.
 Por lo tanto, de no cumplir estas condiciones, la transformación genera geometrías que no se asemejan a un perfil aerodinámico.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{clase05/perfil_linea.pdf}
-\caption{Resultado de transformación de Joukousky a cilindro de radio 1 centrado en el origen}\label{fig:perfil_linea}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en el origen, con $k=1$}\label{fig:perfil_linea}
 \end{figure}
 
 
-La Figura \ref{fig:perfil_simetrico} muestra la tranformación de Joukouwsky sobre un círculo centrado en $\xi=-0.1, \eta=0$, con radio $r=1.1$ (para que intersecte el punto $\xi=1, \eta=0$).
+La Figura \ref{fig:perfil_simetrico} muestra la tranformación de Joukouwsky sobre un círculo centrado en $\xi=-0.1, \eta=0$, con $k=1$).
 Como ven, se genera un perfil aerodinámico simétrico.
 %
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico.pdf}
-\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.1$ centrado en $\xi=-0.1, \eta=0$}\label{fig:perfil_simetrico}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.1, \eta=0$}\label{fig:perfil_simetrico}
 \end{figure}
 %
 Podemos así jugar con la posición del cilindro para variar la geometría del perfil, donde la posición $\xi$ del centro modifica el ancho del perfil, y $\eta$ la curvatura.
@@ -141,7 +141,7 @@ Por ejemplo, la Figura \ref{fig:perfil_simetrico_ancho} es el resultado de la tr
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{clase05/perfil_simetrico_ancho.pdf}
-\caption{Resultado de transformación de Joukousky a cilindro de radio $r=1.2$ centrado en $\xi=-0.2, \eta=0$}\label{fig:perfil_simetrico_ancho}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.2, \eta=0$, y $k=1$}\label{fig:perfil_simetrico_ancho}
 \end{figure}
 
 Por otra parte, la Figura \ref{fig:perfil_curvo} resulta de aplicar la transformación a un círculo centrado en $\xi=-0.1, \eta=0.1$, ejemplificando que de mover el centro en el eje $\eta$ el perfil toma una curvatura.
@@ -149,7 +149,7 @@ Por otra parte, la Figura \ref{fig:perfil_curvo} resulta de aplicar la transform
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{clase05/perfil_curvo.pdf}
-\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.1, \eta=0.1$}\label{fig:perfil_curvo}
+\caption{Resultado de transformación de Joukousky a cilindro centrado en $\xi=-0.1, \eta=0.1$, con $k=1$}\label{fig:perfil_curvo}
 \end{figure}
 
 \section*{Flujo alrededor de un perfil alar y la condición de Kutta}
