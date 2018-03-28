@@ -306,15 +306,15 @@ Para mayor claridad en la Figura \ref{fig:cant_mov}, no dibujamos los esfuerzos 
 Esto implica que la suma vectorial resulta en la diferencia entre cada uno de los esfuerzos $\tau_{ij}$ y $\sigma_{ij}$, evaluados en la cara frontal y posterior.
 
 Considerando que $\delta x$, $\delta y$, y $\delta z$ son pequeños, podemos usar una expansión de Taylor truncada al término de primer orden para encontrar el cambio de los esfuerzos a través del elemento de fluido.
-Por ejemplo, el caso de la cara normal al eje $x$:
+Por ejemplo, el caso de los esfuerzon en el eje $x$:
 %
 \begin{align}
 \sigma_{xx}(x+\delta x)-\sigma_{xx}(x) &\approx \frac{\partial \sigma_{xx}}{\partial x}\delta x \nonumber \\
-\tau_{xy}(x+\delta x)-\tau_{xy}(x) &\approx \frac{\partial \tau_{xy}}{\partial x}\delta x \nonumber \\
-\tau_{xz}(x+\delta x)-\tau_{xz}(x) &\approx \frac{\partial \tau_{xz}}{\partial x}\delta x,
+\tau_{yx}(y+\delta y)-\tau_{yx}(y) &\approx \frac{\partial \tau_{yx}}{\partial y}\delta y \nonumber \\
+\tau_{zx}(z+\delta z)-\tau_{zx}(z) &\approx \frac{\partial \tau_{zx}}{\partial z}\delta z,
 \end{align}
 %
-lo que es fácilmente extendible a las caras normales a $y$ y $z$. 
+lo que es fácilmente extendible a los esfuerzos en $y$ y $z$. 
 Multiplicando los esfuerzos por las áreas correspondientes para convertirlos en fuerzas, y considerando la componente gravitacional ($m\mathbf{g}=\rho\vol\mathbf{g}$), obtenemos la siguiente expresión para la suma de fuerzas:
 %
 \begin{equation}\label{eq:suma_F}
